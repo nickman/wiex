@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<server>
+<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.metrics:service=SubmissionRate,name=TeleNet">
+	<constructor>
+		<arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.jdbc.JDBCCollector2"/>
+	</constructor>
+	<attribute name="SegmentPrefixElements">TeleNet,AP01,Status</attribute>
+	<attribute name="ConnectionFactoryClassName">com.adp.sbs.metrics.tracing.collectors.jdbc.DataSourceJDBCConnectionFactory</attribute>
+	<attribute name="ConnectionFactoryProperties">
+			  jndi.datasource.name=java:/TelProdDS
+	      </attribute>	
+	<attribute name="Mapping">
+		<Queries>
+			<Query sql="
+			  select service_center, count(*) from audit_events 
+			  WHERE event = 'SUBMISSION' 
+			  AND start_time &gt;= TRUNC(sysdate) 
+			  AND(error LIKE 'balance status%' OR error IS NULL) 
+			  group by service_center
+			">
+				<Mapping column="1" segment="{0}" metricName="PR Sub Rate" type="DINT"/>
+			</Query>
+			<Query sql="
+                          select server, count(*) from client_login group by server
+                        ">
+				<Mapping column="1" segment="Server Logins|{0}" metricName="Count" type="CINT"/>
+			</Query>
+		</Queries>
+	</attribute>
+</mbean>
+
+<mbean code= "com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.metrics:service=SubmissionRate2,name=TeleNet">
+	<constructor>
+		<arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.jdbc.JDBCCollector2"/>
+	</constructor>
+	<attribute name="SegmentPrefixElements">TeleNet,AP01,Status</attribute>
+	<attribute name="ConnectionFactoryClassName">com.adp.sbs.metrics.tracing.collectors.jdbc.DriverManagerJDBCConnectionFactory</attribute>
+	<attribute name="AvailabilitySegment">TelDev,Checks</attribute>
+	<attribute name="AvailabilitySQL">select sysdate from dual</attribute>
+	
+	<attribute name="ConnectionFactoryProperties">
+			  jdbc.driver=oracle.jdbc.driver.OracleDriver
+			  jdbc.url=jdbc:oracle:thin:@PAR1UNIXDB02.nj.adp.com:1521:TELDEV
+			  jdbc.user=PAYNET
+			  jdbc.password=PAYNET
+	      </attribute>
+	<attribute name="Mapping">
+		<Queries>
+			<Query sql="
+                          select server, count(*) from client_login group by server
+                        ">
+				<Mapping column="1" segment="Server Logins|{0}" metricName="Count" type="CINT"/>
+			</Query>
+		</Queries>
+	</attribute>
+</mbean>
+
+	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.metrics:service=DSAQueueDepth,region=52">
+		<constructor>
+			<arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.jdbc.JDBCCollector2"/>
+		</constructor>
+		<attribute name="PollFrequency">300000</attribute>
+		<attribute name="SegmentPrefixElements">ISeries|DSA</attribute>
+		<attribute name="ConnectionFactoryClassName">com.adp.sbs.metrics.tracing.collectors.jdbc.DataSourceJDBCConnectionFactory</attribute>
+		<attribute name="ConnectionFactoryProperties">
+                          jndi.datasource.name=AS52
+              </attribute>
+		<attribute name="Mapping">
+			<Queries>
+				<Query sql="select count(*), 'AS52' from dsalib.dsaqueue where chge_date &gt; (now() - 30 minute) and chge_date &lt; (now() - 15 minute) and sync_date is null">
+					<Mapping column="0" segment="{1}|DSAQueue" metricName="DSA Queue Depth" type="CINT"/>
+				</Query>
+			</Queries>
+		</attribute>
+	</mbean>	
+	
+	
+	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.metrics:service=OCLHighWaterMarks">
+	      <constructor>
+	         <arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.jdbc.JDBCCollector"/>
+	      </constructor>
+	       <attribute name="SegmentPrefixElements">TeleNet|OCL</attribute>
+	      <attribute name="ConnectionFactoryClassName">com.adp.sbs.metrics.tracing.collectors.jdbc.DataSourceJDBCConnectionFactory</attribute>
+	      <attribute name="ConnectionFactoryProperties">
+			  jndi.datasource.name=java:/TelProdDS
+	      </attribute>
+	      <attribute name="Mapping">
+	      <Queries>
+			<Query sql="select to_char(max(latestupdate), 'YYYY-MM-DD-HH24.MI.SS') from ds4net.dsservice_center_multi t where t.system_n ='AS09' ">
+				<Mapping column="1" segment="09" metricName="HighWaterMark" type="STRING" attributeName="HighWaterMark09" attributeType="String"/>				
+			</Query>	      
+			</Queries>
+	      </attribute>
+	      
+	</mbean>
+
+
+	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.metrics:service=OCLMonitor,region=09">
+	      <constructor>
+	         <arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.jdbc.JDBCCollector"/>
+	      </constructor>
+	       <attribute name="SegmentPrefixElements">TeleNet|OCL</attribute>
+	      <attribute name="ConnectionFactoryClassName">com.adp.sbs.metrics.tracing.collectors.jdbc.DataSourceJDBCConnectionFactory</attribute>
+	      <attribute name="ConnectionFactoryProperties">
+			  jndi.datasource.name=AS09
+	      </attribute>	      
+	      <attribute name="Mapping">
+			  <Queries>
+			<Query sql="SELECT COUNT(*) FROM DBQS36F.DBCHG D, DBQS36F.CORE_CHG C WHERE C.ORGANIZATION_NUMBER = D.DBCHORG_NB AND C.NET_FL = 'Y'  and (D.DBCHLD_TM > ? OR D.DBCHPR_TM > ? OR D.DBCHTRI_TM > ? OR D.DBCHTRO_TM > ?)">
+				<Mapping column="1" segment="09" metricName="BackLog" type="CINT" />				
+				<Bind number="1" source="attribute" type="String" objectName="com.adp.sbs.metrics:service=OCLHighWaterMarks" attributeName="HighWaterMark09"/>
+				<Bind number="2" source="attribute" type="String" objectName="com.adp.sbs.metrics:service=OCLHighWaterMarks" attributeName="HighWaterMark09"/>					
+				<Bind number="3" source="attribute" type="String" objectName="com.adp.sbs.metrics:service=OCLHighWaterMarks" attributeName="HighWaterMark09"/>
+				<Bind number="4" source="attribute" type="String" objectName="com.adp.sbs.metrics:service=OCLHighWaterMarks" attributeName="HighWaterMark09"/>
+			</Query>	 
+			<Query sql="SELECT COUNT(*) FROM DBQS36F.CORE_CHG C WHERE C.ORGANIZATION_NUMBER = '' OR C.ORGANIZATION_NUMBER IS NULL ">
+				<Mapping column="1" segment="09" metricName="NullOrgAlert" type="CINT" />				
+			</Query>	      
+			
+			</Queries>     
+	      </attribute>
+	</mbean>
+	
+	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.metrics:service=LoggedInUsers,name=TeleNet">
+		<constructor>
+			<arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.jdbc.JDBCCollector2"/>
+		</constructor>
+		<attribute name="SegmentPrefixElements">TeleNet,Lists</attribute>
+		<attribute name="ConnectionFactoryClassName">com.adp.sbs.metrics.tracing.collectors.jdbc.DriverManagerJDBCConnectionFactory</attribute>
+		<attribute name="LogErrors">true</attribute>
+		<attribute name="ConnectionFactoryProperties">
+				  jdbc.driver=oracle.jdbc.driver.OracleDriver
+				  jdbc.url=jdbc:oracle:thin:@PAR1UNIXDB02.nj.adp.com:1521:TELDEV
+				  jdbc.user=PAYNET
+				  jdbc.password=PAYNET
+		      </attribute>
+		<attribute name="Mapping">
+			<Queries>
+				<Query sql="SELECT SERVER || '~' || USER_ID FROM CLIENT_LOGIN ORDER BY SERVER, USER_ID">
+					<Mapping column="0" segment="" metricName="User Logins" type="String" flatten="CR"/>
+				</Query>
+			</Queries>
+		</attribute>
+	</mbean>
+	
+
+</server>
+
+<!--
+	$Log: jdbc-collection-service.xml  $
+	Revision 1.2 2007/03/27 06:06:09EDT Whitehead, Nicholas (whitehen) 
+	Updated for flatten option.
+-->

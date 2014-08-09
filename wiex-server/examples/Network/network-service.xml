@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<server>
+
+	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.metrics:service=PingCollector">
+	      <constructor>
+	         <arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.network.PingCollector"/>
+	      </constructor>
+	       <attribute name="SegmentPrefixElements">Network|Availability</attribute>
+			<attribute name="Server">AS10|Buena Park1(AS10)</attribute>
+			<attribute name="Server">AS50|Atlanta Metro - 50(AS50)</attribute>
+			<attribute name="Server">AS15|NY Metro 1(AS15)</attribute>
+			<attribute name="Server">10.9.5.11|NY Metro 1-E(AS15)</attribute>
+			<attribute name="Server">ASEA|Elk Grove(ASEA)</attribute>
+			<attribute name="Server">AS44|FT. Washington(AS44)</attribute>
+			<attribute name="Server">AS12|Dallas(AS12)</attribute>
+			<attribute name="Server">AS68|Boston(AS68)</attribute>
+			<attribute name="Server">ASE4|Atlanta Metro - E4(ASE4)</attribute>
+			<attribute name="Server">ASEG|Northern California(ASEG)</attribute>
+			<attribute name="Server">AS16|Buena Park 2(AS16)</attribute>
+			<attribute name="Server">ASE2|Buena Park 3(ASE2)</attribute>
+			<attribute name="Server">AS31|Chesapeake(AS31)</attribute>
+			<attribute name="Server">AS56|Minneapolis(AS56)</attribute>
+			<attribute name="Server">AS65|Tampa(AS65)</attribute>
+			<attribute name="Server">AS67|Cincinnati(AS67)</attribute>
+			<attribute name="Server">ASEF|Cleveland(ASEF)</attribute>
+			<attribute name="Server">ASEL|Charlotte(ASEL)</attribute>
+			<attribute name="Server">ASEK|Indianapolis(ASEK)</attribute>
+			<attribute name="Server">ASEM|Columbus(ASEM)</attribute>
+			<attribute name="Server">ASET|Denver(ASET)</attribute>
+			<attribute name="Server">ASEN|Portland(ASEN)</attribute>
+			<attribute name="Server">AS52|Long Island(AS52)</attribute>
+			<attribute name="Server">ASEH|Houston(ASEH)</attribute>
+			<attribute name="Server">AS09|Princeton(AS09)</attribute>
+			<attribute name="Server">AS62|San Antonio(AS62)</attribute>
+			<attribute name="Server">ASEJ|Syracuse(ASEJ)</attribute>
+			<attribute name="Server">AS39|Western New York(AS39)</attribute>
+			<attribute name="Server">ASE5|NY Metro 2(ASE5)</attribute>
+			<attribute name="Server">ASE6|Elk Grove 2 E6(ASE6)</attribute>
+			<attribute name="Server">ASEB|Miami(ASEB)</attribute>
+			<attribute name="Server">ASEC|Stratford(ASEC)</attribute>
+			<attribute name="Server">ASED|Pittsburgh(ASED)</attribute>
+			<attribute name="Server">ASEE|Seattle(ASEE)</attribute>
+			<attribute name="Server">AS64|Detroit(AS64)</attribute>
+			<attribute name="Server">AS20|Phoenix(AS20)</attribute>
+			<attribute name="Server">ASE7|Sacramento 2(ASE7)</attribute>
+			<attribute name="Server">ASER|St. Louis(ASER)</attribute>	       
+	</mbean>	
+
+
+ <mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.metrics:service=CSSMonitor">
+        <constructor>
+                <arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.network.CSSCollector"/>
+        </constructor>
+        <attribute name="IPAddress">10.19.31.11</attribute>
+        <attribute name="Port">23</attribute>
+        <attribute name="UserName">readonly</attribute>
+        <attribute name="Password">foobar</attribute>
+        <attribute name="UserNamePrompt">Username:</attribute>
+        <attribute name="PasswordPrompt">Password:</attribute>
+        <attribute name="SystemPrompt">CSS11501></attribute>
+        <attribute name="Landmark">Transitions\r\r\n\r\r</attribute>
+        <attribute name="ShellIntialization">terminal length 130</attribute>
+        <attribute name="ServiceCommand">show service summary</attribute>
+        <attribute name="TracingPrefix">Cisco CSS, FLOP</attribute>
+ </mbean>
+
+
+	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.metrics:service=URLMonitor">
+		<constructor>
+			<arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.network.URLCheckCollector"/>
+		</constructor>
+		<attribute name="LogErrors">false</attribute>		
+		<attribute name="PollFrequency">5000</attribute>				
+		<attribute name="SegmentPrefixElements">TeleNet|URLChecks</attribute>
+		<attribute name="URLChecks">
+			<URLChecks>
+				<URLCheck name="AS15" url="http://AS15:8080/jmx-console" timeout="5000">
+					<ContentCheck>DSA.EZP.PUBLISH_CATS.AS15.ES.ADP.COM.EventCaptureProcessor</ContentCheck>
+				</URLCheck>
+				<URLCheck name="AS152" url="http://AS15:8080/jmx-console" timeout="5000" buffersize="8096"/>
+				<URLCheck name="AS153" url="http://AS15:8080/jmx-console" timeout="5000" buffersize="80960"/>
+				<URLCheck name="ASE5" url="http://ASE5:8080/jmx-console" timeout="5000"/>
+				<URLCheck name="AS99" url="http://AS99:8080/jmx-console" timeout="2000"/>
+			</URLChecks>			
+		</attribute>
+		<attribute name="URL">http://AS15:8080/jmx-console</attribute>		
+	</mbean>
+
+</server>

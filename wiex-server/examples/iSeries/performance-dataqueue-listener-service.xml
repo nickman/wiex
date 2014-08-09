@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<server>
+	<mbean code="com.adp.sbs.jmx.threads.ThreadPoolService" name="com.adp.sbs.threads:service=ThreadPool">
+		<attribute name="CorePoolSize">1</attribute>
+		<attribute name="MaxPoolSize">10</attribute>
+		<attribute name="PrestartThreads">1</attribute>		
+		<attribute name="ThreadStackSize">64000</attribute>				
+	</mbean>
+	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.metrics:service=IseriesPDQ,name=IT6">
+		  <constructor>
+			 <arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.iseries.PerformanceDataQueueListener"/>
+		  </constructor>
+		  <attribute name="DataQueue">/QSYS.LIB/DBPCPAY.LIB/NJW.DTAQ</attribute>
+		  <attribute name="HostName">EBSIT6</attribute>
+		  <attribute name="UserName">DBPCPAY</attribute>      
+		  <attribute name="Password">DBPCPAY</attribute>   
+		  <attribute name="DataQueueListeners">30</attribute>   		  
+		  <depends optional-attribute-name="ThreadPool">com.adp.sbs.threads:service=ThreadPool</depends>
+	</mbean>
+</server>

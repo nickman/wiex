@@ -1,0 +1,25 @@
+	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.Net:service=MXBeans,name=AP01">
+	      <constructor>
+	         <arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.jmx.JMXCollector"/>
+	      </constructor>
+		<attribute name="ConnectionFactoryClassName">com.adp.sbs.metrics.tracing.collectors.jmx.JNDIMBeanServerConnectionFactory</attribute>	      
+	      <attribute name="PollFrequency">60000</attribute>
+	      <attribute name="ConnectionFactoryProperties">
+			java.naming.factory.initial=org.jnp.interfaces.NamingContextFactory
+			java.naming.factory.url.pkgs=org.jboss.naming:org.jnp.interfaces
+			java.naming.provider.url=192.168.31.221:21099
+			sbstracing.jndi.name=/jmx/rmi/RMIAdaptor		  
+	      </attribute>
+	      <attribute name="MXBeanCollection">
+			  <mxbeans>
+				  <enabled>true</enabled>
+				  <segment>{THIS-DOMAIN:3},{THIS-PROPERTY:name},{THIS-PROPERTY:service}</segment>
+				  <deadlockmonitor>true</deadlockmonitor>
+				  <threadmonitor>true</threadmonitor>
+				  <include></include>
+				  <exclude></exclude>
+			  </mxbeans>		
+		  </attribute>
+		  <attribute name="LogErrors">true</attribute>	      
+		  <attribute name="ImmediateCollect">true</attribute>	      		 
+	</mbean>

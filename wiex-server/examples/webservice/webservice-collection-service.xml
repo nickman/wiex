@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<server>
+
+	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.FLT.Development:service=WebService,name=FLT,host=FLTDEV">
+		  <constructor>
+			 <arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.webservice.WebServiceCollector"/>
+		  </constructor>
+			<attribute name="SegmentPrefixElements">{THIS-PROPERTY:service},{THIS-DOMAIN:3},{THIS-DOMAIN:4},{THIS-PROPERTY:host}</attribute>
+	      	<attribute name="PollFrequency">10000</attribute>
+	      	<attribute name="ConnectionFactoryClassName">com.adp.sbs.metrics.tracing.collectors.webservice.WSClientConnectionFactory</attribute>
+	        <attribute name="ConnectionFactoryProperties">
+						authMethod=CLIENT-CERT
+						wsdlURL=https://fltdev/fltws/FLTWS?wsdl
+						pingMethod=isServiceOnline
+						sslFactoryKey=fltdev
+						keyStore=C:/tools/jboss-4.2.1.GA/server/jbossws/conf/flt_client.keystore
+						keyStorePassword=password
+	      	</attribute>
+	      	<attribute name="RequestXML">
+					<![CDATA[
+						<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:flt="http://www.flt.com/">
+						   <soapenv:Header/>
+						   <soapenv:Body>
+							  <flt:isServiceOnline/>
+						   </soapenv:Body>
+						</soapenv:Envelope>
+					]]>
+	      	</attribute>
+	      	<attribute name="SuccessSubstringMatch">
+	      			<![CDATA[
+						<return>true</return>
+	      			]]>
+	      	</attribute>
+	</mbean>
+
+
+	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.FLT.QA:service=WebService,name=FLT,host=FLTQA">
+		  <constructor>
+			 <arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.webservice.WebServiceCollector"/>
+		  </constructor>
+			<attribute name="SegmentPrefixElements">{THIS-PROPERTY:service},{THIS-DOMAIN:3},{THIS-DOMAIN:4},{THIS-PROPERTY:host}</attribute>
+	      	<attribute name="PollFrequency">10000</attribute>
+	      	<attribute name="ConnectionFactoryClassName">com.adp.sbs.metrics.tracing.collectors.webservice.WSClientConnectionFactory</attribute>
+	        <attribute name="ConnectionFactoryProperties">
+						authMethod=BASIC
+						wsdlURL=https://fltqa/fltws/FLTWS?wsdl
+						pingMethod=isServiceOnline
+						sslFactoryKey=fltqa
+						userName=rnUser
+						password=!Passw@rd4qa
+	      	</attribute>
+	      	<attribute name="RequestXML">
+					<![CDATA[
+						<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:flt="http://www.flt.com/">
+						   <soapenv:Header/>
+						   <soapenv:Body>
+							  <flt:isServiceOnline/>
+						   </soapenv:Body>
+						</soapenv:Envelope>
+					]]>
+	      	</attribute>
+	      	<attribute name="SuccessSubstringMatch">
+	      			<![CDATA[
+						<return>true</return>
+	      			]]>
+	      	</attribute>
+	</mbean>
+
+	<entry key="requestXMLLocation4">C:\Download\eclipse\workspace\Apache_HttpClient\request\pingServiceAOS_request.xml</entry>
+
+	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.AOS.RATE:service=WebService,name=AOS,host=AOSRATE">
+		  <constructor>
+			 <arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.webservice.WebServiceCollector"/>
+		  </constructor>
+			<attribute name="SegmentPrefixElements">{THIS-PROPERTY:service},{THIS-DOMAIN:3},{THIS-DOMAIN:4},{THIS-PROPERTY:host}</attribute>
+			<attribute name="PollFrequency">10000</attribute>
+			<attribute name="ConnectionFactoryClassName">com.adp.sbs.metrics.tracing.collectors.webservice.WSClientConnectionFactory</attribute>
+			<attribute name="ConnectionFactoryProperties">
+						authMethod=BASIC
+						wsdlURL=https://aosrate/AOS-aos_run/RunServiceImpl?wsdl
+						pingMethod=pingService
+						sslFactoryKey=aosrate
+						userName=RN
+						password=A@srun
+			</attribute>
+			<attribute name="RequestXML">
+					<![CDATA[
+						<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:adp="http://Adp.sbs.aos.RUN.WebServices">
+						   <soapenv:Header/>
+						   <soapenv:Body>
+							  <adp:pingService/>
+						   </soapenv:Body>
+						</soapenv:Envelope>
+					]]>
+			</attribute>
+			<attribute name="SuccessSubstringMatch">
+					<![CDATA[
+						<return>GOOD</return>
+					]]>
+			</attribute>
+	</mbean>
+
+</server>

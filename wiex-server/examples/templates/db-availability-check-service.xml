@@ -1,0 +1,722 @@
+	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.easypaynet.database:service=DatabaseAvailability,type=DB2,name=AS10">
+		<constructor>
+			<arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.jdbc.JDBCCollector2"/>
+		</constructor>
+		<attribute name="SegmentPrefixElements"></attribute>
+		<attribute name="PollFrequency">60000</attribute>
+		<attribute name="ConnectionFactoryClassName">com.adp.sbs.metrics.tracing.collectors.jdbc.CheckedDriverManagerJDBCConnectionFactory</attribute>
+		<attribute name="AvailabilitySegment">EasyPayNet,Database,DB2,AS10(Buena Park1),Availability</attribute>
+		<attribute name="AvailabilitySQL">SELECT CURDATE() FROM SYSIBM.SYSDUMMY1</attribute>
+		<attribute name="ConnectionFactoryProperties">
+			  jdbc.driver=com.ibm.as400.access.AS400JDBCDriver
+			  jdbc.url=jdbc:as400://AS10//dbpcpay; date format=USA
+			  jdbc.user=DBPCPAY
+			  jdbc.password=DBPCPAY
+			  check.connect.timeout=10000
+			  check.connect.tracing.segment=Availability,Connections
+	      </attribute>
+	</mbean>
+
+	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.easypaynet.database:service=DatabaseAvailability,type=DB2,name=AS50">
+		<constructor>
+			<arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.jdbc.JDBCCollector2"/>
+		</constructor>
+		<attribute name="SegmentPrefixElements"></attribute>
+		<attribute name="PollFrequency">60000</attribute>
+		<attribute name="ConnectionFactoryClassName">com.adp.sbs.metrics.tracing.collectors.jdbc.CheckedDriverManagerJDBCConnectionFactory</attribute>
+		<attribute name="AvailabilitySegment">EasyPayNet,Database,DB2,AS50(Atlanta Metro - 50),Availability</attribute>
+		<attribute name="AvailabilitySQL">SELECT CURDATE() FROM SYSIBM.SYSDUMMY1</attribute>
+		<attribute name="ConnectionFactoryProperties">
+			  jdbc.driver=com.ibm.as400.access.AS400JDBCDriver
+			  jdbc.url=jdbc:as400://AS50//dbpcpay; date format=USA
+			  jdbc.user=DBPCPAY
+			  jdbc.password=DBPCPAY
+			  check.connect.timeout=10000
+			  check.connect.tracing.segment=Availability,Connections
+	      </attribute>
+	</mbean>
+
+	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.easypaynet.database:service=DatabaseAvailability,type=DB2,name=AS15">
+		<constructor>
+			<arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.jdbc.JDBCCollector2"/>
+		</constructor>
+		<attribute name="SegmentPrefixElements"></attribute>
+		<attribute name="PollFrequency">60000</attribute>
+		<attribute name="ConnectionFactoryClassName">com.adp.sbs.metrics.tracing.collectors.jdbc.CheckedDriverManagerJDBCConnectionFactory</attribute>
+		<attribute name="AvailabilitySegment">EasyPayNet,Database,DB2,AS15(NY Metro 1),Availability</attribute>
+		<attribute name="AvailabilitySQL">SELECT CURDATE() FROM SYSIBM.SYSDUMMY1</attribute>
+		<attribute name="ConnectionFactoryProperties">
+			  jdbc.driver=com.ibm.as400.access.AS400JDBCDriver
+			  jdbc.url=jdbc:as400://AS15//dbpcpay; date format=USA
+			  jdbc.user=DBPCPAY
+			  jdbc.password=DBPCPAY
+			  check.connect.timeout=10000
+			  check.connect.tracing.segment=Availability,Connections
+	      </attribute>
+	</mbean>
+
+	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.easypaynet.database:service=DatabaseAvailability,type=DB2,name=ASEA">
+		<constructor>
+			<arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.jdbc.JDBCCollector2"/>
+		</constructor>
+		<attribute name="SegmentPrefixElements"></attribute>
+		<attribute name="PollFrequency">60000</attribute>
+		<attribute name="ConnectionFactoryClassName">com.adp.sbs.metrics.tracing.collectors.jdbc.CheckedDriverManagerJDBCConnectionFactory</attribute>
+		<attribute name="AvailabilitySegment">EasyPayNet,Database,DB2,ASEA(Elk Grove),Availability</attribute>
+		<attribute name="AvailabilitySQL">SELECT CURDATE() FROM SYSIBM.SYSDUMMY1</attribute>
+		<attribute name="ConnectionFactoryProperties">
+			  jdbc.driver=com.ibm.as400.access.AS400JDBCDriver
+			  jdbc.url=jdbc:as400://ASEA//dbpcpay; date format=USA
+			  jdbc.user=DBPCPAY
+			  jdbc.password=DBPCPAY
+			  check.connect.timeout=10000
+			  check.connect.tracing.segment=Availability,Connections
+	      </attribute>
+	</mbean>
+
+	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.easypaynet.database:service=DatabaseAvailability,type=DB2,name=AS44">
+		<constructor>
+			<arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.jdbc.JDBCCollector2"/>
+		</constructor>
+		<attribute name="SegmentPrefixElements"></attribute>
+		<attribute name="PollFrequency">60000</attribute>
+		<attribute name="ConnectionFactoryClassName">com.adp.sbs.metrics.tracing.collectors.jdbc.CheckedDriverManagerJDBCConnectionFactory</attribute>
+		<attribute name="AvailabilitySegment">EasyPayNet,Database,DB2,AS44(FT. Washington),Availability</attribute>
+		<attribute name="AvailabilitySQL">SELECT CURDATE() FROM SYSIBM.SYSDUMMY1</attribute>
+		<attribute name="ConnectionFactoryProperties">
+			  jdbc.driver=com.ibm.as400.access.AS400JDBCDriver
+			  jdbc.url=jdbc:as400://AS44//dbpcpay; date format=USA
+			  jdbc.user=DBPCPAY
+			  jdbc.password=DBPCPAY
+			  check.connect.timeout=10000
+			  check.connect.tracing.segment=Availability,Connections
+	      </attribute>
+	</mbean>
+
+	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.easypaynet.database:service=DatabaseAvailability,type=DB2,name=AS12">
+		<constructor>
+			<arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.jdbc.JDBCCollector2"/>
+		</constructor>
+		<attribute name="SegmentPrefixElements"></attribute>
+		<attribute name="PollFrequency">60000</attribute>
+		<attribute name="ConnectionFactoryClassName">com.adp.sbs.metrics.tracing.collectors.jdbc.CheckedDriverManagerJDBCConnectionFactory</attribute>
+		<attribute name="AvailabilitySegment">EasyPayNet,Database,DB2,AS12(Dallas),Availability</attribute>
+		<attribute name="AvailabilitySQL">SELECT CURDATE() FROM SYSIBM.SYSDUMMY1</attribute>
+		<attribute name="ConnectionFactoryProperties">
+			  jdbc.driver=com.ibm.as400.access.AS400JDBCDriver
+			  jdbc.url=jdbc:as400://AS12//dbpcpay; date format=USA
+			  jdbc.user=DBPCPAY
+			  jdbc.password=DBPCPAY
+			  check.connect.timeout=10000
+			  check.connect.tracing.segment=Availability,Connections
+	      </attribute>
+	</mbean>
+
+	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.easypaynet.database:service=DatabaseAvailability,type=DB2,name=AS68">
+		<constructor>
+			<arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.jdbc.JDBCCollector2"/>
+		</constructor>
+		<attribute name="SegmentPrefixElements"></attribute>
+		<attribute name="PollFrequency">60000</attribute>
+		<attribute name="ConnectionFactoryClassName">com.adp.sbs.metrics.tracing.collectors.jdbc.CheckedDriverManagerJDBCConnectionFactory</attribute>
+		<attribute name="AvailabilitySegment">EasyPayNet,Database,DB2,AS68(Boston),Availability</attribute>
+		<attribute name="AvailabilitySQL">SELECT CURDATE() FROM SYSIBM.SYSDUMMY1</attribute>
+		<attribute name="ConnectionFactoryProperties">
+			  jdbc.driver=com.ibm.as400.access.AS400JDBCDriver
+			  jdbc.url=jdbc:as400://AS68//dbpcpay; date format=USA
+			  jdbc.user=DBPCPAY
+			  jdbc.password=DBPCPAY
+			  check.connect.timeout=10000
+			  check.connect.tracing.segment=Availability,Connections
+	      </attribute>
+	</mbean>
+
+	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.easypaynet.database:service=DatabaseAvailability,type=DB2,name=ASE4">
+		<constructor>
+			<arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.jdbc.JDBCCollector2"/>
+		</constructor>
+		<attribute name="SegmentPrefixElements"></attribute>
+		<attribute name="PollFrequency">60000</attribute>
+		<attribute name="ConnectionFactoryClassName">com.adp.sbs.metrics.tracing.collectors.jdbc.CheckedDriverManagerJDBCConnectionFactory</attribute>
+		<attribute name="AvailabilitySegment">EasyPayNet,Database,DB2,ASE4(Atlanta Metro - E4),Availability</attribute>
+		<attribute name="AvailabilitySQL">SELECT CURDATE() FROM SYSIBM.SYSDUMMY1</attribute>
+		<attribute name="ConnectionFactoryProperties">
+			  jdbc.driver=com.ibm.as400.access.AS400JDBCDriver
+			  jdbc.url=jdbc:as400://ASE4//dbpcpay; date format=USA
+			  jdbc.user=DBPCPAY
+			  jdbc.password=DBPCPAY
+			  check.connect.timeout=10000
+			  check.connect.tracing.segment=Availability,Connections
+	      </attribute>
+	</mbean>
+
+	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.easypaynet.database:service=DatabaseAvailability,type=DB2,name=ASEG">
+		<constructor>
+			<arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.jdbc.JDBCCollector2"/>
+		</constructor>
+		<attribute name="SegmentPrefixElements"></attribute>
+		<attribute name="PollFrequency">60000</attribute>
+		<attribute name="ConnectionFactoryClassName">com.adp.sbs.metrics.tracing.collectors.jdbc.CheckedDriverManagerJDBCConnectionFactory</attribute>
+		<attribute name="AvailabilitySegment">EasyPayNet,Database,DB2,ASEG(Northern California),Availability</attribute>
+		<attribute name="AvailabilitySQL">SELECT CURDATE() FROM SYSIBM.SYSDUMMY1</attribute>
+		<attribute name="ConnectionFactoryProperties">
+			  jdbc.driver=com.ibm.as400.access.AS400JDBCDriver
+			  jdbc.url=jdbc:as400://ASEG//dbpcpay; date format=USA
+			  jdbc.user=DBPCPAY
+			  jdbc.password=DBPCPAY
+			  check.connect.timeout=10000
+			  check.connect.tracing.segment=Availability,Connections
+	      </attribute>
+	</mbean>
+
+	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.easypaynet.database:service=DatabaseAvailability,type=DB2,name=AS16">
+		<constructor>
+			<arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.jdbc.JDBCCollector2"/>
+		</constructor>
+		<attribute name="SegmentPrefixElements"></attribute>
+		<attribute name="PollFrequency">60000</attribute>
+		<attribute name="ConnectionFactoryClassName">com.adp.sbs.metrics.tracing.collectors.jdbc.CheckedDriverManagerJDBCConnectionFactory</attribute>
+		<attribute name="AvailabilitySegment">EasyPayNet,Database,DB2,AS16(Buena Park 2),Availability</attribute>
+		<attribute name="AvailabilitySQL">SELECT CURDATE() FROM SYSIBM.SYSDUMMY1</attribute>
+		<attribute name="ConnectionFactoryProperties">
+			  jdbc.driver=com.ibm.as400.access.AS400JDBCDriver
+			  jdbc.url=jdbc:as400://AS16//dbpcpay; date format=USA
+			  jdbc.user=DBPCPAY
+			  jdbc.password=DBPCPAY
+			  check.connect.timeout=10000
+			  check.connect.tracing.segment=Availability,Connections
+	      </attribute>
+	</mbean>
+
+	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.easypaynet.database:service=DatabaseAvailability,type=DB2,name=ASE2">
+		<constructor>
+			<arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.jdbc.JDBCCollector2"/>
+		</constructor>
+		<attribute name="SegmentPrefixElements"></attribute>
+		<attribute name="PollFrequency">60000</attribute>
+		<attribute name="ConnectionFactoryClassName">com.adp.sbs.metrics.tracing.collectors.jdbc.CheckedDriverManagerJDBCConnectionFactory</attribute>
+		<attribute name="AvailabilitySegment">EasyPayNet,Database,DB2,ASE2(Buena Park 3),Availability</attribute>
+		<attribute name="AvailabilitySQL">SELECT CURDATE() FROM SYSIBM.SYSDUMMY1</attribute>
+		<attribute name="ConnectionFactoryProperties">
+			  jdbc.driver=com.ibm.as400.access.AS400JDBCDriver
+			  jdbc.url=jdbc:as400://ASE2//dbpcpay; date format=USA
+			  jdbc.user=DBPCPAY
+			  jdbc.password=DBPCPAY
+			  check.connect.timeout=10000
+			  check.connect.tracing.segment=Availability,Connections
+	      </attribute>
+	</mbean>
+
+	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.easypaynet.database:service=DatabaseAvailability,type=DB2,name=AS31">
+		<constructor>
+			<arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.jdbc.JDBCCollector2"/>
+		</constructor>
+		<attribute name="SegmentPrefixElements"></attribute>
+		<attribute name="PollFrequency">60000</attribute>
+		<attribute name="ConnectionFactoryClassName">com.adp.sbs.metrics.tracing.collectors.jdbc.CheckedDriverManagerJDBCConnectionFactory</attribute>
+		<attribute name="AvailabilitySegment">EasyPayNet,Database,DB2,AS31(Chesapeake),Availability</attribute>
+		<attribute name="AvailabilitySQL">SELECT CURDATE() FROM SYSIBM.SYSDUMMY1</attribute>
+		<attribute name="ConnectionFactoryProperties">
+			  jdbc.driver=com.ibm.as400.access.AS400JDBCDriver
+			  jdbc.url=jdbc:as400://AS31//dbpcpay; date format=USA
+			  jdbc.user=DBPCPAY
+			  jdbc.password=DBPCPAY
+			  check.connect.timeout=10000
+			  check.connect.tracing.segment=Availability,Connections
+	      </attribute>
+	</mbean>
+
+	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.easypaynet.database:service=DatabaseAvailability,type=DB2,name=AS56">
+		<constructor>
+			<arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.jdbc.JDBCCollector2"/>
+		</constructor>
+		<attribute name="SegmentPrefixElements"></attribute>
+		<attribute name="PollFrequency">60000</attribute>
+		<attribute name="ConnectionFactoryClassName">com.adp.sbs.metrics.tracing.collectors.jdbc.CheckedDriverManagerJDBCConnectionFactory</attribute>
+		<attribute name="AvailabilitySegment">EasyPayNet,Database,DB2,AS56(Minneapolis),Availability</attribute>
+		<attribute name="AvailabilitySQL">SELECT CURDATE() FROM SYSIBM.SYSDUMMY1</attribute>
+		<attribute name="ConnectionFactoryProperties">
+			  jdbc.driver=com.ibm.as400.access.AS400JDBCDriver
+			  jdbc.url=jdbc:as400://AS56//dbpcpay; date format=USA
+			  jdbc.user=DBPCPAY
+			  jdbc.password=DBPCPAY
+			  check.connect.timeout=10000
+			  check.connect.tracing.segment=Availability,Connections
+	      </attribute>
+	</mbean>
+
+	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.easypaynet.database:service=DatabaseAvailability,type=DB2,name=AS65">
+		<constructor>
+			<arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.jdbc.JDBCCollector2"/>
+		</constructor>
+		<attribute name="SegmentPrefixElements"></attribute>
+		<attribute name="PollFrequency">60000</attribute>
+		<attribute name="ConnectionFactoryClassName">com.adp.sbs.metrics.tracing.collectors.jdbc.CheckedDriverManagerJDBCConnectionFactory</attribute>
+		<attribute name="AvailabilitySegment">EasyPayNet,Database,DB2,AS65(Tampa),Availability</attribute>
+		<attribute name="AvailabilitySQL">SELECT CURDATE() FROM SYSIBM.SYSDUMMY1</attribute>
+		<attribute name="ConnectionFactoryProperties">
+			  jdbc.driver=com.ibm.as400.access.AS400JDBCDriver
+			  jdbc.url=jdbc:as400://AS65//dbpcpay; date format=USA
+			  jdbc.user=DBPCPAY
+			  jdbc.password=DBPCPAY
+			  check.connect.timeout=10000
+			  check.connect.tracing.segment=Availability,Connections
+	      </attribute>
+	</mbean>
+
+	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.easypaynet.database:service=DatabaseAvailability,type=DB2,name=AS67">
+		<constructor>
+			<arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.jdbc.JDBCCollector2"/>
+		</constructor>
+		<attribute name="SegmentPrefixElements"></attribute>
+		<attribute name="PollFrequency">60000</attribute>
+		<attribute name="ConnectionFactoryClassName">com.adp.sbs.metrics.tracing.collectors.jdbc.CheckedDriverManagerJDBCConnectionFactory</attribute>
+		<attribute name="AvailabilitySegment">EasyPayNet,Database,DB2,AS67(Cincinnati),Availability</attribute>
+		<attribute name="AvailabilitySQL">SELECT CURDATE() FROM SYSIBM.SYSDUMMY1</attribute>
+		<attribute name="ConnectionFactoryProperties">
+			  jdbc.driver=com.ibm.as400.access.AS400JDBCDriver
+			  jdbc.url=jdbc:as400://AS67//dbpcpay; date format=USA
+			  jdbc.user=DBPCPAY
+			  jdbc.password=DBPCPAY
+			  check.connect.timeout=10000
+			  check.connect.tracing.segment=Availability,Connections
+	      </attribute>
+	</mbean>
+
+	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.easypaynet.database:service=DatabaseAvailability,type=DB2,name=ASEF">
+		<constructor>
+			<arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.jdbc.JDBCCollector2"/>
+		</constructor>
+		<attribute name="SegmentPrefixElements"></attribute>
+		<attribute name="PollFrequency">60000</attribute>
+		<attribute name="ConnectionFactoryClassName">com.adp.sbs.metrics.tracing.collectors.jdbc.CheckedDriverManagerJDBCConnectionFactory</attribute>
+		<attribute name="AvailabilitySegment">EasyPayNet,Database,DB2,ASEF(Cleveland),Availability</attribute>
+		<attribute name="AvailabilitySQL">SELECT CURDATE() FROM SYSIBM.SYSDUMMY1</attribute>
+		<attribute name="ConnectionFactoryProperties">
+			  jdbc.driver=com.ibm.as400.access.AS400JDBCDriver
+			  jdbc.url=jdbc:as400://ASEF//dbpcpay; date format=USA
+			  jdbc.user=DBPCPAY
+			  jdbc.password=DBPCPAY
+			  check.connect.timeout=10000
+			  check.connect.tracing.segment=Availability,Connections
+	      </attribute>
+	</mbean>
+
+	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.easypaynet.database:service=DatabaseAvailability,type=DB2,name=ASEL">
+		<constructor>
+			<arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.jdbc.JDBCCollector2"/>
+		</constructor>
+		<attribute name="SegmentPrefixElements"></attribute>
+		<attribute name="PollFrequency">60000</attribute>
+		<attribute name="ConnectionFactoryClassName">com.adp.sbs.metrics.tracing.collectors.jdbc.CheckedDriverManagerJDBCConnectionFactory</attribute>
+		<attribute name="AvailabilitySegment">EasyPayNet,Database,DB2,ASEL(Charlotte),Availability</attribute>
+		<attribute name="AvailabilitySQL">SELECT CURDATE() FROM SYSIBM.SYSDUMMY1</attribute>
+		<attribute name="ConnectionFactoryProperties">
+			  jdbc.driver=com.ibm.as400.access.AS400JDBCDriver
+			  jdbc.url=jdbc:as400://ASEL//dbpcpay; date format=USA
+			  jdbc.user=DBPCPAY
+			  jdbc.password=DBPCPAY
+			  check.connect.timeout=10000
+			  check.connect.tracing.segment=Availability,Connections
+	      </attribute>
+	</mbean>
+
+	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.easypaynet.database:service=DatabaseAvailability,type=DB2,name=ASEK">
+		<constructor>
+			<arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.jdbc.JDBCCollector2"/>
+		</constructor>
+		<attribute name="SegmentPrefixElements"></attribute>
+		<attribute name="PollFrequency">60000</attribute>
+		<attribute name="ConnectionFactoryClassName">com.adp.sbs.metrics.tracing.collectors.jdbc.CheckedDriverManagerJDBCConnectionFactory</attribute>
+		<attribute name="AvailabilitySegment">EasyPayNet,Database,DB2,ASEK(Indianapolis),Availability</attribute>
+		<attribute name="AvailabilitySQL">SELECT CURDATE() FROM SYSIBM.SYSDUMMY1</attribute>
+		<attribute name="ConnectionFactoryProperties">
+			  jdbc.driver=com.ibm.as400.access.AS400JDBCDriver
+			  jdbc.url=jdbc:as400://ASEK//dbpcpay; date format=USA
+			  jdbc.user=DBPCPAY
+			  jdbc.password=DBPCPAY
+			  check.connect.timeout=10000
+			  check.connect.tracing.segment=Availability,Connections
+	      </attribute>
+	</mbean>
+
+	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.easypaynet.database:service=DatabaseAvailability,type=DB2,name=ASEM">
+		<constructor>
+			<arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.jdbc.JDBCCollector2"/>
+		</constructor>
+		<attribute name="SegmentPrefixElements"></attribute>
+		<attribute name="PollFrequency">60000</attribute>
+		<attribute name="ConnectionFactoryClassName">com.adp.sbs.metrics.tracing.collectors.jdbc.CheckedDriverManagerJDBCConnectionFactory</attribute>
+		<attribute name="AvailabilitySegment">EasyPayNet,Database,DB2,ASEM(Columbus),Availability</attribute>
+		<attribute name="AvailabilitySQL">SELECT CURDATE() FROM SYSIBM.SYSDUMMY1</attribute>
+		<attribute name="ConnectionFactoryProperties">
+			  jdbc.driver=com.ibm.as400.access.AS400JDBCDriver
+			  jdbc.url=jdbc:as400://ASEM//dbpcpay; date format=USA
+			  jdbc.user=DBPCPAY
+			  jdbc.password=DBPCPAY
+			  check.connect.timeout=10000
+			  check.connect.tracing.segment=Availability,Connections
+	      </attribute>
+	</mbean>
+
+	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.easypaynet.database:service=DatabaseAvailability,type=DB2,name=ASET">
+		<constructor>
+			<arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.jdbc.JDBCCollector2"/>
+		</constructor>
+		<attribute name="SegmentPrefixElements"></attribute>
+		<attribute name="PollFrequency">60000</attribute>
+		<attribute name="ConnectionFactoryClassName">com.adp.sbs.metrics.tracing.collectors.jdbc.CheckedDriverManagerJDBCConnectionFactory</attribute>
+		<attribute name="AvailabilitySegment">EasyPayNet,Database,DB2,ASET(Denver),Availability</attribute>
+		<attribute name="AvailabilitySQL">SELECT CURDATE() FROM SYSIBM.SYSDUMMY1</attribute>
+		<attribute name="ConnectionFactoryProperties">
+			  jdbc.driver=com.ibm.as400.access.AS400JDBCDriver
+			  jdbc.url=jdbc:as400://ASET//dbpcpay; date format=USA
+			  jdbc.user=DBPCPAY
+			  jdbc.password=DBPCPAY
+			  check.connect.timeout=10000
+			  check.connect.tracing.segment=Availability,Connections
+	      </attribute>
+	</mbean>
+
+	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.easypaynet.database:service=DatabaseAvailability,type=DB2,name=ASEN">
+		<constructor>
+			<arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.jdbc.JDBCCollector2"/>
+		</constructor>
+		<attribute name="SegmentPrefixElements"></attribute>
+		<attribute name="PollFrequency">60000</attribute>
+		<attribute name="ConnectionFactoryClassName">com.adp.sbs.metrics.tracing.collectors.jdbc.CheckedDriverManagerJDBCConnectionFactory</attribute>
+		<attribute name="AvailabilitySegment">EasyPayNet,Database,DB2,ASEN(Portland),Availability</attribute>
+		<attribute name="AvailabilitySQL">SELECT CURDATE() FROM SYSIBM.SYSDUMMY1</attribute>
+		<attribute name="ConnectionFactoryProperties">
+			  jdbc.driver=com.ibm.as400.access.AS400JDBCDriver
+			  jdbc.url=jdbc:as400://ASEN//dbpcpay; date format=USA
+			  jdbc.user=DBPCPAY
+			  jdbc.password=DBPCPAY
+			  check.connect.timeout=10000
+			  check.connect.tracing.segment=Availability,Connections
+	      </attribute>
+	</mbean>
+
+	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.easypaynet.database:service=DatabaseAvailability,type=DB2,name=AS52">
+		<constructor>
+			<arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.jdbc.JDBCCollector2"/>
+		</constructor>
+		<attribute name="SegmentPrefixElements"></attribute>
+		<attribute name="PollFrequency">60000</attribute>
+		<attribute name="ConnectionFactoryClassName">com.adp.sbs.metrics.tracing.collectors.jdbc.CheckedDriverManagerJDBCConnectionFactory</attribute>
+		<attribute name="AvailabilitySegment">EasyPayNet,Database,DB2,AS52(Long Island),Availability</attribute>
+		<attribute name="AvailabilitySQL">SELECT CURDATE() FROM SYSIBM.SYSDUMMY1</attribute>
+		<attribute name="ConnectionFactoryProperties">
+			  jdbc.driver=com.ibm.as400.access.AS400JDBCDriver
+			  jdbc.url=jdbc:as400://AS52//dbpcpay; date format=USA
+			  jdbc.user=DBPCPAY
+			  jdbc.password=DBPCPAY
+			  check.connect.timeout=10000
+			  check.connect.tracing.segment=Availability,Connections
+	      </attribute>
+	</mbean>
+
+	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.easypaynet.database:service=DatabaseAvailability,type=DB2,name=ASEH">
+		<constructor>
+			<arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.jdbc.JDBCCollector2"/>
+		</constructor>
+		<attribute name="SegmentPrefixElements"></attribute>
+		<attribute name="PollFrequency">60000</attribute>
+		<attribute name="ConnectionFactoryClassName">com.adp.sbs.metrics.tracing.collectors.jdbc.CheckedDriverManagerJDBCConnectionFactory</attribute>
+		<attribute name="AvailabilitySegment">EasyPayNet,Database,DB2,ASEH(Houston),Availability</attribute>
+		<attribute name="AvailabilitySQL">SELECT CURDATE() FROM SYSIBM.SYSDUMMY1</attribute>
+		<attribute name="ConnectionFactoryProperties">
+			  jdbc.driver=com.ibm.as400.access.AS400JDBCDriver
+			  jdbc.url=jdbc:as400://ASEH//dbpcpay; date format=USA
+			  jdbc.user=DBPCPAY
+			  jdbc.password=DBPCPAY
+			  check.connect.timeout=10000
+			  check.connect.tracing.segment=Availability,Connections
+	      </attribute>
+	</mbean>
+
+	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.easypaynet.database:service=DatabaseAvailability,type=DB2,name=AS09">
+		<constructor>
+			<arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.jdbc.JDBCCollector2"/>
+		</constructor>
+		<attribute name="SegmentPrefixElements"></attribute>
+		<attribute name="PollFrequency">60000</attribute>
+		<attribute name="ConnectionFactoryClassName">com.adp.sbs.metrics.tracing.collectors.jdbc.CheckedDriverManagerJDBCConnectionFactory</attribute>
+		<attribute name="AvailabilitySegment">EasyPayNet,Database,DB2,AS09(Princeton),Availability</attribute>
+		<attribute name="AvailabilitySQL">SELECT CURDATE() FROM SYSIBM.SYSDUMMY1</attribute>
+		<attribute name="ConnectionFactoryProperties">
+			  jdbc.driver=com.ibm.as400.access.AS400JDBCDriver
+			  jdbc.url=jdbc:as400://AS09//dbpcpay; date format=USA
+			  jdbc.user=DBPCPAY
+			  jdbc.password=DBPCPAY
+			  check.connect.timeout=10000
+			  check.connect.tracing.segment=Availability,Connections
+	      </attribute>
+	</mbean>
+
+	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.easypaynet.database:service=DatabaseAvailability,type=DB2,name=AS62">
+		<constructor>
+			<arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.jdbc.JDBCCollector2"/>
+		</constructor>
+		<attribute name="SegmentPrefixElements"></attribute>
+		<attribute name="PollFrequency">60000</attribute>
+		<attribute name="ConnectionFactoryClassName">com.adp.sbs.metrics.tracing.collectors.jdbc.CheckedDriverManagerJDBCConnectionFactory</attribute>
+		<attribute name="AvailabilitySegment">EasyPayNet,Database,DB2,AS62(San Antonio),Availability</attribute>
+		<attribute name="AvailabilitySQL">SELECT CURDATE() FROM SYSIBM.SYSDUMMY1</attribute>
+		<attribute name="ConnectionFactoryProperties">
+			  jdbc.driver=com.ibm.as400.access.AS400JDBCDriver
+			  jdbc.url=jdbc:as400://AS62//dbpcpay; date format=USA
+			  jdbc.user=DBPCPAY
+			  jdbc.password=DBPCPAY
+			  check.connect.timeout=10000
+			  check.connect.tracing.segment=Availability,Connections
+	      </attribute>
+	</mbean>
+
+	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.easypaynet.database:service=DatabaseAvailability,type=DB2,name=ASEJ">
+		<constructor>
+			<arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.jdbc.JDBCCollector2"/>
+		</constructor>
+		<attribute name="SegmentPrefixElements"></attribute>
+		<attribute name="PollFrequency">60000</attribute>
+		<attribute name="ConnectionFactoryClassName">com.adp.sbs.metrics.tracing.collectors.jdbc.CheckedDriverManagerJDBCConnectionFactory</attribute>
+		<attribute name="AvailabilitySegment">EasyPayNet,Database,DB2,ASEJ(Syracuse),Availability</attribute>
+		<attribute name="AvailabilitySQL">SELECT CURDATE() FROM SYSIBM.SYSDUMMY1</attribute>
+		<attribute name="ConnectionFactoryProperties">
+			  jdbc.driver=com.ibm.as400.access.AS400JDBCDriver
+			  jdbc.url=jdbc:as400://ASEJ//dbpcpay; date format=USA
+			  jdbc.user=DBPCPAY
+			  jdbc.password=DBPCPAY
+			  check.connect.timeout=10000
+			  check.connect.tracing.segment=Availability,Connections
+	      </attribute>
+	</mbean>
+
+	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.easypaynet.database:service=DatabaseAvailability,type=DB2,name=AS39">
+		<constructor>
+			<arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.jdbc.JDBCCollector2"/>
+		</constructor>
+		<attribute name="SegmentPrefixElements"></attribute>
+		<attribute name="PollFrequency">60000</attribute>
+		<attribute name="ConnectionFactoryClassName">com.adp.sbs.metrics.tracing.collectors.jdbc.CheckedDriverManagerJDBCConnectionFactory</attribute>
+		<attribute name="AvailabilitySegment">EasyPayNet,Database,DB2,AS39(Western New York),Availability</attribute>
+		<attribute name="AvailabilitySQL">SELECT CURDATE() FROM SYSIBM.SYSDUMMY1</attribute>
+		<attribute name="ConnectionFactoryProperties">
+			  jdbc.driver=com.ibm.as400.access.AS400JDBCDriver
+			  jdbc.url=jdbc:as400://AS39//dbpcpay; date format=USA
+			  jdbc.user=DBPCPAY
+			  jdbc.password=DBPCPAY
+			  check.connect.timeout=10000
+			  check.connect.tracing.segment=Availability,Connections
+	      </attribute>
+	</mbean>
+
+	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.easypaynet.database:service=DatabaseAvailability,type=DB2,name=ASE8">
+		<constructor>
+			<arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.jdbc.JDBCCollector2"/>
+		</constructor>
+		<attribute name="SegmentPrefixElements"></attribute>
+		<attribute name="PollFrequency">60000</attribute>
+		<attribute name="ConnectionFactoryClassName">com.adp.sbs.metrics.tracing.collectors.jdbc.CheckedDriverManagerJDBCConnectionFactory</attribute>
+		<attribute name="AvailabilitySegment">EasyPayNet,Database,DB2,ASE8(Boston 2),Availability</attribute>
+		<attribute name="AvailabilitySQL">SELECT CURDATE() FROM SYSIBM.SYSDUMMY1</attribute>
+		<attribute name="ConnectionFactoryProperties">
+			  jdbc.driver=com.ibm.as400.access.AS400JDBCDriver
+			  jdbc.url=jdbc:as400://ASE8//dbpcpay; date format=USA
+			  jdbc.user=DBPCPAY
+			  jdbc.password=DBPCPAY
+			  check.connect.timeout=10000
+			  check.connect.tracing.segment=Availability,Connections
+	      </attribute>
+	</mbean>
+
+	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.easypaynet.database:service=DatabaseAvailability,type=DB2,name=ASE5">
+		<constructor>
+			<arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.jdbc.JDBCCollector2"/>
+		</constructor>
+		<attribute name="SegmentPrefixElements"></attribute>
+		<attribute name="PollFrequency">60000</attribute>
+		<attribute name="ConnectionFactoryClassName">com.adp.sbs.metrics.tracing.collectors.jdbc.CheckedDriverManagerJDBCConnectionFactory</attribute>
+		<attribute name="AvailabilitySegment">EasyPayNet,Database,DB2,ASE5(NY Metro 2),Availability</attribute>
+		<attribute name="AvailabilitySQL">SELECT CURDATE() FROM SYSIBM.SYSDUMMY1</attribute>
+		<attribute name="ConnectionFactoryProperties">
+			  jdbc.driver=com.ibm.as400.access.AS400JDBCDriver
+			  jdbc.url=jdbc:as400://ASE5//dbpcpay; date format=USA
+			  jdbc.user=DBPCPAY
+			  jdbc.password=DBPCPAY
+			  check.connect.timeout=10000
+			  check.connect.tracing.segment=Availability,Connections
+	      </attribute>
+	</mbean>
+
+	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.easypaynet.database:service=DatabaseAvailability,type=DB2,name=ASE6">
+		<constructor>
+			<arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.jdbc.JDBCCollector2"/>
+		</constructor>
+		<attribute name="SegmentPrefixElements"></attribute>
+		<attribute name="PollFrequency">60000</attribute>
+		<attribute name="ConnectionFactoryClassName">com.adp.sbs.metrics.tracing.collectors.jdbc.CheckedDriverManagerJDBCConnectionFactory</attribute>
+		<attribute name="AvailabilitySegment">EasyPayNet,Database,DB2,ASE6(Elk Grove 2 E6),Availability</attribute>
+		<attribute name="AvailabilitySQL">SELECT CURDATE() FROM SYSIBM.SYSDUMMY1</attribute>
+		<attribute name="ConnectionFactoryProperties">
+			  jdbc.driver=com.ibm.as400.access.AS400JDBCDriver
+			  jdbc.url=jdbc:as400://ASE6//dbpcpay; date format=USA
+			  jdbc.user=DBPCPAY
+			  jdbc.password=DBPCPAY
+			  check.connect.timeout=10000
+			  check.connect.tracing.segment=Availability,Connections
+	      </attribute>
+	</mbean>
+
+	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.easypaynet.database:service=DatabaseAvailability,type=DB2,name=ASEB">
+		<constructor>
+			<arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.jdbc.JDBCCollector2"/>
+		</constructor>
+		<attribute name="SegmentPrefixElements"></attribute>
+		<attribute name="PollFrequency">60000</attribute>
+		<attribute name="ConnectionFactoryClassName">com.adp.sbs.metrics.tracing.collectors.jdbc.CheckedDriverManagerJDBCConnectionFactory</attribute>
+		<attribute name="AvailabilitySegment">EasyPayNet,Database,DB2,ASEB(Miami),Availability</attribute>
+		<attribute name="AvailabilitySQL">SELECT CURDATE() FROM SYSIBM.SYSDUMMY1</attribute>
+		<attribute name="ConnectionFactoryProperties">
+			  jdbc.driver=com.ibm.as400.access.AS400JDBCDriver
+			  jdbc.url=jdbc:as400://ASEB//dbpcpay; date format=USA
+			  jdbc.user=DBPCPAY
+			  jdbc.password=DBPCPAY
+			  check.connect.timeout=10000
+			  check.connect.tracing.segment=Availability,Connections
+	      </attribute>
+	</mbean>
+
+	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.easypaynet.database:service=DatabaseAvailability,type=DB2,name=ASEC">
+		<constructor>
+			<arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.jdbc.JDBCCollector2"/>
+		</constructor>
+		<attribute name="SegmentPrefixElements"></attribute>
+		<attribute name="PollFrequency">60000</attribute>
+		<attribute name="ConnectionFactoryClassName">com.adp.sbs.metrics.tracing.collectors.jdbc.CheckedDriverManagerJDBCConnectionFactory</attribute>
+		<attribute name="AvailabilitySegment">EasyPayNet,Database,DB2,ASEC(Stratford),Availability</attribute>
+		<attribute name="AvailabilitySQL">SELECT CURDATE() FROM SYSIBM.SYSDUMMY1</attribute>
+		<attribute name="ConnectionFactoryProperties">
+			  jdbc.driver=com.ibm.as400.access.AS400JDBCDriver
+			  jdbc.url=jdbc:as400://ASEC//dbpcpay; date format=USA
+			  jdbc.user=DBPCPAY
+			  jdbc.password=DBPCPAY
+			  check.connect.timeout=10000
+			  check.connect.tracing.segment=Availability,Connections
+	      </attribute>
+	</mbean>
+
+	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.easypaynet.database:service=DatabaseAvailability,type=DB2,name=ASED">
+		<constructor>
+			<arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.jdbc.JDBCCollector2"/>
+		</constructor>
+		<attribute name="SegmentPrefixElements"></attribute>
+		<attribute name="PollFrequency">60000</attribute>
+		<attribute name="ConnectionFactoryClassName">com.adp.sbs.metrics.tracing.collectors.jdbc.CheckedDriverManagerJDBCConnectionFactory</attribute>
+		<attribute name="AvailabilitySegment">EasyPayNet,Database,DB2,ASED(Pittsburgh),Availability</attribute>
+		<attribute name="AvailabilitySQL">SELECT CURDATE() FROM SYSIBM.SYSDUMMY1</attribute>
+		<attribute name="ConnectionFactoryProperties">
+			  jdbc.driver=com.ibm.as400.access.AS400JDBCDriver
+			  jdbc.url=jdbc:as400://ASED//dbpcpay; date format=USA
+			  jdbc.user=DBPCPAY
+			  jdbc.password=DBPCPAY
+			  check.connect.timeout=10000
+			  check.connect.tracing.segment=Availability,Connections
+	      </attribute>
+	</mbean>
+
+	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.easypaynet.database:service=DatabaseAvailability,type=DB2,name=ASEE">
+		<constructor>
+			<arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.jdbc.JDBCCollector2"/>
+		</constructor>
+		<attribute name="SegmentPrefixElements"></attribute>
+		<attribute name="PollFrequency">60000</attribute>
+		<attribute name="ConnectionFactoryClassName">com.adp.sbs.metrics.tracing.collectors.jdbc.CheckedDriverManagerJDBCConnectionFactory</attribute>
+		<attribute name="AvailabilitySegment">EasyPayNet,Database,DB2,ASEE(Seattle),Availability</attribute>
+		<attribute name="AvailabilitySQL">SELECT CURDATE() FROM SYSIBM.SYSDUMMY1</attribute>
+		<attribute name="ConnectionFactoryProperties">
+			  jdbc.driver=com.ibm.as400.access.AS400JDBCDriver
+			  jdbc.url=jdbc:as400://ASEE//dbpcpay; date format=USA
+			  jdbc.user=DBPCPAY
+			  jdbc.password=DBPCPAY
+			  check.connect.timeout=10000
+			  check.connect.tracing.segment=Availability,Connections
+	      </attribute>
+	</mbean>
+
+	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.easypaynet.database:service=DatabaseAvailability,type=DB2,name=AS64">
+		<constructor>
+			<arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.jdbc.JDBCCollector2"/>
+		</constructor>
+		<attribute name="SegmentPrefixElements"></attribute>
+		<attribute name="PollFrequency">60000</attribute>
+		<attribute name="ConnectionFactoryClassName">com.adp.sbs.metrics.tracing.collectors.jdbc.CheckedDriverManagerJDBCConnectionFactory</attribute>
+		<attribute name="AvailabilitySegment">EasyPayNet,Database,DB2,AS64(Detroit),Availability</attribute>
+		<attribute name="AvailabilitySQL">SELECT CURDATE() FROM SYSIBM.SYSDUMMY1</attribute>
+		<attribute name="ConnectionFactoryProperties">
+			  jdbc.driver=com.ibm.as400.access.AS400JDBCDriver
+			  jdbc.url=jdbc:as400://AS64//dbpcpay; date format=USA
+			  jdbc.user=DBPCPAY
+			  jdbc.password=DBPCPAY
+			  check.connect.timeout=10000
+			  check.connect.tracing.segment=Availability,Connections
+	      </attribute>
+	</mbean>
+
+	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.easypaynet.database:service=DatabaseAvailability,type=DB2,name=AS20">
+		<constructor>
+			<arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.jdbc.JDBCCollector2"/>
+		</constructor>
+		<attribute name="SegmentPrefixElements"></attribute>
+		<attribute name="PollFrequency">60000</attribute>
+		<attribute name="ConnectionFactoryClassName">com.adp.sbs.metrics.tracing.collectors.jdbc.CheckedDriverManagerJDBCConnectionFactory</attribute>
+		<attribute name="AvailabilitySegment">EasyPayNet,Database,DB2,AS20(Phoenix),Availability</attribute>
+		<attribute name="AvailabilitySQL">SELECT CURDATE() FROM SYSIBM.SYSDUMMY1</attribute>
+		<attribute name="ConnectionFactoryProperties">
+			  jdbc.driver=com.ibm.as400.access.AS400JDBCDriver
+			  jdbc.url=jdbc:as400://AS20//dbpcpay; date format=USA
+			  jdbc.user=DBPCPAY
+			  jdbc.password=DBPCPAY
+			  check.connect.timeout=10000
+			  check.connect.tracing.segment=Availability,Connections
+	      </attribute>
+	</mbean>
+
+	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.easypaynet.database:service=DatabaseAvailability,type=DB2,name=ASE7">
+		<constructor>
+			<arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.jdbc.JDBCCollector2"/>
+		</constructor>
+		<attribute name="SegmentPrefixElements"></attribute>
+		<attribute name="PollFrequency">60000</attribute>
+		<attribute name="ConnectionFactoryClassName">com.adp.sbs.metrics.tracing.collectors.jdbc.CheckedDriverManagerJDBCConnectionFactory</attribute>
+		<attribute name="AvailabilitySegment">EasyPayNet,Database,DB2,ASE7(Sacramento 2),Availability</attribute>
+		<attribute name="AvailabilitySQL">SELECT CURDATE() FROM SYSIBM.SYSDUMMY1</attribute>
+		<attribute name="ConnectionFactoryProperties">
+			  jdbc.driver=com.ibm.as400.access.AS400JDBCDriver
+			  jdbc.url=jdbc:as400://ASE7//dbpcpay; date format=USA
+			  jdbc.user=DBPCPAY
+			  jdbc.password=DBPCPAY
+			  check.connect.timeout=10000
+			  check.connect.tracing.segment=Availability,Connections
+	      </attribute>
+	</mbean>
+
+	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.easypaynet.database:service=DatabaseAvailability,type=DB2,name=ASER">
+		<constructor>
+			<arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.jdbc.JDBCCollector2"/>
+		</constructor>
+		<attribute name="SegmentPrefixElements"></attribute>
+		<attribute name="PollFrequency">60000</attribute>
+		<attribute name="ConnectionFactoryClassName">com.adp.sbs.metrics.tracing.collectors.jdbc.CheckedDriverManagerJDBCConnectionFactory</attribute>
+		<attribute name="AvailabilitySegment">EasyPayNet,Database,DB2,ASER(St. Louis),Availability</attribute>
+		<attribute name="AvailabilitySQL">SELECT CURDATE() FROM SYSIBM.SYSDUMMY1</attribute>
+		<attribute name="ConnectionFactoryProperties">
+			  jdbc.driver=com.ibm.as400.access.AS400JDBCDriver
+			  jdbc.url=jdbc:as400://ASER//dbpcpay; date format=USA
+			  jdbc.user=DBPCPAY
+			  jdbc.password=DBPCPAY
+			  check.connect.timeout=10000
+			  check.connect.tracing.segment=Availability,Connections
+	      </attribute>
+	</mbean>
+

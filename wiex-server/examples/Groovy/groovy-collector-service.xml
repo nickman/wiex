@@ -1,0 +1,19 @@
+	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.metrics:service=GroovyCollector,type=Misc">
+		<constructor>
+			<arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.groovy.GroovyCollector"/>
+		</constructor>
+		<attribute name="SegmentPrefixElements">GroovyCollector</attribute>
+		<attribute name="GroovyCollector">
+				<GroovyCollector name="MBeanServerAttributes" debug="true" recompinterval="15000" recomp="true" 
+								 scriptbaseclass="" encoding="" tolerance="0" verbose="true" warning="1">
+					<script name="HeapStats" groovyCodeSource="url">
+						a.sdfgm
+					</script>
+					<evaluate name="RegisteredMBeans" type="CINT" attributeName="">
+					</evaluate>
+					<properties>
+						segment.suffix=MBeanServerAttributes
+					</properties>
+				</GroovyCollector>
+		</attribute>
+	</mbean>

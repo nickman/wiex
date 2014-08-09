@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<server>
+	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.telenet:service=MDBQueues,name=AP04">
+	      <constructor>
+	         <arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.jmx.JMXCollector"/>
+	      </constructor>
+	      <attribute name="ConnectionFactoryClassName">com.adp.sbs.metrics.tracing.collectors.jmx.JNDIMBeanServerConnectionFactory</attribute>
+	      <attribute name="SegmentPrefixElements">TeleNet|MDBQueues</attribute>
+	      <attribute name="PollFrequency">10000</attribute>
+	      <attribute name="ConnectionFactoryProperties">
+			java.naming.factory.initial=org.jnp.interfaces.NamingContextFactory
+			java.naming.factory.url.pkgs=org.jboss.naming:org.jnp.interfaces
+			java.naming.provider.url=172.19.16.24:1099
+			sbstracing.jndi.name=/jmx/rmi/RMIAdaptor		  
+	      </attribute>
+			<attribute name="TargetAttributes">
+				<TargetAttributes>
+					<TargetAttribute objectName="jboss.mq.destination:name=AsyncClientAttr,service=Queue" attributeName="QueueDepth" segment="AP04|AsyncClientAttr" metricName="QueueDepth" type="CINT" />
+					<TargetAttribute objectName="jboss.mq.destination:name=AsyncDataSync,service=Queue" attributeName="QueueDepth" segment="AP04|AsyncDataSync" metricName="QueueDepth" type="CINT" />
+					<TargetAttribute objectName="jboss.mq.destination:name=DLQ,service=Queue" attributeName="QueueDepth" segment="AP04|DLQ" metricName="QueueDepth" type="CINT" />
+				</TargetAttributes>
+			</attribute>	      
+	</mbean>
+
+	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.metrics:service=JMXCollector,type=DataSource">
+		<constructor>
+			<arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.jmx.JMXCollector"/>
+		</constructor>
+		<attribute name="ConnectionFactoryClassName">com.adp.sbs.metrics.tracing.collectors.jmx.LocalMBeanServerConnectionFactory</attribute>
+		<attribute name="ConnectionFactoryProperties">
+			  sbstracing.jmx.factory.domain=jboss
+	      </attribute>
+		<attribute name="SegmentPrefixElements">DataSources</attribute>
+		<attribute name="TargetAttributes">
+			<TargetAttributes>
+				<TargetAttribute objectName="jboss.jca:service=ManagedConnectionPool,*" attributeName="InUseConnectionCount" segment="{TARGET-PROPERTY:name}" metricName="{ATTRIBUTE}" type="CINT"/>
+				<TargetAttribute objectName="jboss.jca:service=ManagedConnectionPool,*" attributeName="AvailableConnectionCount" segment="{TARGET-PROPERTY:name}" metricName="{ATTRIBUTE}" type="CINT"/>
+				<TargetAttribute objectName="jboss.jca:service=ManagedConnectionPool,*" attributeName="ConnectionCreatedCount" segment="{TARGET-PROPERTY:name}" metricName="{ATTRIBUTE}" type="DINT"/>
+				<TargetAttribute objectName="jboss.jca:service=ManagedConnectionPool,*" attributeName="ConnectionDestroyedCount" segment="{TARGET-PROPERTY:name}" metricName="{ATTRIBUTE}" type="DINT"/>
+			</TargetAttributes>
+		</attribute>
+	</mbean>
+	
+	
+	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.metrics:service=JMXCollector,type=TransactionManager">
+		<constructor>
+			<arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.jmx.JMXCollector"/>
+		</constructor>
+		<attribute name="SegmentPrefixElements">TransactionManager</attribute>
+		<attribute name="TargetAttributes">
+			<TargetAttributes>
+				<TargetAttribute objectName="jboss:service=TransactionManager" attributeName="TransactionCount" segment="" metricName="{ATTRIBUTE}" type="CINT"/>
+				<TargetAttribute objectName="jboss:service=TransactionManager" attributeName="CommitCount" segment="" metricName="{ATTRIBUTE}" type="CDINT"/>
+				<TargetAttribute objectName="jboss:service=TransactionManager" attributeName="RollbackCount" segment="" metricName="{ATTRIBUTE}" type="CDINT"/>				
+			</TargetAttributes>
+		</attribute>
+	</mbean>
+	
+	
+	
+	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.telenet:service=MDBQueues,name=AP04">
+	      <constructor>
+	         <arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.jmx.JMXCollector"/>
+	      </constructor>
+	      <attribute name="ConnectionFactoryClassName">com.adp.sbs.metrics.tracing.collectors.jmx.JNDIMBeanServerConnectionFactory</attribute>
+	      <attribute name="AvailabilitySegment">AP04,JMX</attribute>
+	      <attribute name="AvailabilityAttribute">State</attribute>
+	      <attribute name="AvailabilityMBean">jboss:service=Naming</attribute>
+	      <attribute name="PollFrequency">10000</attribute>
+	      <attribute name="ConnectionFactoryProperties">
+			java.naming.factory.initial=org.jnp.interfaces.NamingContextFactory
+			java.naming.factory.url.pkgs=org.jboss.naming:org.jnp.interfaces
+			java.naming.provider.url=172.19.16.24:1099
+			sbstracing.jndi.name=/jmx/rmi/RMIAdaptor		  
+	      </attribute>
+	</mbean>
+
+	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.telenet:service=ClusterNodeCount,name=AP06">
+	      <constructor>
+	         <arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.jmx.JMXCollector"/>
+	      </constructor>
+	      <attribute name="ConnectionFactoryClassName">com.adp.sbs.metrics.tracing.collectors.jmx.JNDIMBeanServerConnectionFactory</attribute>
+	      <attribute name="SegmentPrefixElements">TeleNet|DataSync|Partition</attribute>
+	      <attribute name="PollFrequency">10000</attribute>
+	      <attribute name="ConnectionFactoryProperties">
+			java.naming.factory.initial=org.jnp.interfaces.NamingContextFactory
+			java.naming.factory.url.pkgs=org.jboss.naming:org.jnp.interfaces
+			java.naming.provider.url=172.19.16.26:1299
+			sbstracing.jndi.name=/jmx/rmi/RMIAdaptor		  
+	      </attribute>
+			<attribute name="TargetAttributes">
+				<TargetAttributes>
+					<TargetAttribute objectName="jboss:service=DS-PROD-DataSyncTeleNet-164-PARTITION" attributeName="CurrentView" 
+					segment="Nodes" metricName="Count" type="CINT" simpleTracer="com.adp.sbs.metrics.tracing.collectors.jmx.tracers.CollectionCountTracer"/>
+				</TargetAttributes>
+			</attribute>	      
+	</mbean>
+
+
+<!-- Standard JMX Remoting -->
+<!-- 
+     <attribute name="ConnectionFactoryClassName">com.adp.sbs.metrics.tracing.collectors.jmx.RemoteRMIMBeanServerConnectionFactory</attribute>
+     <attribute name="ConnectionFactoryProperties">
+	  jmx.rmi.url=service:jmx:rmi:///jndi/rmi://10.19.47.48:7004/jmxrmi
+     </attribute>
+ -->	      	
+	
+</server>
+
+<!--
+	$Log: jmx-collector-service.xml  $
+	Revision 1.2 2007/03/27 06:07:08EDT Whitehead, Nicholas (whitehen) 
+	Updated for SimpleObjectTracer options.
+-->

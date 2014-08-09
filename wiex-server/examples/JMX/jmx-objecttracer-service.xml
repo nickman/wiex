@@ -1,0 +1,16 @@
+	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.telenet:service=MDBQueues,name=AP04">
+	      <constructor>
+	         <arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.jmx.JMXCollector"/>
+	      </constructor>
+	      <attribute name="ConnectionFactoryClassName">com.adp.sbs.metrics.tracing.collectors.jmx.JNDIMBeanServerConnectionFactory</attribute>
+	      <attribute name="AvailabilitySegment">AP04,JMX</attribute>
+	      <attribute name="AvailabilityAttribute">State</attribute>
+	      <attribute name="AvailabilityMBean">jboss:service=Naming</attribute>
+	      <attribute name="PollFrequency">10000</attribute>
+	      <attribute name="ConnectionFactoryProperties">
+			java.naming.factory.initial=org.jnp.interfaces.NamingContextFactory
+			java.naming.factory.url.pkgs=org.jboss.naming:org.jnp.interfaces
+			java.naming.provider.url=172.19.16.24:1099
+			sbstracing.jndi.name=/jmx/rmi/RMIAdaptor		  
+	      </attribute>
+	</mbean>

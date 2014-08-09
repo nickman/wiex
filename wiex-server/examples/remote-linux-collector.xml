@@ -1,0 +1,11 @@
+	<mbean 	code="com.adp.sbs.metrics.tracing.collectors.CollectorService"
+			name="com.adp.sbs.metrics:service=RemoteLinuxMonitor">
+	      <constructor>
+	         <arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.linux.RemoteLinuxSARCollector"/>
+	      </constructor>
+	      <attribute name="KnownHostsFile">c:/Documents and Settings/whitehen/.ssh/known_hosts</attribute>
+	      <attribute name="PassPhrase">Hello World</attribute>
+	      <attribute name="PrivateKeyFile">C:/keys/jboss_dsa.key</attribute>
+	      <attribute name="UserName">jboss</attribute>
+	      <attribute name="HostName">10.19.47.119</attribute>
+	</mbean>

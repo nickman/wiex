@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<server>
+<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.metrics:service=HibernateMonitor,name=TeleNetHibernate">
+      <constructor>
+         <arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.hibernate.HibernateCollector"/>
+      </constructor>
+        <attribute name="SessionFactory">java:/hibernate/TeleNetHibernateSessionFactory</attribute>
+        <attribute name="ResetCount">1</attribute>
+        <depends>jboss.hibernate:service=TeleNetHibernate</depends>
+</mbean>
+
+<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.metrics:service=HibernateMonitor,name=CatsHibernate">
+      <constructor>
+         <arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.hibernate.HibernateCollector"/>
+      </constructor>
+        <attribute name="SessionFactory">java:/hibernate/CatsHibernateSessionFactory</attribute>
+        <attribute name="ResetCount">1</attribute>
+        <depends>jboss.hibernate:service=CatsHibernate</depends>
+</mbean>
+
+</server>

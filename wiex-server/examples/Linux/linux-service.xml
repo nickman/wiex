@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<server>
+
+		<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.metrics:service=LocalLinuxMonitor">
+				<constructor>
+						<arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.linux.LinuxSARCollector"/>
+				</constructor>
+		</mbean>
+			
+		<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.metrics:service=LocalLinuxMonitorPlus">
+				<constructor>
+						<arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.linux.LinuxSARCollector"/>
+				</constructor>
+			<attribute name="ProcessLocator">JBoss Default Server~java | grep jboss | grep default</attribute>			
+			<attribute name="DirSizer">JBoss Default Server~/home/jboss/jboss-4.0.2/server/default/log</attribute>		
+			<attribute name="PortTester">TeleNet MQSeries 1~172.18.106.46 50000</attribute>	
+		</mbean>
+		
+
+
+	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.metrics:service=LinuxMonitor">
+		<constructor>
+			<arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.linux.LinuxSARCollector"/>
+		</constructor>
+	</mbean>
+	<mbean 	code="com.adp.sbs.metrics.tracing.collectors.CollectorService" 
+			name="com.adp.sbs.metrics:service=RemoteLinuxMonitor">
+	      <constructor>
+	         <arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.linux.RemoteLinuxSARCollector"/>
+	      </constructor>
+	      <attribute name="KnownHostsFile">c:/Documents and Settings/whitehen/.ssh/known_hosts</attribute>
+	      <attribute name="PassPhrase">Hello World</attribute>
+	      <attribute name="PrivateKeyFile">C:/keys/jboss_dsa.key</attribute>
+	      <attribute name="UserName">jboss</attribute>
+	      <attribute name="HostName">10.19.47.119</attribute>	 
+	      <attribute name="TimeOut">10000</attribute>	 
+	      <attribute name="PIDLocator">ps -ef | grep telenet15-dev | grep -v grep | awk '{print $2}'</attribute>     
+	</mbean>
+
+</server>
+
+<!--
+	$Log: linux-service.xml  $
+	Revision 1.3 2007/06/23 16:02:31EDT Whitehead, Nicholas (whitehen) 
+	Updated for PortTesters
+	Revision 1.2 2007/03/27 06:08:05EDT Whitehead, Nicholas (whitehen) 
+	Updated for DirSizer and ProcessLocator options.
+-->

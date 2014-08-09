@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<mbean
+		code="com.adp.sbs.metrics.tracing.collectors.CollectorService"
+		name="com.adp.sbs.metrics:service=BlockingLocks,type=Oracle,name=REPTDB">
+		<constructor>
+			<arg type="java.lang.String"
+				value="com.adp.sbs.metrics.tracing.collectors.jdbc.JDBCCollector2" />
+		</constructor>
+		<attribute name="SegmentPrefixElements">
+			{THIS-PROPERTY:type},{THIS-PROPERTY:name},{THIS-PROPERTY:service}
+		</attribute>
+		<attribute name="PollFrequency">60000</attribute>
+		<attribute name="LogErrors">true</attribute>
+		<attribute name="ImmediateCollect">true</attribute>		
+		<attribute name="ConnectionFactoryClassName">com.adp.sbs.metrics.tracing.collectors.jdbc.DataSourceJDBCConnectionFactory</attribute>
+		<attribute name="ConnectionFactoryProperties">
+				  jndi.datasource.name=java:/NetDevDS
+	  </attribute>
+
+		<attribute name="Mapping">
+			<Queries>
+				<Query>
+					<SQL>SELECT COUNT(*), NVL(SUM(SECONDS_IN_WAIT),0) FROM GV$SESSION WHERE LOCKWAIT IS NOT NULL</SQL>
+					<Mapping column="0" segment="" metricName="Total Blocked Sessions" type="CINT"  scoped="true" scopeResetValue="0" />
+					<Mapping column="1" segment="" metricName="Total Blocked Time (s)" type="CINT"  scoped="true" scopeResetValue="0" />
+				</Query>
+				<Query>
+					<SQL>
+							SELECT COUNT(*), SUM(SECONDS_IN_WAIT), EVENT, U.NAME, O.NAME
+							FROM GV$SESSION S , SYS.OBJ$ O, SYS.USER$ U
+							WHERE U.USER# = O.OWNER#
+							AND S.ROW_WAIT_OBJ# = O.OBJ#
+							AND LOCKWAIT IS NOT NULL 
+							GROUP BY EVENT, U.NAME, O.NAME					
+					</SQL>
+					<Mapping column="0" segment="By Object|{3}|{4}|{2}" metricName="Total Blocked Sessions" type="CINT"  scoped="true" scopeResetValue="0" />
+					<Mapping column="1" segment="By Object|{3}|{4}|{2}" metricName="Total Blocked Time (s)" type="CINT"  scoped="true" scopeResetValue="0" />
+				</Query>
+				<Query>
+					<SQL>SELECT COUNT(*), SUM(SECONDS_IN_WAIT), USERNAME FROM GV$SESSION  WHERE LOCKWAIT IS NOT NULL GROUP BY USERNAME</SQL>
+					<Mapping column="0" segment="By Blocked User|Summary|{2}" metricName="Total Blocked Sessions" type="CINT"  scoped="true" scopeResetValue="0" />
+					<Mapping column="1" segment="By Blocked User|Summary|{2}" metricName="Total Blocked Time (s)" type="CINT"  scoped="true" scopeResetValue="0" />
+				</Query>
+				<Query>
+					<SQL><![CDATA[
+							SELECT a.USERNAME BLOCKED_USER, upper(to_multi_byte(substr(a.machine, instr(a.machine,'\', 1) + 1, length(a.machine)))) BLOCKED_MACHINE,
+							b.USERNAME BLOCKING_USER, upper(to_multi_byte(substr(b.machine, instr(b.machine,'\', 1) + 1, length(b.machine)))) BLOCKING_MACHINE,
+							u.name || '/' || T1.NAME  || '/' || A.EVENT LOCK_CONDITION, SUM(W.CTIME) BLOCKED_TIME, COUNT(*) BLOCK_COUNT
+							FROM GV$LOCK W, GV$LOCK H, GV$SESSION A, GV$SESSION B, GV$LOCKED_OBJECT O, sys.obj$ T1, sys.user$ u
+							WHERE H.LMODE != 0
+							AND W.REQUEST != 0
+							AND W.TYPE = H.TYPE
+							AND W.ID1 = H.ID1
+							AND W.ID2 = H.ID2
+							AND B.SID = H.SID
+							AND B.INST_ID = H.INST_ID
+							AND A.SID = W.SID
+							AND A.INST_ID = W.INST_ID
+							AND H.SID = O.SESSION_ID
+							AND H.INST_ID = O.INST_ID
+							AND O.OBJECT_ID = T1.OBJ#
+							AND U.USER# = t1.owner#
+							AND EXISTS (
+									SELECT SID FROM GV$SESSION VS WHERE LOCKWAIT IS NOT NULL 
+							)
+							GROUP BY a.USERNAME, b.USERNAME, U.NAME, T1.NAME, A.EVENT,
+							upper(to_multi_byte(substr(a.machine, instr(a.machine,'\', 1) + 1, length(a.machine)))),
+							upper(to_multi_byte(substr(b.machine, instr(b.machine,'\', 1) + 1, length(b.machine))))					
+					]]>
+					</SQL>
+					<Mapping column="6" segment="By Blocked User|Blocked User-{0}|Blocked Machine-{1}|Blocking User-{2}|Blocking Machine-{3}|Lock Condition-{4}" metricName="Total Blocked Sessions" type="CINT"  scoped="true" scopeResetValue="0" />
+					<Mapping column="5" segment="By Blocked User|Blocked User-{0}|Blocked Machine-{1}|Blocking User-{2}|Blocking Machine-{3}|Lock Condition-{4}" metricName="Total Blocked Time (s)" type="CINT"  scoped="true" scopeResetValue="0" />
+				</Query>
+				<Query>
+						<SQL><![CDATA[
+							SELECT a.USERNAME BLOCKED_USER, upper(to_multi_byte(substr(a.machine, instr(a.machine,'\', 1) + 1, length(a.machine)))) BLOCKED_MACHINE,
+							a.inst_id BLOCKED_RAC_NODE, a.SID BLOCKED_SESSION,
+							aas.SQL_TEXT BLOCKED_SQL,
+							b.USERNAME BLOCKING_USER, upper(to_multi_byte(substr(b.machine, instr(b.machine,'\', 1) + 1, length(b.machine)))) BLOCKING_MACHINE,
+							b.inst_id BLOCKING_RAC_NODE, b.SID BLOCKING_SESSION,
+							bs.SQL_TEXT BLOCKING_SQL,
+							u.name || '.' || T1.NAME  BLOCKED_OBJECT, A.EVENT LOCK_CONDITION, W.CTIME BLOCKED_TIME
+							FROM GV$LOCK W, GV$LOCK H, GV$SESSION A, GV$SESSION B, GV$LOCKED_OBJECT O, sys.obj$ T1, sys.user$ u
+							, GV$SQL aas, GV$SQL bs
+							WHERE H.LMODE != 0
+							AND W.REQUEST != 0
+							AND W.TYPE = H.TYPE
+							AND W.ID1 = H.ID1
+							AND W.ID2 = H.ID2
+							AND B.SID = H.SID
+							AND B.INST_ID = H.INST_ID
+							AND A.SID = W.SID
+							AND A.INST_ID = W.INST_ID
+							AND H.SID = O.SESSION_ID
+							AND H.INST_ID = O.INST_ID
+							AND O.OBJECT_ID = T1.OBJ#
+							AND A.SQL_ADDRESS = aas.ADDRESS
+							AND B.PREV_SQL_ADDR = bs.ADDRESS
+							AND U.USER# = t1.owner#
+							AND EXISTS (
+									SELECT SID FROM GV$SESSION VS WHERE LOCKWAIT IS NOT NULL 
+							)
+							ORDER BY  BLOCKED_TIME DESC, BLOCKED_USER, BLOCKING_USER						
+						 ]]>
+						</SQL>
+						<CacheResult
+							objectName="com.adp.sbs.monitoring:type=CachedResultSets,name=DC1"
+							attributeName="BlockingLocks"
+							ContainerClass="com.adp.sbs.metrics.tracing.collectors.jdbc.cache.HistoryBufferingCachedResultSet2">
+							<attribute name="HistorySize">20</attribute>
+						</CacheResult>
+				</Query>
+			</Queries>
+		</attribute>
+	</mbean>
+	

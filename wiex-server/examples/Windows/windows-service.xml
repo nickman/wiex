@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.metrics:service=WindowsPerformanceMonitor,name=localhost">
+		<constructor>
+			<arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.windows.WindowsPerformanceMonitorCollector"/>
+		</constructor>
+		<attribute name="SegmentPrefixElements">TeleNet|Hosts|Localhost</attribute>		
+		<attribute name="Port">1249</attribute>
+		<attribute name="Host">localhost</attribute>
+		<attribute name="Counter">CPU</attribute>
+		<attribute name="Counter">\LogicalDisk(C:)\Avg. Disk Bytes/Write</attribute>
+		<attribute name="Counter">\LogicalDisk(C:)\Avg. Disk Bytes/Read</attribute>
+		<attribute name="Counter">\LogicalDisk(C:)\Avg. Disk Bytes/Transfer</attribute>
+		<attribute name="Process">iTunes.exe</attribute>		
+		<attribute name="Service">NSClient</attribute>		
+		<!-- This call is buggy in nsclient4j and throws an invalid date format 
+		<attribute name="FileDate">C:/jboss-4.0.3SP1/server/default/log/server.log</attribute>		
+		-->
+		<attribute name="FileSystem">C:</attribute>		
+	</mbean>
+
+	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.metrics:service=WindowsPerformanceMonitor,name=BPRODPAYNAP01">
+		<constructor>
+			<arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.windows.WindowsPerformanceMonitorCollector"/>
+		</constructor>
+		<attribute name="SegmentPrefixElements">TeleNet|Hosts|Localhost</attribute>		
+		<attribute name="Port">1249</attribute>
+		<attribute name="Host">localhost</attribute>
+		<attribute name="Counter">CPU</attribute>
+		<attribute name="Counter">\LogicalDisk(C:)\Avg. Disk Bytes/Write</attribute>
+		<attribute name="Counter">\LogicalDisk(C:)\Avg. Disk Bytes/Read</attribute>
+		<attribute name="Counter">\LogicalDisk(C:)\Avg. Disk Bytes/Transfer</attribute>
+		<attribute name="Process">iTunes.exe</attribute>		
+		<attribute name="Service">NSClient</attribute>		
+		<!-- This call is buggy in nsclient4j and throws an invalid date format 
+		<attribute name="FileDate">C:/jboss-4.0.3SP1/server/default/log/server.log</attribute>		
+		-->
+		<attribute name="FileSystem">C:</attribute>		
+		<CacheResult objectName="com.adp.sbs.monitoring:type=CachedResultSets,name=Regional" attributeName="ServiceCenter" />
+	</mbean>
+
+

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.metrics:service=JVMMonitor">
+      <constructor>
+         <arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.java.JVMCollector"/>
+      </constructor>
+      <attribute name="SegmentPrefixElements"></attribute>
+      <attribute name="LogErrors">true</attribute>
+      <attribute name="LogTraceTimes">true</attribute>      
+</mbean>
+

@@ -1,0 +1,19 @@
+	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="$mbean">
+		<constructor>
+			<arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.jdbc.JDBCCollector2"/>
+		</constructor>
+		<attribute name="SegmentPrefixElements"></attribute>
+		<attribute name="PollFrequency">60000</attribute>
+		<attribute name="ConnectionFactoryClassName">com.adp.sbs.metrics.tracing.collectors.jdbc.CheckedDriverManagerJDBCConnectionFactory</attribute>
+		<attribute name="AvailabilitySegment">EasyPayNet,Database,$type,$name,Availability</attribute>
+		<attribute name="AvailabilitySQL">$query</attribute>
+		<attribute name="ConnectionFactoryProperties">
+			  jdbc.driver=$driver
+			  jdbc.url=$url
+			  jdbc.user=$user
+			  jdbc.password=$password
+			  check.connect.timeout=$timeout
+			  check.connect.tracing.segment=Availability,Connections
+	      </attribute>
+	</mbean>
+

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<mbean code="com.adp.sbs.metrics.server.rendering.RenderingManagerService" name="com.adp.sbs.metrics.server.rendering:service=RendererManager">
+		<attribute name="Renderers">		                             
+			<Renderers>
+				<Renderer class="com.adp.sbs.metrics.server.rendering.GroovyRenderer" name="UserLoginsPie">
+						<attribute name="DataSourceMBean">com.adp.sbs.monitoring:type=CachedResultSets,name=DC1</attribute>
+						<attribute name="DataSourceAttribute">UserLogins</attribute>
+						<attribute name="SourceUrl">file:////home/jboss/SBSMonitorServer/scripts/groovy/serverLoginsPie.groovy</attribute>
+						<attribute name="GroovyProperties">
+						
+						</attribute>
+						<attribute name="ScriptProperties">
+							chartVSize=400
+							chartHSize=400
+							title=EasyPayNet User Logins By Server
+							label={0}  ({1})
+						</attribute>
+						
+				</Renderer>
+				<Renderer class="com.adp.sbs.metrics.server.rendering.GroovyRenderer" name="UserLoginsByRegionPie">
+						<attribute name="DataSourceMBean">com.adp.sbs.monitoring:type=CachedResultSets,name=DC1</attribute>
+						<attribute name="DataSourceAttribute">UserLoginsByRegion</attribute>
+						<attribute name="SourceUrl">file:////home/jboss/SBSMonitorServer/scripts/groovy/serverLoginsPie.groovy</attribute>
+						<attribute name="GroovyProperties">
+						
+						</attribute>
+						<attribute name="ScriptProperties">
+							chartVSize=400
+							chartHSize=400
+							title=EasyPayNet User Logins By Region
+							label={0}
+						</attribute>
+						
+				</Renderer>
+				
+				
+				<Renderer class="com.adp.sbs.metrics.server.rendering.GroovyRenderer" name="UserLoginsLine">
+						<attribute name="DataSourceMBean">com.adp.sbs.monitoring:type=CachedResultSets,name=DC1</attribute>
+						<attribute name="DataSourceAttribute">UserLoginsHistory</attribute>
+						<attribute name="SourceUrl">file:////home/jboss/SBSMonitorServer/scripts/groovy/serverLoginsLine.groovy</attribute>
+						<attribute name="GroovyProperties">
+						
+						</attribute>
+						<attribute name="ScriptProperties">
+							chartVSize=300
+							chartHSize=600
+							title=EasyPayNet User Logins By Server
+						</attribute>
+						
+				</Renderer>				
+				
+			<Renderer class="com.adp.sbs.metrics.server.rendering.GroovyRenderer" name="UserLoginsTableWTotal">
+						<attribute name="DataSourceMBean">com.adp.sbs.monitoring:type=CachedResultSets,name=DC1</attribute>
+						<attribute name="DataSourceAttribute">UserLogins</attribute>
+						<attribute name="SourceUrl">file:////home/jboss/SBSMonitorServer/scripts/groovy/tableTotal.groovy</attribute>
+						<attribute name="GroovyProperties">
+						</attribute>
+						<attribute name="ScriptProperties">
+							serverPrefix=BPRODPAYN
+						</attribute>						
+			</Renderer>								
+			
+			<Renderer class="com.adp.sbs.metrics.server.rendering.GroovyRenderer" name="UserLoginsByRegionTable">
+						<attribute name="DataSourceMBean">com.adp.sbs.monitoring:type=CachedResultSets,name=DC1</attribute>
+						<attribute name="DataSourceAttribute">UserLoginsByRegion</attribute>
+						<attribute name="SourceUrl">file:////home/jboss/SBSMonitorServer/scripts/groovy/tableTotal.groovy</attribute>
+						<attribute name="GroovyProperties">
+						</attribute>
+						<attribute name="ScriptProperties">
+							serverPrefix=BPRODPAYN
+						</attribute>												
+			</Renderer>								
+			
+			<Renderer class="com.adp.sbs.metrics.server.rendering.GroovyRenderer" name="UserLoginsTodayByRegionTable">
+						<attribute name="DataSourceMBean">com.adp.sbs.monitoring:type=CachedResultSets,name=DC1</attribute>
+						<attribute name="DataSourceAttribute">UserLoginsTodayByRegion</attribute>
+						<attribute name="SourceUrl">file:////home/jboss/SBSMonitorServer/scripts/groovy/tableTotal.groovy</attribute>
+						<attribute name="GroovyProperties">
+						</attribute>
+						<attribute name="ScriptProperties">
+							serverPrefix=BPRODPAYN
+						</attribute>												
+			</Renderer>								
+			
+			<Renderer class="com.adp.sbs.metrics.server.rendering.GroovyRenderer" name="OracleConnectionsByServerTable">
+						<attribute name="DataSourceMBean">com.adp.sbs.monitoring:type=CachedResultSets,name=DC1</attribute>
+						<attribute name="DataSourceAttribute">OracleConnectionsByServer</attribute>
+						<attribute name="SourceUrl">file:////home/jboss/SBSMonitorServer/scripts/groovy/tableTotal.groovy</attribute>
+						<attribute name="GroovyProperties">
+						</attribute>
+						<attribute name="ScriptProperties">
+							serverPrefix=
+						</attribute>												
+			</Renderer>								
+
+				
+<!--				
+				<Renderer class="com.adp.sbs.metrics.server.rendering.CachedResultSetHTMLTableRenderer" name="UserLoginsByRegionTable">
+						<attribute name="DataSourceMBean">com.adp.sbs.monitoring:type=CachedResultSets,name=DC1</attribute>
+						<attribute name="DataSourceAttribute">UserLoginsByRegion</attribute>
+				</Renderer>				
+				
+				
+				<Renderer class="com.adp.sbs.metrics.server.rendering.CachedResultSetHTMLTableRenderer" name="UserLoginsTodayByRegionTable">
+						<attribute name="DataSourceMBean">com.adp.sbs.monitoring:type=CachedResultSets,name=DC1</attribute>
+						<attribute name="DataSourceAttribute">UserLoginsTodayByRegion</attribute>
+				</Renderer>				
+-->				
+				
+				
+				
+			</Renderers>			
+		</attribute>
+	</mbean>
+	

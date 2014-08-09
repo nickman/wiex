@@ -1,0 +1,68 @@
+/*
+BeanShell based service, deployable by the JBoss BeanShell Deployer.
+Maps the platform agent MXBeans to the JBoss JMX Agent.
+Whitehead
+$Revision: 1.1 $
+*/
+
+import java.lang.management.GarbageCollectorMXBean;
+import java.lang.management.ManagementFactory;
+import java.lang.management.MemoryManagerMXBean;
+import java.lang.management.MemoryPoolMXBean;
+
+import javax.management.MBeanServer;
+import javax.management.ObjectName;
+
+import org.jboss.system.ServiceMBeanSupport;
+
+MBeanServer targetServer = null;
+
+public String objectName() {
+   return "com.adp.sbs.jmx:service=MXBeanMapper";
+}
+public String[] dependsOn() {
+   return new String[] {};
+}
+public void setCtx(ServiceMBeanSupport wrapper) {
+   targetServer = wrapper.getServer();
+}
+public void start() {
+	// Standard One Instance MXBeans
+	try {
+		targetServer.registerMBean(ManagementFactory.getClassLoadingMXBean(), new ObjectName(ManagementFactory.CLASS_LOADING_MXBEAN_NAME));
+	} catch (Exception e) {}
+	try {
+		targetServer.registerMBean(ManagementFactory.getMemoryMXBean(), new ObjectName(ManagementFactory.MEMORY_MXBEAN_NAME));
+	} catch (Exception e) {}
+	try {
+		targetServer.registerMBean(ManagementFactory.getThreadMXBean(), new ObjectName(ManagementFactory.THREAD_MXBEAN_NAME));
+	} catch (Exception e) {}
+	try {
+		targetServer.registerMBean(ManagementFactory.getRuntimeMXBean(), new ObjectName(ManagementFactory.RUNTIME_MXBEAN_NAME));
+	} catch (Exception e) {}
+	try {
+		targetServer.registerMBean(ManagementFactory.getOperatingSystemMXBean(), new ObjectName(ManagementFactory.OPERATING_SYSTEM_MXBEAN_NAME));
+	} catch (Exception e) {}
+	try {
+		targetServer.registerMBean(ManagementFactory.getCompilationMXBean(), new ObjectName(ManagementFactory.COMPILATION_MXBEAN_NAME));
+	} catch (Exception e) {}
+	// Multiple Instance MBeans
+	for(GarbageCollectorMXBean gcMx : ManagementFactory.getGarbageCollectorMXBeans()) {
+		try {
+			targetServer.registerMBean(gcMx, new ObjectName(ManagementFactory.GARBAGE_COLLECTOR_MXBEAN_DOMAIN_TYPE + ",name=" + gcMx.getName()));
+		} catch (Exception e) {}			
+	}
+	for(MemoryManagerMXBean mmMx : ManagementFactory.getMemoryManagerMXBeans()) {
+		try {
+			targetServer.registerMBean(mmMx, new ObjectName(ManagementFactory.MEMORY_MANAGER_MXBEAN_DOMAIN_TYPE + ",name=" + mmMx.getName()));
+		} catch (Exception e) {}			
+	}
+	for(MemoryPoolMXBean mpMx : ManagementFactory.getMemoryPoolMXBeans()) {
+		try {
+			targetServer.registerMBean(mpMx, new ObjectName(ManagementFactory.MEMORY_POOL_MXBEAN_DOMAIN_TYPE + ",name=" + mpMx.getName()));
+		} catch (Exception e) {}			
+	}   
+}
+public void stop() {
+}
+

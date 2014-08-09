@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<server>
+        <mbean  code="com.adp.sbs.metrics.tracing.collectors.CollectorService"
+                        name="com.adp.sbs.metrics:service=RemoteSolarisMonitor">
+              <constructor>
+                 <arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.solaris.RemoteSolarisCollector"/>
+              </constructor>
+        <attribute name="SegmentPrefixElements">TeleNet|Hosts|TELPROD</attribute>
+              <attribute name="KnownHostsFile">/home/jboss/.ssh/known_hosts</attribute>
+              <attribute name="PassPhrase">Hello World</attribute>
+              <attribute name="PrivateKeyFile">/home/jboss/.ssh/whitehen_dsa</attribute>
+              <attribute name="UserName">whitehen</attribute>
+              <attribute name="HostName">172.19.16.31</attribute>
+          <attribute name="PIDLocator">ps -ef | grep pmon | grep -v grep | awk '{print $2}'</attribute>
+        </mbean>
+</server>
+

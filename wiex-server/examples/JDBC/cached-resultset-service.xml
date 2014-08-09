@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<server>
+	<mbean
+		code="com.adp.sbs.metrics.tracing.collectors.CollectorService"
+		name="com.adp.sbs.metrics:service=SubmissionRate,name=TeleNet">
+		<constructor>
+			<arg type="java.lang.String"
+				value="com.adp.sbs.metrics.tracing.collectors.jdbc.JDBCCollector2" />
+		</constructor>
+		<attribute name="SegmentPrefixElements">
+			TeleNet,AP01,Status
+		</attribute>
+		<attribute name="ConnectionFactoryClassName">
+			com.adp.sbs.metrics.tracing.collectors.jdbc.DataSourceJDBCConnectionFactory
+		</attribute>
+		<attribute name="ConnectionFactoryProperties">
+			jndi.datasource.name=java:/OracleDS
+		</attribute>
+		<attribute name="Mapping">
+			<Queries>
+				<Query sql="select * from service_center">
+					<CacheResult
+						objectName="com.adp.sbs.monitoring:type=CachedResultSets,name=Regional"
+						attributeName="ServiceCenter" />
+				</Query>
+				<Query
+					sql="select distinct upper(to_multi_byte(substr(machine, instr(machine,&apos;\&apos;, 1) + 1, length(machine)))) CLIENT,  INST_ID, count(*) CONNS from gv$session
+                                                                where username is not null
+                                                                and type = 'USER'
+                                                                and machine not like '%par1oraem%'
+                                                                and osuser is null
+                                                                and to_multi_byte(substr(machine, instr(machine,&apos;\&apos;, 1) + 1, length(machine))) is not null
+                                                                group by machine , INST_ID
+                                                                order by INST_ID, CONNS desc">
+					<CacheResult
+						objectName="com.adp.sbs.monitoring:type=CachedResultSets,name=DC1"
+						attributeName="OracleConnectionsByServer"
+						ContainerClass="com.adp.sbs.metrics.tracing.collectors.jdbc.cache.HistoryBufferingCachedResultSet2">
+						<attribute name="HistorySize">1</attribute>
+					</CacheResult>
+					<!-- <Mapping column="1" segment="{0}" metricName="Connections" type="CINT"/> -->
+				</Query>
+
+			</Queries>
+		</attribute>
+	</mbean>
+
+
+</server>
+
+<!--
+	$Log$
+-->

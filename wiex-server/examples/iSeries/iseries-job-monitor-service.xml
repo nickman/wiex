@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<server>
+	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.metrics:service=JobMonitor,name=AS15">
+		  <constructor>
+			 <arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.iseries.JobMonitor"/>
+		  </constructor>
+		  <attribute name="PollFrequency">60000</attribute>
+		  <attribute name="LogErrors">true</attribute>
+		  <attribute name="SegmentPrefixElements">iSeries,AS15,Job Monitor</attribute>
+		  <attribute name="HostName">AS15</attribute>
+		  <attribute name="UserName">DBPCPAY</attribute>      
+		  <attribute name="Password">DBPCPAY</attribute>   
+		  <!-- Include any jobs belonging to DSAUSER and any User starting with "Q" -->
+		  <attribute name="IncludeUserPattern">(^Q\S+.*|DSAUSER)</attribute>   
+		  <!-- Include all jobs -->
+		  <attribute name="IncludeJobPattern">.*</attribute>
+	</mbean>
+	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.metrics:service=JobMonitor,name=EBSIT6">
+		  <constructor>
+			 <arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.iseries.JobMonitor"/>
+		  </constructor>
+		  <attribute name="PollFrequency">60000</attribute>
+		  <attribute name="LogErrors">true</attribute>
+		  <attribute name="SegmentPrefixElements">iSeries,EBSIT6,Job Monitor</attribute>
+		  <attribute name="HostName">EBSIT6</attribute>
+		  <attribute name="UserName">DBPCPAY</attribute>      
+		  <attribute name="Password">DBPCPAY</attribute>   
+		  <!-- Include any jobs belonging to DSAUSER and any User starting with "Q" -->
+		  <attribute name="IncludeUserPattern">(^Q\S+.*|DSAUSER)</attribute>   
+		  <!-- Include all jobs -->
+		  <attribute name="IncludeJobPattern">.*</attribute>
+	</mbean>	
+</server>
+
