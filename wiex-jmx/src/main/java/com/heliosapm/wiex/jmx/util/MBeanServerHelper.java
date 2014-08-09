@@ -118,6 +118,14 @@ public class MBeanServerHelper {
 	      throw new RuntimeException("Exception Invoking Operation " + opName + " on " + objectName, ex);
 	    }
 	  }
+
+	public static MBeanServer getJBossInstance() {
+		try {
+			return getMBeanServer("jboss");
+		} catch (Exception ex) {
+			throw new RuntimeException(ex);
+		}
+	}
 	  
 	
 }
