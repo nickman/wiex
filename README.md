@@ -22,7 +22,9 @@ with trove4j 3.0.2:
  
 Also here: https://repository.sonatype.org/service/local/repositories/central-proxy/content/net/sf/trove4j/trove4j/3.0.2/trove4j-3.0.2.jar
 
-Add this to static [jboss-home]\server\default\conf\jboss-service.xml:
+Add this to static [jboss-home]\server\default\conf\jboss-service.xml after the section titled:
+
+**Log4j Initialization**
 
 ```
    <mbean code="com.heliosapm.wiex.server.server.boot.WIEXBootstrap" 
