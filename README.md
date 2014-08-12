@@ -27,6 +27,11 @@ Add this to static [jboss-home]\server\default\conf\jboss-service.xml after the 
 **Log4j Initialization**
 
 ```
+   <!-- ==================================================================== -->
+   <!-- WIEX Bootstrap                                                       -->
+   <!-- ==================================================================== -->
+   
+   
    <mbean code="com.heliosapm.wiex.server.server.boot.WIEXBootstrap" 
       name="com.heliosapm.wiex:service=WIEXBootstrap">
       <attribute name="WiexProperties">
@@ -37,16 +42,17 @@ Add this to static [jboss-home]\server\default\conf\jboss-service.xml after the 
 
 
    <mbean code="com.heliosapm.wiex.server.server.boot.JMXMPServerConnectorService"
-      name="com.heliosapm.wiex.jmx.remoting:service=JMXMPConnector,port=18089,target=platform">
-      <attribute name="JmxServiceUrl">service:jmx:jmxmp://0.0.0.0:4089</attribute>
+      name="com.heliosapm.wiex.jmx.remoting:service=JMXMPConnector,port=${platform.jmxmp.port:4089},target=platform">
+      <attribute name="JmxServiceUrl">service:jmx:jmxmp://${platform.jmxmp.bind:0.0.0.0}:${platform.jmxmp.port:4089}</attribute>
       <attribute name="TargetServer">platform</attribute>      
    </mbean>
 
    
    <mbean code="com.heliosapm.wiex.server.server.boot.JMXMPServerConnectorService"
-      name="com.heliosapm.wiex.jmx.remoting:service=JMXMPConnector,port=18088,target=jboss">
-      <attribute name="JmxServiceUrl">service:jmx:jmxmp://0.0.0.0:4088</attribute>
+      name="com.heliosapm.wiex.jmx.remoting:service=JMXMPConnector,port=${jboss.jmxmp.port:4088},target=jboss">
+      <attribute name="JmxServiceUrl">service:jmx:jmxmp://${jboss.jmxmp.bind:0.0.0.0}:${jboss.jmxmp.port:4088}</attribute>
       <attribute name="TargetServer">jboss</attribute>      
    </mbean>
+   
 
 ```
