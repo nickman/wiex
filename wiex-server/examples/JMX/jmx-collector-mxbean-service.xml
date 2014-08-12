@@ -1,15 +1,13 @@
-	<mbean code="com.heliosapm.wiextracing.collectors.CollectorService" name="com.adp.sbs.Net:service=MXBeans,name=AP01">
+	<mbean code="com.heliosapm.wiex.server.collectors.CollectorService" name="com.heliosapm.wiex.opentsdb:service=OpenTSDB,name=App">
 	      <constructor>
-	         <arg type="java.lang.String" value="com.heliosapm.wiextracing.collectors.jmx.JMXCollector"/>
+	         <arg type="java.lang.String" value="com.heliosapm.wiex.server.collectors.jmx.JMXCollector"/>
 	      </constructor>
-		<attribute name="ConnectionFactoryClassName">com.heliosapm.wiextracing.collectors.jmx.JNDIMBeanServerConnectionFactory</attribute>	      
-	      <attribute name="PollFrequency">60000</attribute>
+		<attribute name="ConnectionFactoryClassName">com.heliosapm.wiex.server.collectors.jmx.RemoteRMIMBeanServerConnectionFactory</attribute>	      
+	      <attribute name="PollFrequency">10000</attribute>
 	      <attribute name="ConnectionFactoryProperties">
-			java.naming.factory.initial=org.jnp.interfaces.NamingContextFactory
-			java.naming.factory.url.pkgs=org.jboss.naming:org.jnp.interfaces
-			java.naming.provider.url=192.168.31.221:21099
-			sbstracing.jndi.name=/jmx/rmi/RMIAdaptor		  
+			jmx.rmi.url=service:jmx:jmxmp://localhost:4245
 	      </attribute>
+
 	      <attribute name="MXBeanCollection">
 			  <mxbeans>
 				  <enabled>true</enabled>
@@ -21,5 +19,5 @@
 			  </mxbeans>		
 		  </attribute>
 		  <attribute name="LogErrors">true</attribute>	      
-		  <attribute name="ImmediateCollect">true</attribute>	      		 
+		  <attribute name="ImmediateCollect">true</attribute>	       		 
 	</mbean>

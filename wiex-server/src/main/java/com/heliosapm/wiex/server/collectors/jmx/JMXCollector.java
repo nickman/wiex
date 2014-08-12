@@ -139,7 +139,7 @@ public class JMXCollector extends BaseCollector {
 	public JMXCollector() {
 		super();
 		// sets the default properties
-		connectionFactoryProperties.put("sbstracing.jmx.factory.domain", "jboss");
+		connectionFactoryProperties.put("wiex.jmx.factory.domain", "jboss");
 		for(Thread.State state: Thread.State.values()) {
 			threadStates.put(state, 0);
 		}

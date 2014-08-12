@@ -7,7 +7,11 @@ import gnu.trove.procedure.TObjectLongProcedure;
 
 import java.lang.management.ManagementFactory;
 import java.lang.management.ThreadMXBean;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
@@ -55,6 +59,18 @@ public abstract class AbstractTracer implements ITracer {
 	protected UserIdLocator userIdLocator = null;
 	/** Pattern for parsing trace statements */
 	protected Pattern pattern = null;
+	
+	/** Tracer task scheduler for scheduling things like reconnection to a remote service  */
+	protected final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(2, new ThreadFactory() {
+		protected final AtomicInteger serial = new AtomicInteger();
+		protected final ThreadGroup threadGroup = new ThreadGroup("AbstractTracerSchedulerThreadGroup");
+		@Override
+		public Thread newThread(Runnable r) {
+			Thread t = new Thread(threadGroup, r, "AbstractTracerSchedulerThread#" + serial.incrementAndGet());
+			t.setDaemon(true);
+			return t;
+		}
+	});
 	
 	/** Delta Tracker for ints */
 	protected static TObjectIntHashMap<java.lang.String> intDeltas = null;

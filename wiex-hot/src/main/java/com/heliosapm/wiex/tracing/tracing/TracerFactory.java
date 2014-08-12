@@ -72,7 +72,7 @@ public class TracerFactory   {
 	protected static String userIdLocatorClassName = null;
 	protected static String jmxDomain = null;
 	
-	protected static ITracer tracer = null;
+	protected static volatile ITracer tracer = null;
 	protected static UserIdLocator userIdLocator = null;
 	protected static boolean listenOnChange = false;
 	protected static boolean useNameLookupCache = false;
@@ -393,7 +393,11 @@ public class TracerFactory   {
 	public static ITracer getInstance() {		
 		tracersRequested++; if(tracersRequested==Long.MAX_VALUE) tracersRequested = 0;		
 		if(tracer==null) {
-			initTracer();
+			synchronized(lock) {
+				if(tracer==null) {
+					initTracer();
+				}
+			}
 		}
 		return tracer;
 	}
