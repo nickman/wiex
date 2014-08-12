@@ -165,6 +165,22 @@ public abstract class AbstractTracer implements ITracer {
 		return sb;
 	}
 	
+	/**
+	 * Acquires and truncates the current thread's StringBuilder, then appends the passed stringy
+	 * @param cs The stringy to append to the truncated StringBuilder
+	 * @return A truncated string builder for use by the current thread.
+	 */
+	public StringBuilder getStringBuilder(CharSequence cs) {
+		StringBuilder sb = buffer.get();
+		if(sb==null) {
+			sb = new StringBuilder();
+			buffer.set(sb);
+		}
+		sb.setLength(0);
+		return cs==null ? sb : sb.append(cs);
+	}
+	
+	
 
 	/**
 	 * Creates a concatenated segment string.

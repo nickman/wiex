@@ -63,7 +63,7 @@ public class TracerFactory   {
 	public static final String WIEX_USERID_LOCATOR_CLASS_NAME = "wiex.userid.locator.class.name";
 	public static final String WIEX_DEFAULT_TRACER_CLASS_NAME = com.heliosapm.wiex.tracing.tracing.NullTracer.class.getName();
 	public static final String WIEX_DEFAULT_USERID_LOCATOR_CLASS_NAME = com.heliosapm.wiex.tracing.tracing.user.NullUserIdLocator.class.getName();
-	public static final String JMX_DOMAIN_REGISTRATION = "wiex.tracer.jmx.domain";
+	public static final String JMX_DOMAIN_REGISTRATION = "wiex.jmx.domain";
 	public static final String BOOTSTRAP_PREFIX = "WIEXTRACING.";
 	public static final String USE_NAME_LOOKUP_CACHE = "wiex.tracer.usenamelookupcache";
 	
@@ -104,10 +104,6 @@ public class TracerFactory   {
 		log.info("Version:" + VERSION);
 		initTracer();
 		bootStrapVerbosity();
-		if(!jmxDomain.equalsIgnoreCase("None")) {
-			registerMBean();
-		}
-		
 	}
 	
 	/**
@@ -252,6 +248,9 @@ public class TracerFactory   {
 				log.error("Throwable Instantiating Configured Tracer:" + tracerClassName, e);
 				tracer = new NullTracer();
 				tracer.setUserIdLocator(new NullUserIdLocator());
+			}
+			if(!jmxDomain.equalsIgnoreCase("None")) {
+				registerMBean();
 			}
 		} finally {
 			Thread.currentThread().setContextClassLoader(currentThreadClassLoader);

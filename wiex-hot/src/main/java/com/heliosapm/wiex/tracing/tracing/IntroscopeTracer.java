@@ -67,6 +67,15 @@ public class IntroscopeTracer extends AbstractTracer {
 	public IntroscopeTracer() {
 		
 	}
+	
+	/**
+	 * {@inheritDoc}
+	 * @see com.heliosapm.wiex.tracing.tracing.ITracer#isConnected()
+	 */
+	@Override
+	public boolean isConnected() {	
+		return adapter.isAgentConnected();
+	}
 
 	/**
 	 * {@inheritDoc}

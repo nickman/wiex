@@ -51,6 +51,15 @@ public class JMXTracer extends AbstractTracer implements ITracer {
 	}
 
 	/**
+	 * {@inheritDoc}
+	 * @see com.heliosapm.wiex.tracing.tracing.ITracer#isConnected()
+	 */
+	@Override
+	public boolean isConnected() {
+		return true;
+	}
+	
+	/**
 	 * @return The escaped JMX Metric Delimeter
 	 * @see com.heliosapm.wiex.tracing.tracing.ITracer#getEscapedMetricDelimeter()
 	 */

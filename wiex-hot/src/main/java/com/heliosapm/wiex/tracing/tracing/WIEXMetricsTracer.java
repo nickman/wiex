@@ -13,6 +13,15 @@ import com.heliosapm.wiex.tracing.tracing.thread.ThreadStats;
  * @version $Revision: 1.2 $ 
  */
 public class WIEXMetricsTracer extends AbstractTracer {
+	
+	/**
+	 * {@inheritDoc}
+	 * @see com.heliosapm.wiex.tracing.tracing.ITracer#isConnected()
+	 */
+	@Override
+	public boolean isConnected() {
+		return true;
+	}
 
 	/* (non-Javadoc)
 	 * @see com.heliosapm.wiex.tracing.tracing.ITrace#getMetricDelimeter()

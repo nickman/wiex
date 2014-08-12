@@ -41,6 +41,13 @@ public interface ITracer {
 //	public static final String USER_NAME_PREFIX = "User|"; 
 	
 	/**
+	 * Indicates if this tracer is connected
+	 * @return true if this tracer is connected, false otherwise
+	 */
+	@JMXAttribute(description="Indicates if this tracer is connected.", name="Connected")
+	public boolean isConnected();
+	
+	/**
 	 * Returns the full metric name segment delimeter.
 	 * e.g. "|" is the delimeter for Wily Introscope.
 	 * @return The segment delimeter.

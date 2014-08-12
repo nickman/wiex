@@ -59,7 +59,7 @@ public abstract class BaseCollector {
 	protected static ExecutorService asynchExecutor = null;
 	
 	/**	The system property name of the JMX domain */
-	public static final String JMX_DOMAIN_REGISTRATION = "wiex.tracer.jmx.domain";
+	public static final String JMX_DOMAIN_REGISTRATION = "wiex.jmx.domain";
 	/**	The system property name of the collection scheduler core pool size */
 	public static final String SCHEDULER_CORE_POOL_SIZE_PROPERTY = "wiex.tracer.scheduler.corepoolsize";
 	/**	The system property name of the collection asynch executor core pool size */

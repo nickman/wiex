@@ -1,29 +1,7 @@
-/**
- * Helios, OpenSource Monitoring
- * Brought to you by the Helios Development Group
- *
- * Copyright 2007, Helios Development Group and individual contributors
- * as indicated by the @author tags. See the copyright.txt file in the
- * distribution for a full listing of individual contributors.
- *
- * This is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as
- * published by the Free Software Foundation; either version 2.1 of
- * the License, or (at your option) any later version.
- *
- * This software is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this software; if not, write to the Free
- * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
- * 02110-1301 USA, or see the FSF site: http://www.fsf.org. 
- *
- */
+
 package com.heliosapm.wiex.tracing.tracing;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
@@ -33,8 +11,13 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicLong;
+
+import org.cliffc.high_scale_lib.Counter;
+import org.cliffc.high_scale_lib.NonBlockingHashMap;
 
 import com.heliosapm.wiex.jmx.dynamic.annotation.JMXAttribute;
+import com.heliosapm.wiex.jmx.dynamic.annotation.JMXManagedObject;
 import com.heliosapm.wiex.tracing.helpers.ConfigurationHelper;
 import com.heliosapm.wiex.tracing.tracing.thread.ThreadStats;
 
@@ -51,8 +34,11 @@ import com.heliosapm.wiex.tracing.tracing.thread.ThreadStats;
  * <p>Company: Helios Development Group LLC</p>
  * @author Whitehead (nwhitehead AT heliosdev DOT org)
  * <p><code>com.heliosapm.wiex.tracing.tracing.OpenTSDBTracer</code></p>
+ * TODO:
+ * need to make sure host/agent etc are put in.  (Collector ?)
+ * buildSegment should concat pairs into a tag, then append with a space
  */
-
+@JMXManagedObject(annotated=true)
 public class OpenTSDBTracer extends AbstractTracer implements Runnable {
 	/** The socket to transmit to OpenTSDB */
 	protected volatile Socket socket = null;
@@ -60,6 +46,15 @@ public class OpenTSDBTracer extends AbstractTracer implements Runnable {
 	protected final String tsdbHost;
 	/** The OpenTSDB telnet TCP listening port */
 	protected final int tsdbPort;
+	/** The offline metric persistence file name */
+	protected String metricFileName = null;	
+	/** The offline metric persistence file */
+	protected File metricFile = null;
+
+	
+	/** Indicates if we're tracing the timestamp using seconds or milliseconds */
+	protected final boolean traceUsingMillis;
+	
 	
 	/** The flush queue */
 	protected final BlockingQueue<byte[]> flushQueue = new ArrayBlockingQueue<byte[]>(1024, false);
@@ -70,8 +65,13 @@ public class OpenTSDBTracer extends AbstractTracer implements Runnable {
 	
 	/** Socket connected indicator */
 	protected final AtomicBoolean connected = new AtomicBoolean(false);
+	/** The cumulative count of uneven segment build requests */
+	protected final AtomicLong unevenSegmentRequestCount = new AtomicLong();
+	/** The cumulative count of drop trace requests that occurs when the queue will not accept more entries */
+	protected final AtomicLong metricDrops = new AtomicLong();
 
-	
+	/** The JVM's temp file directory */
+	public static final String TMP_DIR = System.getProperty("java.io.tmpdir");
 	
 	/** The default opentsdb host */
 	public static final String DEFAULT_TSDB_HOST = "localhost";
@@ -81,16 +81,48 @@ public class OpenTSDBTracer extends AbstractTracer implements Runnable {
 	public static final String TSDB_HOST_PROP = "wiex.tsdb.host";
 	/** The opentsdb port system prop name */
 	public static final String TSDB_PORT_PROP = "wiex.tsdb.port";
+	/** The default opentsdb offline metric persistence file name */
+	public static final String DEFAULT_TSDB_PERSIST_FILE = TMP_DIR + (TMP_DIR.endsWith(File.pathSeparator) ? "" : File.pathSeparator) + "wiex-opentsdb-metrics.gzip";
+	/** The opentsdb offline metric persistence file name property */
+	public static final String TSDB_PERSIST_FILE_PROP = "wiex.tsdb.tmpfile"; 	
+	/** The opentsdb trace in millis property */
+	public static final String TSDB_TRACE_IN_MS_PROP = "wiex.tsdb.trace.ms";
+	
+	/** The OpenTSDB metric anf segment delimeter */
+	public static final String DELIM = " ";
+	
+	
+	/** Incident counter */
+	protected final NonBlockingHashMap<String, Counter> incidentCounters = new NonBlockingHashMap<String, Counter>(1024); 
+	/** Period counters, reset every xxx in a while */
+	protected final NonBlockingHashMap<String, Counter> periodCounters = new NonBlockingHashMap<String, Counter>(1024); 
+	
+	
+	/** 
+	 * The format of an OpenTSDB put request: <ol>
+	 * <li>The metric name</li>
+	 * <li>The current timestamp</li>
+	 * <li>The value to trace</li>
+	 * <li>The tags</li>
+	 * </ol>
+	 * */
+	public static final String PUT_FORMAT = "put %s %s %s %s\n";
+	
+	/** Metric name and tags only format */
+	public static final String KEY_FORMAT = "%s %s";
 	
 	/**
 	 * Creates a new OpenTSDBTracer
 	 */
 	public OpenTSDBTracer() {
 		tsdbHost = ConfigurationHelper.getSystemThenEnvProperty(TSDB_HOST_PROP, DEFAULT_TSDB_HOST);
-		tsdbPort = ConfigurationHelper.getIntSystemThenEnvProperty(TSDB_PORT_PROP, DEFAULT_TSDB_PORT);		
+		tsdbPort = ConfigurationHelper.getIntSystemThenEnvProperty(TSDB_PORT_PROP, DEFAULT_TSDB_PORT);
+		traceUsingMillis = ConfigurationHelper.getBooleanSystemThenEnvProperty(TSDB_TRACE_IN_MS_PROP, false);
+		
 		flushThread = new Thread(this, "OpenTSDBTracerFlushThread");
 		flushThread.setDaemon(true);
 		flushThread.start();
+		connectSocket();
 		log.info(String.format("\n\t======================================================\n\tInitialized OpenTSDB Tracer\n\tHost: %s\n\tPort: %s\n\t======================================================\n", tsdbHost, tsdbPort));
 	}
 	
@@ -98,6 +130,9 @@ public class OpenTSDBTracer extends AbstractTracer implements Runnable {
 		log.info("Flush Thread Started");
 		final Set<byte[]> traces = new LinkedHashSet<byte[]>(128);
 		while(keepRunning) {
+			if(!connected.get()) {
+				try { Thread.currentThread().join(5000); } catch (Exception ex) {}
+			}
 			try {
 				byte[] trace = flushQueue.poll(2000, TimeUnit.MILLISECONDS);
 				if(trace!=null) {
@@ -109,13 +144,34 @@ public class OpenTSDBTracer extends AbstractTracer implements Runnable {
 					traces.clear();
 				}
 			} catch (IOException ix) {
-				
+				forceSocketClosed(true);
 			} catch (InterruptedException iex) {
-				
+				if(!keepRunning) break;
+				if(Thread.interrupted()) Thread.interrupted();				
 			} catch (Exception ex) {
 				if(!keepRunning) break;
 			}
 		}
+	}
+	
+	
+	protected Counter getIncidentCounter(String segments, String metric) {
+		final String key = String.format(KEY_FORMAT, metric, segments);
+		return incidentCounters.putIfAbsent(key, new Counter());
+	}
+	
+	protected Counter getPeriodCounter(String segments, String metric) {
+		final String key = String.format(KEY_FORMAT, metric, segments);
+		return periodCounters.putIfAbsent(key, new Counter());
+	}
+	
+	
+	/**
+	 * Returns the tsdb trace timestamp
+	 * @return the time in ms. or seconds
+	 */
+	protected final long time() {
+		return traceUsingMillis ? System.currentTimeMillis() : TimeUnit.SECONDS.convert(System.currentTimeMillis(), TimeUnit.MILLISECONDS);
 	}
 	
 	/**
@@ -175,35 +231,80 @@ public class OpenTSDBTracer extends AbstractTracer implements Runnable {
 				connected.set(false);
 				return false;
 			}
-		} else {
-			socket = new Socket();
-			try {
-				socket.setKeepAlive(true);
-				socket.setReuseAddress(true);
-				socket.setSendBufferSize(8192 * 10);
-				socket.setSoLinger(false, 1);
-				socket.setSoTimeout(1000);
-				socket.setTcpNoDelay(false);
-				socket.connect(new InetSocketAddress(tsdbHost, tsdbPort));
-				connected.set(true);
-				return true;
-			} catch (Exception ex) {
-				log.error("Failed to connect OpenTSDBTracer to [" + tsdbHost + ":" + tsdbPort + "]", ex);
-				socket = null;
-				connected.set(false);
-				return false;
-			}
+		}
+		socket = new Socket();
+		try {
+			socket.setKeepAlive(true);
+			socket.setReuseAddress(true);
+			socket.setSendBufferSize(8192 * 10);
+			socket.setSoLinger(false, 1);
+			socket.setSoTimeout(1000);
+			socket.setTcpNoDelay(false);
+			socket.connect(new InetSocketAddress(tsdbHost, tsdbPort));
+			connected.set(true);
+			return true;
+		} catch (Exception ex) {
+			log.error("Failed to connect OpenTSDBTracer to [" + tsdbHost + ":" + tsdbPort + "]", ex);
+			socket = null;
+			connected.set(false);
+			return false;
 		}
 	}
 
+	/**
+	 * Creates a concatenated segment string.
+	 * Interleaves delimeters between each provided 
+	 * segment and returns the completed string.
+	 * @param segments An array of segments to interleave.
+	 * @return The full segment.
+	 */
+	public String buildSegment(String...segments) {
+		return buildSegment(false, segments); 
+	}
+	
+	/**
+	 * Creates a concatenated segment string.
+	 * Interleaves delimeters between each provided 
+	 * segment and returns the completed string.
+	 * @param leaveTrailingDelim If true, the trailing delimeter will be left in. Otherwise, it will be removed.
+	 * @param segments An array of segments to interleave.
+	 * @return The full segment.
+	 */
+	public String buildSegment(boolean leaveTrailingDelim, String...segments) {
+		return buildSegment(null, leaveTrailingDelim, segments);		
+	}
+	
+	/**
+	 * Creates a concatenated segment string starting with the provided base.
+	 * Interleaves delimeters between each provided 
+	 * segment and returns the completed string.
+	 * @param base The initial prefix for the segment.
+	 * @param leaveTrailingDelim If true, the trailing delimeter will be left in. Otherwise, it will be removed.
+	 * @param segments An array of segments to interleave.
+	 * @return The full segment.
+	 */
+	public String buildSegment(String base, boolean leaveTrailingDelim, String...segments) {
+		final int len;
+		if(segments==null || (len = segments.length) ==0) return leaveTrailingDelim ? DELIM : "";
+		if(len %2 != 0) {
+			unevenSegmentRequestCount.incrementAndGet();
+			return DELIM;
+		}
+		StringBuilder b = getStringBuilder(base==null ? "" : base);
+		for(int i = 0; i < len; i++) {
+			b.append(segments[i].trim()).append("=").append(segments[i += 1].trim());
+		}
+		return b.append(DELIM).toString(); 				
+	}
+	
+	
 	/**
 	 * {@inheritDoc}
 	 * @see com.heliosapm.wiex.tracing.tracing.ITracer#getSegmentDelimeter()
 	 */
 	@Override
 	public String getSegmentDelimeter() {
-		// TODO Auto-generated method stub
-		return null;
+		return DELIM;
 	}
 
 	/**
@@ -212,8 +313,18 @@ public class OpenTSDBTracer extends AbstractTracer implements Runnable {
 	 */
 	@Override
 	public String getMetricDelimeter() {
-		// TODO Auto-generated method stub
-		return null;
+		return DELIM;
+	}
+	
+	/**
+	 * Offers a full put request to the flush queue 
+	 * @param putExpr an OpenTSDB put request
+	 */
+	public void record(String putExpr) {
+		log.info(putExpr);
+		if(flushQueue.offer(putExpr.getBytes())) {
+			metricDrops.incrementAndGet();
+		}
 	}
 
 	/**
@@ -222,9 +333,9 @@ public class OpenTSDBTracer extends AbstractTracer implements Runnable {
 	 */
 	@Override
 	public void recordMetric(String segment, String metric, long value) {
-		// TODO Auto-generated method stub
-
+		record(String.format(PUT_FORMAT, metric, time(), value, segment));
 	}
+	
 
 	/**
 	 * {@inheritDoc}
@@ -232,8 +343,7 @@ public class OpenTSDBTracer extends AbstractTracer implements Runnable {
 	 */
 	@Override
 	public void recordMetric(String segment, String metric, int value) {
-		// TODO Auto-generated method stub
-
+		record(String.format(PUT_FORMAT, metric, time(), value, segment));
 	}
 
 	/**
@@ -242,8 +352,7 @@ public class OpenTSDBTracer extends AbstractTracer implements Runnable {
 	 */
 	@Override
 	public void recordMetric(String segment, String metric, String value) {
-		// TODO Auto-generated method stub
-
+		/* No Op */   /*  Annotation ? */
 	}
 
 	/**
@@ -252,7 +361,10 @@ public class OpenTSDBTracer extends AbstractTracer implements Runnable {
 	 */
 	@Override
 	public void recordMetric(String segment, String metric) {
-		// TODO Auto-generated method stub
+		Counter ctr = getPeriodCounter(segment, metric);
+		ctr.increment();
+		final long value = ctr.get(); 
+		record(String.format(PUT_FORMAT, metric, time(), value, segment));
 
 	}
 
@@ -261,10 +373,11 @@ public class OpenTSDBTracer extends AbstractTracer implements Runnable {
 	 * @see com.heliosapm.wiex.tracing.tracing.ITracer#recordMetricIncidents(java.lang.String, java.lang.String, int)
 	 */
 	@Override
-	public void recordMetricIncidents(String segment, String metric,
-			int incidents) {
-		// TODO Auto-generated method stub
-
+	public void recordMetricIncidents(String segment, String metric, int incidents) {
+		Counter ctr = getPeriodCounter(segment, metric);
+		ctr.add(incidents);
+		final long value = ctr.get(); 
+		record(String.format(PUT_FORMAT, metric, time(), value, segment));
 	}
 
 	/**
@@ -273,7 +386,7 @@ public class OpenTSDBTracer extends AbstractTracer implements Runnable {
 	 */
 	@Override
 	public void recordTimeStamp(String segment, String metric, long timestamp) {
-		// TODO Auto-generated method stub
+		record(String.format(PUT_FORMAT, metric, time(), timestamp, segment));
 
 	}
 
@@ -283,8 +396,7 @@ public class OpenTSDBTracer extends AbstractTracer implements Runnable {
 	 */
 	@Override
 	public void recordCounterMetric(String segment, String metric, long value) {
-		// TODO Auto-generated method stub
-
+		record(String.format(PUT_FORMAT, metric, time(), value, segment));
 	}
 
 	/**
@@ -293,7 +405,7 @@ public class OpenTSDBTracer extends AbstractTracer implements Runnable {
 	 */
 	@Override
 	public void recordCounterMetric(String segment, String metric, int value) {
-		// TODO Auto-generated method stub
+		record(String.format(PUT_FORMAT, metric, time(), value, segment));
 
 	}
 
@@ -303,8 +415,7 @@ public class OpenTSDBTracer extends AbstractTracer implements Runnable {
 	 */
 	@Override
 	public void recordCounterMetricAdd(String segment, String metric, long value) {
-		// TODO Auto-generated method stub
-
+		record(String.format(PUT_FORMAT, metric, time(), value, segment));
 	}
 
 	/**
@@ -313,7 +424,7 @@ public class OpenTSDBTracer extends AbstractTracer implements Runnable {
 	 */
 	@Override
 	public void recordCounterMetricAdd(String segment, String metric, int value) {
-		// TODO Auto-generated method stub
+		record(String.format(PUT_FORMAT, metric, time(), value, segment));
 
 	}
 
@@ -323,8 +434,43 @@ public class OpenTSDBTracer extends AbstractTracer implements Runnable {
 	 */
 	@Override
 	public void recordMetric(String segment, ThreadStats ts) {
-		// TODO Auto-generated method stub
+		try {
+			recordMetric(segment, ThreadStats.ELAPSED, ts.getElapsedTime());
+			recordMetric(segment, ThreadStats.BLOCK_COUNT, ts.getBlockCount());
+			recordMetric(segment, ThreadStats.WAIT_COUNT, ts.getWaitCount());
+			recordMetric(segment, ThreadStats.BLOCK_TIME, ts.getBlockTime());
+			recordMetric(segment, ThreadStats.WAIT_TIME, ts.getWaitTime());
+			recordMetric(segment, ThreadStats.CPU, ts.getCpuTime());
+			recordMetric(segment, ThreadStats.USER_CPU, ts.getUserCpuTime());			
+		} catch (Throwable e) {/* No Op */}
 
+
+	}
+
+	/**
+	 * Returns the metric file name where metrics are persisted if OpenTSDB goes off line
+	 * @return the metric file name
+	 */
+	@JMXAttribute(name="MetricFileName", description="The metric file name where metrics are persisted if OpenTSDB goes off line")
+	public String getMetricFileName() {
+		return metricFileName;
+	}
+
+	/**
+	 * Indicates if millisecond timestamps are enabled. If false, seconds are used.
+	 * @return true for milliseconds, false for seconds
+	 */
+	@JMXAttribute(name="TraceUsingMillis", description="Indicates if millisecond timestamps are enabled. If false, seconds are used.")
+	public boolean isTraceUsingMillis() {
+		return traceUsingMillis;
+	}
+
+	/**
+	 * Returns the 
+	 * @return the metricDrops
+	 */
+	public AtomicLong getMetricDrops() {
+		return metricDrops;
 	}
 
 }

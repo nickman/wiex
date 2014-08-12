@@ -42,6 +42,13 @@
       <artifactId>jbossall-client</artifactId>
       <scope>provided</scope>
     </dependency>
+    
+      <dependency>
+        <groupId>jboss</groupId>
+        <artifactId>jboss-system</artifactId>
+        <scope>provided</scope>        
+      </dependency>
+    
 
       <dependency>
         <groupId>javax.servlet</groupId>

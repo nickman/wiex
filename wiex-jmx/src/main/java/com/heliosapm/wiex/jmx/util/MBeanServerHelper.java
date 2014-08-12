@@ -1,5 +1,6 @@
 package com.heliosapm.wiex.jmx.util;
 
+import java.lang.management.ManagementFactory;
 import java.util.Iterator;
 
 import javax.management.MBeanServer;
@@ -20,6 +21,8 @@ import javax.management.ObjectName;
  */
 
 public class MBeanServerHelper {
+	
+	public static final String WIEX_JMX_DOMAIN = "wiex.jmx.domain";
 
     /**
      * Acquires the specified MBeanServer from the MBeanServerFactory. 
@@ -28,6 +31,8 @@ public class MBeanServerHelper {
 	 * @throws Exception Thrown if an MBeanServer cannot be located for the requested domain.
 	 */
 	public static MBeanServer getMBeanServer(String domain) throws Exception {
+		if(domain==null || domain.trim().isEmpty()) domain = "jboss";
+		if("DefaultDomain".equals(domain.trim())) return ManagementFactory.getPlatformMBeanServer();
 	    for (Iterator i = MBeanServerFactory.findMBeanServer(null).iterator(); i.hasNext(); ) {
 	      MBeanServer server = (MBeanServer) i.next();
 	      if (server.getDefaultDomain().equals(domain)) {
