@@ -12,7 +12,7 @@ Replace:
  
 with trove4j 3.0.2:
 
-```
+```xml
 <dependency>
   <groupId>net.sf.trove4j</groupId>
   <artifactId>trove4j</artifactId>
