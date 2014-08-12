@@ -1,0 +1,6 @@
+<server>
+   <loader-repository>
+      com.example:archive=wiex-isolated-scope
+      <loader-repository-config>java2ParentDelegation=false</loader-repository-config>
+   </loader-repository>
+</server>
