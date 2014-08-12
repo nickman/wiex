@@ -26,7 +26,8 @@ Add this to static [jboss-home]\server\default\conf\jboss-service.xml after the 
 
 **Log4j Initialization**
 
-```
+```xml
+
    <!-- ==================================================================== -->
    <!-- WIEX Bootstrap                                                       -->
    <!-- ==================================================================== -->
