@@ -1,10 +1,10 @@
 <server>
-	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.metrics:service=ConnectionTimeOut,name=TelDev">
+	<mbean code="com.heliosapm.wiextracing.collectors.CollectorService" name="com.adp.sbs.metrics:service=ConnectionTimeOut,name=TelDev">
 		<constructor>
-			<arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.jdbc.JDBCCollector2"/>
+			<arg type="java.lang.String" value="com.heliosapm.wiextracing.collectors.jdbc.JDBCCollector2"/>
 		</constructor>
 		<attribute name="SegmentPrefixElements">TeleNet,AP01,Status</attribute>
-		<attribute name="ConnectionFactoryClassName">com.adp.sbs.metrics.tracing.collectors.jdbc.CheckedDriverManagerJDBCConnectionFactory</attribute>
+		<attribute name="ConnectionFactoryClassName">com.heliosapm.wiextracing.collectors.jdbc.CheckedDriverManagerJDBCConnectionFactory</attribute>
 		<attribute name="AvailabilitySegment">TelDev,Checks</attribute>
 		<attribute name="AvailabilitySQL">select sysdate from dual</attribute>
 		<attribute name="ConnectionFactoryProperties">
@@ -16,16 +16,16 @@
 			  check.connect.tracing.segment=TelDev,Checks,Connections
 	      </attribute>
 	</mbean>
-	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.metrics:service=ConnectionTimeOut,name=CatatonicSleep">
+	<mbean code="com.heliosapm.wiextracing.collectors.CollectorService" name="com.adp.sbs.metrics:service=ConnectionTimeOut,name=CatatonicSleep">
 		<constructor>
-			<arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.jdbc.JDBCCollector2"/>
+			<arg type="java.lang.String" value="com.heliosapm.wiextracing.collectors.jdbc.JDBCCollector2"/>
 		</constructor>
 		<attribute name="SegmentPrefixElements">TeleNet,AP01,Status</attribute>
-		<attribute name="ConnectionFactoryClassName">com.adp.sbs.metrics.tracing.collectors.jdbc.CheckedDriverManagerJDBCConnectionFactory</attribute>
+		<attribute name="ConnectionFactoryClassName">com.heliosapm.wiextracing.collectors.jdbc.CheckedDriverManagerJDBCConnectionFactory</attribute>
 		<attribute name="AvailabilitySegment">CatatonicSleep,Checks</attribute>
 		<attribute name="AvailabilitySQL">select sysdate from dual</attribute>
 		<attribute name="ConnectionFactoryProperties">
-			  jdbc.driver=com.adp.sbs.metrics.tracing.collectors.jdbc.CatatonicJDBCDriver
+			  jdbc.driver=com.heliosapm.wiextracing.collectors.jdbc.CatatonicJDBCDriver
 			  jdbc.url=jdbc:catatonic://sleep.a.long.time
 			  jdbc.user=SLEEP
 			  jdbc.password=SLEEP
@@ -33,16 +33,16 @@
 			  check.connect.tracing.segment=CatatonicSleep,Checks,Connections
 	      </attribute>
 	</mbean>
-	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.metrics:service=ConnectionTimeOut,name=CatatonicSocket">
+	<mbean code="com.heliosapm.wiextracing.collectors.CollectorService" name="com.adp.sbs.metrics:service=ConnectionTimeOut,name=CatatonicSocket">
 		<constructor>
-			<arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.jdbc.JDBCCollector2"/>
+			<arg type="java.lang.String" value="com.heliosapm.wiextracing.collectors.jdbc.JDBCCollector2"/>
 		</constructor>
 		<attribute name="SegmentPrefixElements">TeleNet,AP01,Status</attribute>
-		<attribute name="ConnectionFactoryClassName">com.adp.sbs.metrics.tracing.collectors.jdbc.CheckedDriverManagerJDBCConnectionFactory</attribute>
+		<attribute name="ConnectionFactoryClassName">com.heliosapm.wiextracing.collectors.jdbc.CheckedDriverManagerJDBCConnectionFactory</attribute>
 		<attribute name="AvailabilitySegment">CatatonicSocket,Checks</attribute>
 		<attribute name="AvailabilitySQL">select sysdate from dual</attribute>
 		<attribute name="ConnectionFactoryProperties">
-			  jdbc.driver=com.adp.sbs.metrics.tracing.collectors.jdbc.CatatonicJDBCSocketDriver
+			  jdbc.driver=com.heliosapm.wiextracing.collectors.jdbc.CatatonicJDBCSocketDriver
 			  jdbc.url=jdbc:catatonic://sleep.a.long.time
 			  jdbc.user=SLEEP
 			  jdbc.password=SLEEP

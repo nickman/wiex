@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <server>
-	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.metrics:service=ConnectionTimeOut,name=TelDev">
+	<mbean code="com.heliosapm.wiextracing.collectors.CollectorService" name="com.adp.sbs.metrics:service=ConnectionTimeOut,name=TelDev">
 		<constructor>
-			<arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.jdbc.JDBCCollector2"/>
+			<arg type="java.lang.String" value="com.heliosapm.wiextracing.collectors.jdbc.JDBCCollector2"/>
 		</constructor>
 		<attribute name="SegmentPrefixElements">TeleNet,Oracle,Availability</attribute>
-		<attribute name="ConnectionFactoryClassName">com.adp.sbs.metrics.tracing.collectors.jdbc.CheckedDriverManagerJDBCConnectionFactory</attribute>
+		<attribute name="ConnectionFactoryClassName">com.heliosapm.wiextracing.collectors.jdbc.CheckedDriverManagerJDBCConnectionFactory</attribute>
 		<attribute name="AvailabilitySegment">TelDev,Checks</attribute>
 		<attribute name="AvailabilitySQL">select sysdate from dual</attribute>
 		<attribute name="ConnectionFactoryProperties">

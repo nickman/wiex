@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <server>
 
-	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.FLT.Development:service=WebService,name=FLT,host=FLTDEV">
+	<mbean code="com.heliosapm.wiextracing.collectors.CollectorService" name="com.adp.sbs.FLT.Development:service=WebService,name=FLT,host=FLTDEV">
 		  <constructor>
-			 <arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.webservice.WebServiceCollector"/>
+			 <arg type="java.lang.String" value="com.heliosapm.wiextracing.collectors.webservice.WebServiceCollector"/>
 		  </constructor>
 			<attribute name="SegmentPrefixElements">{THIS-PROPERTY:service},{THIS-DOMAIN:3},{THIS-DOMAIN:4},{THIS-PROPERTY:host}</attribute>
 	      	<attribute name="PollFrequency">10000</attribute>
-	      	<attribute name="ConnectionFactoryClassName">com.adp.sbs.metrics.tracing.collectors.webservice.WSClientConnectionFactory</attribute>
+	      	<attribute name="ConnectionFactoryClassName">com.heliosapm.wiextracing.collectors.webservice.WSClientConnectionFactory</attribute>
 	        <attribute name="ConnectionFactoryProperties">
 						authMethod=CLIENT-CERT
 						wsdlURL=https://fltdev/fltws/FLTWS?wsdl
@@ -34,13 +34,13 @@
 	</mbean>
 
 
-	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.FLT.QA:service=WebService,name=FLT,host=FLTQA">
+	<mbean code="com.heliosapm.wiextracing.collectors.CollectorService" name="com.adp.sbs.FLT.QA:service=WebService,name=FLT,host=FLTQA">
 		  <constructor>
-			 <arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.webservice.WebServiceCollector"/>
+			 <arg type="java.lang.String" value="com.heliosapm.wiextracing.collectors.webservice.WebServiceCollector"/>
 		  </constructor>
 			<attribute name="SegmentPrefixElements">{THIS-PROPERTY:service},{THIS-DOMAIN:3},{THIS-DOMAIN:4},{THIS-PROPERTY:host}</attribute>
 	      	<attribute name="PollFrequency">10000</attribute>
-	      	<attribute name="ConnectionFactoryClassName">com.adp.sbs.metrics.tracing.collectors.webservice.WSClientConnectionFactory</attribute>
+	      	<attribute name="ConnectionFactoryClassName">com.heliosapm.wiextracing.collectors.webservice.WSClientConnectionFactory</attribute>
 	        <attribute name="ConnectionFactoryProperties">
 						authMethod=BASIC
 						wsdlURL=https://fltqa/fltws/FLTWS?wsdl
@@ -68,13 +68,13 @@
 
 	<entry key="requestXMLLocation4">C:\Download\eclipse\workspace\Apache_HttpClient\request\pingServiceAOS_request.xml</entry>
 
-	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.AOS.RATE:service=WebService,name=AOS,host=AOSRATE">
+	<mbean code="com.heliosapm.wiextracing.collectors.CollectorService" name="com.adp.sbs.AOS.RATE:service=WebService,name=AOS,host=AOSRATE">
 		  <constructor>
-			 <arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.webservice.WebServiceCollector"/>
+			 <arg type="java.lang.String" value="com.heliosapm.wiextracing.collectors.webservice.WebServiceCollector"/>
 		  </constructor>
 			<attribute name="SegmentPrefixElements">{THIS-PROPERTY:service},{THIS-DOMAIN:3},{THIS-DOMAIN:4},{THIS-PROPERTY:host}</attribute>
 			<attribute name="PollFrequency">10000</attribute>
-			<attribute name="ConnectionFactoryClassName">com.adp.sbs.metrics.tracing.collectors.webservice.WSClientConnectionFactory</attribute>
+			<attribute name="ConnectionFactoryClassName">com.heliosapm.wiextracing.collectors.webservice.WSClientConnectionFactory</attribute>
 			<attribute name="ConnectionFactoryProperties">
 						authMethod=BASIC
 						wsdlURL=https://aosrate/AOS-aos_run/RunServiceImpl?wsdl

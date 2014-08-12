@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <server>
-	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.telenet:service=MDBQueues,name=AP04">
+	<mbean code="com.heliosapm.wiextracing.collectors.CollectorService" name="com.adp.sbs.telenet:service=MDBQueues,name=AP04">
 	      <constructor>
-	         <arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.jmx.JMXCollector"/>
+	         <arg type="java.lang.String" value="com.heliosapm.wiextracing.collectors.jmx.JMXCollector"/>
 	      </constructor>
-	      <attribute name="ConnectionFactoryClassName">com.adp.sbs.metrics.tracing.collectors.jmx.JNDIMBeanServerConnectionFactory</attribute>
+	      <attribute name="ConnectionFactoryClassName">com.heliosapm.wiextracing.collectors.jmx.JNDIMBeanServerConnectionFactory</attribute>
 	      <attribute name="SegmentPrefixElements">TeleNet|MDBQueues</attribute>
 	      <attribute name="PollFrequency">10000</attribute>
 	      <attribute name="ConnectionFactoryProperties">
@@ -22,11 +22,11 @@
 			</attribute>	      
 	</mbean>
 
-	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.metrics:service=JMXCollector,type=DataSource">
+	<mbean code="com.heliosapm.wiextracing.collectors.CollectorService" name="com.adp.sbs.metrics:service=JMXCollector,type=DataSource">
 		<constructor>
-			<arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.jmx.JMXCollector"/>
+			<arg type="java.lang.String" value="com.heliosapm.wiextracing.collectors.jmx.JMXCollector"/>
 		</constructor>
-		<attribute name="ConnectionFactoryClassName">com.adp.sbs.metrics.tracing.collectors.jmx.LocalMBeanServerConnectionFactory</attribute>
+		<attribute name="ConnectionFactoryClassName">com.heliosapm.wiextracing.collectors.jmx.LocalMBeanServerConnectionFactory</attribute>
 		<attribute name="ConnectionFactoryProperties">
 			  sbstracing.jmx.factory.domain=jboss
 	      </attribute>
@@ -42,9 +42,9 @@
 	</mbean>
 	
 	
-	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.metrics:service=JMXCollector,type=TransactionManager">
+	<mbean code="com.heliosapm.wiextracing.collectors.CollectorService" name="com.adp.sbs.metrics:service=JMXCollector,type=TransactionManager">
 		<constructor>
-			<arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.jmx.JMXCollector"/>
+			<arg type="java.lang.String" value="com.heliosapm.wiextracing.collectors.jmx.JMXCollector"/>
 		</constructor>
 		<attribute name="SegmentPrefixElements">TransactionManager</attribute>
 		<attribute name="TargetAttributes">
@@ -58,11 +58,11 @@
 	
 	
 	
-	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.telenet:service=MDBQueues,name=AP04">
+	<mbean code="com.heliosapm.wiextracing.collectors.CollectorService" name="com.adp.sbs.telenet:service=MDBQueues,name=AP04">
 	      <constructor>
-	         <arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.jmx.JMXCollector"/>
+	         <arg type="java.lang.String" value="com.heliosapm.wiextracing.collectors.jmx.JMXCollector"/>
 	      </constructor>
-	      <attribute name="ConnectionFactoryClassName">com.adp.sbs.metrics.tracing.collectors.jmx.JNDIMBeanServerConnectionFactory</attribute>
+	      <attribute name="ConnectionFactoryClassName">com.heliosapm.wiextracing.collectors.jmx.JNDIMBeanServerConnectionFactory</attribute>
 	      <attribute name="AvailabilitySegment">AP04,JMX</attribute>
 	      <attribute name="AvailabilityAttribute">State</attribute>
 	      <attribute name="AvailabilityMBean">jboss:service=Naming</attribute>
@@ -75,11 +75,11 @@
 	      </attribute>
 	</mbean>
 
-	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.telenet:service=ClusterNodeCount,name=AP06">
+	<mbean code="com.heliosapm.wiextracing.collectors.CollectorService" name="com.adp.sbs.telenet:service=ClusterNodeCount,name=AP06">
 	      <constructor>
-	         <arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.jmx.JMXCollector"/>
+	         <arg type="java.lang.String" value="com.heliosapm.wiextracing.collectors.jmx.JMXCollector"/>
 	      </constructor>
-	      <attribute name="ConnectionFactoryClassName">com.adp.sbs.metrics.tracing.collectors.jmx.JNDIMBeanServerConnectionFactory</attribute>
+	      <attribute name="ConnectionFactoryClassName">com.heliosapm.wiextracing.collectors.jmx.JNDIMBeanServerConnectionFactory</attribute>
 	      <attribute name="SegmentPrefixElements">TeleNet|DataSync|Partition</attribute>
 	      <attribute name="PollFrequency">10000</attribute>
 	      <attribute name="ConnectionFactoryProperties">
@@ -91,7 +91,7 @@
 			<attribute name="TargetAttributes">
 				<TargetAttributes>
 					<TargetAttribute objectName="jboss:service=DS-PROD-DataSyncTeleNet-164-PARTITION" attributeName="CurrentView" 
-					segment="Nodes" metricName="Count" type="CINT" simpleTracer="com.adp.sbs.metrics.tracing.collectors.jmx.tracers.CollectionCountTracer"/>
+					segment="Nodes" metricName="Count" type="CINT" simpleTracer="com.heliosapm.wiextracing.collectors.jmx.tracers.CollectionCountTracer"/>
 				</TargetAttributes>
 			</attribute>	      
 	</mbean>
@@ -99,7 +99,7 @@
 
 <!-- Standard JMX Remoting -->
 <!-- 
-     <attribute name="ConnectionFactoryClassName">com.adp.sbs.metrics.tracing.collectors.jmx.RemoteRMIMBeanServerConnectionFactory</attribute>
+     <attribute name="ConnectionFactoryClassName">com.heliosapm.wiextracing.collectors.jmx.RemoteRMIMBeanServerConnectionFactory</attribute>
      <attribute name="ConnectionFactoryProperties">
 	  jmx.rmi.url=service:jmx:rmi:///jndi/rmi://10.19.47.48:7004/jmxrmi
      </attribute>

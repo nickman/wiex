@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <server>
-        <mbean  code="com.adp.sbs.metrics.tracing.collectors.CollectorService"
+        <mbean  code="com.heliosapm.wiextracing.collectors.CollectorService"
                         name="com.adp.sbs.metrics:service=RemoteSolarisMonitor">
               <constructor>
-                 <arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.solaris.RemoteSolarisCollector"/>
+                 <arg type="java.lang.String" value="com.heliosapm.wiextracing.collectors.solaris.RemoteSolarisCollector"/>
               </constructor>
         <attribute name="SegmentPrefixElements">TeleNet|Hosts|TELPROD</attribute>
               <attribute name="KnownHostsFile">/home/jboss/.ssh/known_hosts</attribute>

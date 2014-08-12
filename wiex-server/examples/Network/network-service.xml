@@ -2,9 +2,9 @@
 
 <server>
 
-	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.metrics:service=PingCollector">
+	<mbean code="com.heliosapm.wiextracing.collectors.CollectorService" name="com.adp.sbs.metrics:service=PingCollector">
 	      <constructor>
-	         <arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.network.PingCollector"/>
+	         <arg type="java.lang.String" value="com.heliosapm.wiextracing.collectors.network.PingCollector"/>
 	      </constructor>
 	       <attribute name="SegmentPrefixElements">Network|Availability</attribute>
 			<attribute name="Server">AS10|Buena Park1(AS10)</attribute>
@@ -48,9 +48,9 @@
 	</mbean>	
 
 
- <mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.metrics:service=CSSMonitor">
+ <mbean code="com.heliosapm.wiextracing.collectors.CollectorService" name="com.adp.sbs.metrics:service=CSSMonitor">
         <constructor>
-                <arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.network.CSSCollector"/>
+                <arg type="java.lang.String" value="com.heliosapm.wiextracing.collectors.network.CSSCollector"/>
         </constructor>
         <attribute name="IPAddress">10.19.31.11</attribute>
         <attribute name="Port">23</attribute>
@@ -66,9 +66,9 @@
  </mbean>
 
 
-	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.metrics:service=URLMonitor">
+	<mbean code="com.heliosapm.wiextracing.collectors.CollectorService" name="com.adp.sbs.metrics:service=URLMonitor">
 		<constructor>
-			<arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.network.URLCheckCollector"/>
+			<arg type="java.lang.String" value="com.heliosapm.wiextracing.collectors.network.URLCheckCollector"/>
 		</constructor>
 		<attribute name="LogErrors">false</attribute>		
 		<attribute name="PollFrequency">5000</attribute>				

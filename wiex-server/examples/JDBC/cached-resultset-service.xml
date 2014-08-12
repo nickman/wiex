@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <server>
 	<mbean
-		code="com.adp.sbs.metrics.tracing.collectors.CollectorService"
+		code="com.heliosapm.wiextracing.collectors.CollectorService"
 		name="com.adp.sbs.metrics:service=SubmissionRate,name=TeleNet">
 		<constructor>
 			<arg type="java.lang.String"
-				value="com.adp.sbs.metrics.tracing.collectors.jdbc.JDBCCollector2" />
+				value="com.heliosapm.wiextracing.collectors.jdbc.JDBCCollector2" />
 		</constructor>
 		<attribute name="SegmentPrefixElements">
 			TeleNet,AP01,Status
 		</attribute>
 		<attribute name="ConnectionFactoryClassName">
-			com.adp.sbs.metrics.tracing.collectors.jdbc.DataSourceJDBCConnectionFactory
+			com.heliosapm.wiextracing.collectors.jdbc.DataSourceJDBCConnectionFactory
 		</attribute>
 		<attribute name="ConnectionFactoryProperties">
 			jndi.datasource.name=java:/OracleDS
@@ -35,7 +35,7 @@
 					<CacheResult
 						objectName="com.adp.sbs.monitoring:type=CachedResultSets,name=DC1"
 						attributeName="OracleConnectionsByServer"
-						ContainerClass="com.adp.sbs.metrics.tracing.collectors.jdbc.cache.HistoryBufferingCachedResultSet2">
+						ContainerClass="com.heliosapm.wiextracing.collectors.jdbc.cache.HistoryBufferingCachedResultSet2">
 						<attribute name="HistorySize">1</attribute>
 					</CacheResult>
 					<!-- <Mapping column="1" segment="{0}" metricName="Connections" type="CINT"/> -->

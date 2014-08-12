@@ -1,6 +1,6 @@
-	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.metrics:service=GroovyCollector,type=Misc">
+	<mbean code="com.heliosapm.wiextracing.collectors.CollectorService" name="com.adp.sbs.metrics:service=GroovyCollector,type=Misc">
 		<constructor>
-			<arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.groovy.GroovyCollector"/>
+			<arg type="java.lang.String" value="com.heliosapm.wiextracing.collectors.groovy.GroovyCollector"/>
 		</constructor>
 		<attribute name="SegmentPrefixElements">GroovyCollector</attribute>
 		<attribute name="GroovyCollector">

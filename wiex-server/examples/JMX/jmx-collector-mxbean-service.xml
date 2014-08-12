@@ -1,8 +1,8 @@
-	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.Net:service=MXBeans,name=AP01">
+	<mbean code="com.heliosapm.wiextracing.collectors.CollectorService" name="com.adp.sbs.Net:service=MXBeans,name=AP01">
 	      <constructor>
-	         <arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.jmx.JMXCollector"/>
+	         <arg type="java.lang.String" value="com.heliosapm.wiextracing.collectors.jmx.JMXCollector"/>
 	      </constructor>
-		<attribute name="ConnectionFactoryClassName">com.adp.sbs.metrics.tracing.collectors.jmx.JNDIMBeanServerConnectionFactory</attribute>	      
+		<attribute name="ConnectionFactoryClassName">com.heliosapm.wiextracing.collectors.jmx.JNDIMBeanServerConnectionFactory</attribute>	      
 	      <attribute name="PollFrequency">60000</attribute>
 	      <attribute name="ConnectionFactoryProperties">
 			java.naming.factory.initial=org.jnp.interfaces.NamingContextFactory

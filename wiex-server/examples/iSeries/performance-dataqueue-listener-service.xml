@@ -6,9 +6,9 @@
 		<attribute name="PrestartThreads">1</attribute>		
 		<attribute name="ThreadStackSize">64000</attribute>				
 	</mbean>
-	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.metrics:service=IseriesPDQ,name=IT6">
+	<mbean code="com.heliosapm.wiextracing.collectors.CollectorService" name="com.adp.sbs.metrics:service=IseriesPDQ,name=IT6">
 		  <constructor>
-			 <arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.iseries.PerformanceDataQueueListener"/>
+			 <arg type="java.lang.String" value="com.heliosapm.wiextracing.collectors.iseries.PerformanceDataQueueListener"/>
 		  </constructor>
 		  <attribute name="DataQueue">/QSYS.LIB/DBPCPAY.LIB/NJW.DTAQ</attribute>
 		  <attribute name="HostName">EBSIT6</attribute>

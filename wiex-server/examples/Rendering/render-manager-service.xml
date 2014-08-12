@@ -1,7 +1,7 @@
-	<mbean code="com.adp.sbs.metrics.server.rendering.RenderingManagerService" name="com.adp.sbs.metrics.server.rendering:service=RendererManager">
+	<mbean code="com.heliosapm.wiexserver.rendering.RenderingManagerService" name="com.heliosapm.wiexserver.rendering:service=RendererManager">
 		<attribute name="Renderers">
 			<Renderers>
-				<Renderer class="com.adp.sbs.metrics.server.rendering.CachedResultSetHTMLTableRenderer" name="ServiceCenter">
+				<Renderer class="com.heliosapm.wiexserver.rendering.CachedResultSetHTMLTableRenderer" name="ServiceCenter">
 						<attribute name="DataSourceMBean">com.adp.sbs.metrics:service=CachedResults,name=TeleNet</attribute>
 						<attribute name="DataSourceAttribute">ServiceCenter</attribute>
 				</Renderer>

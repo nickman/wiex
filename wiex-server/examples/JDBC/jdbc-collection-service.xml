@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <server>
-<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.metrics:service=SubmissionRate,name=TeleNet">
+<mbean code="com.heliosapm.wiextracing.collectors.CollectorService" name="com.adp.sbs.metrics:service=SubmissionRate,name=TeleNet">
 	<constructor>
-		<arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.jdbc.JDBCCollector2"/>
+		<arg type="java.lang.String" value="com.heliosapm.wiextracing.collectors.jdbc.JDBCCollector2"/>
 	</constructor>
 	<attribute name="SegmentPrefixElements">TeleNet,AP01,Status</attribute>
-	<attribute name="ConnectionFactoryClassName">com.adp.sbs.metrics.tracing.collectors.jdbc.DataSourceJDBCConnectionFactory</attribute>
+	<attribute name="ConnectionFactoryClassName">com.heliosapm.wiextracing.collectors.jdbc.DataSourceJDBCConnectionFactory</attribute>
 	<attribute name="ConnectionFactoryProperties">
 			  jndi.datasource.name=java:/TelProdDS
 	      </attribute>	
@@ -29,12 +29,12 @@
 	</attribute>
 </mbean>
 
-<mbean code= "com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.metrics:service=SubmissionRate2,name=TeleNet">
+<mbean code= "com.heliosapm.wiextracing.collectors.CollectorService" name="com.adp.sbs.metrics:service=SubmissionRate2,name=TeleNet">
 	<constructor>
-		<arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.jdbc.JDBCCollector2"/>
+		<arg type="java.lang.String" value="com.heliosapm.wiextracing.collectors.jdbc.JDBCCollector2"/>
 	</constructor>
 	<attribute name="SegmentPrefixElements">TeleNet,AP01,Status</attribute>
-	<attribute name="ConnectionFactoryClassName">com.adp.sbs.metrics.tracing.collectors.jdbc.DriverManagerJDBCConnectionFactory</attribute>
+	<attribute name="ConnectionFactoryClassName">com.heliosapm.wiextracing.collectors.jdbc.DriverManagerJDBCConnectionFactory</attribute>
 	<attribute name="AvailabilitySegment">TelDev,Checks</attribute>
 	<attribute name="AvailabilitySQL">select sysdate from dual</attribute>
 	
@@ -55,13 +55,13 @@
 	</attribute>
 </mbean>
 
-	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.metrics:service=DSAQueueDepth,region=52">
+	<mbean code="com.heliosapm.wiextracing.collectors.CollectorService" name="com.adp.sbs.metrics:service=DSAQueueDepth,region=52">
 		<constructor>
-			<arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.jdbc.JDBCCollector2"/>
+			<arg type="java.lang.String" value="com.heliosapm.wiextracing.collectors.jdbc.JDBCCollector2"/>
 		</constructor>
 		<attribute name="PollFrequency">300000</attribute>
 		<attribute name="SegmentPrefixElements">ISeries|DSA</attribute>
-		<attribute name="ConnectionFactoryClassName">com.adp.sbs.metrics.tracing.collectors.jdbc.DataSourceJDBCConnectionFactory</attribute>
+		<attribute name="ConnectionFactoryClassName">com.heliosapm.wiextracing.collectors.jdbc.DataSourceJDBCConnectionFactory</attribute>
 		<attribute name="ConnectionFactoryProperties">
                           jndi.datasource.name=AS52
               </attribute>
@@ -75,12 +75,12 @@
 	</mbean>	
 	
 	
-	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.metrics:service=OCLHighWaterMarks">
+	<mbean code="com.heliosapm.wiextracing.collectors.CollectorService" name="com.adp.sbs.metrics:service=OCLHighWaterMarks">
 	      <constructor>
-	         <arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.jdbc.JDBCCollector"/>
+	         <arg type="java.lang.String" value="com.heliosapm.wiextracing.collectors.jdbc.JDBCCollector"/>
 	      </constructor>
 	       <attribute name="SegmentPrefixElements">TeleNet|OCL</attribute>
-	      <attribute name="ConnectionFactoryClassName">com.adp.sbs.metrics.tracing.collectors.jdbc.DataSourceJDBCConnectionFactory</attribute>
+	      <attribute name="ConnectionFactoryClassName">com.heliosapm.wiextracing.collectors.jdbc.DataSourceJDBCConnectionFactory</attribute>
 	      <attribute name="ConnectionFactoryProperties">
 			  jndi.datasource.name=java:/TelProdDS
 	      </attribute>
@@ -95,12 +95,12 @@
 	</mbean>
 
 
-	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.metrics:service=OCLMonitor,region=09">
+	<mbean code="com.heliosapm.wiextracing.collectors.CollectorService" name="com.adp.sbs.metrics:service=OCLMonitor,region=09">
 	      <constructor>
-	         <arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.jdbc.JDBCCollector"/>
+	         <arg type="java.lang.String" value="com.heliosapm.wiextracing.collectors.jdbc.JDBCCollector"/>
 	      </constructor>
 	       <attribute name="SegmentPrefixElements">TeleNet|OCL</attribute>
-	      <attribute name="ConnectionFactoryClassName">com.adp.sbs.metrics.tracing.collectors.jdbc.DataSourceJDBCConnectionFactory</attribute>
+	      <attribute name="ConnectionFactoryClassName">com.heliosapm.wiextracing.collectors.jdbc.DataSourceJDBCConnectionFactory</attribute>
 	      <attribute name="ConnectionFactoryProperties">
 			  jndi.datasource.name=AS09
 	      </attribute>	      
@@ -121,12 +121,12 @@
 	      </attribute>
 	</mbean>
 	
-	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.metrics:service=LoggedInUsers,name=TeleNet">
+	<mbean code="com.heliosapm.wiextracing.collectors.CollectorService" name="com.adp.sbs.metrics:service=LoggedInUsers,name=TeleNet">
 		<constructor>
-			<arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.jdbc.JDBCCollector2"/>
+			<arg type="java.lang.String" value="com.heliosapm.wiextracing.collectors.jdbc.JDBCCollector2"/>
 		</constructor>
 		<attribute name="SegmentPrefixElements">TeleNet,Lists</attribute>
-		<attribute name="ConnectionFactoryClassName">com.adp.sbs.metrics.tracing.collectors.jdbc.DriverManagerJDBCConnectionFactory</attribute>
+		<attribute name="ConnectionFactoryClassName">com.heliosapm.wiextracing.collectors.jdbc.DriverManagerJDBCConnectionFactory</attribute>
 		<attribute name="LogErrors">true</attribute>
 		<attribute name="ConnectionFactoryProperties">
 				  jdbc.driver=oracle.jdbc.driver.OracleDriver

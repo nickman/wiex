@@ -1,7 +1,7 @@
-	<mbean 	code="com.adp.sbs.metrics.tracing.collectors.CollectorService"
+	<mbean 	code="com.heliosapm.wiextracing.collectors.CollectorService"
 			name="com.adp.sbs.metrics:service=RemoteLinuxMonitor">
 	      <constructor>
-	         <arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.linux.RemoteLinuxSARCollector"/>
+	         <arg type="java.lang.String" value="com.heliosapm.wiextracing.collectors.linux.RemoteLinuxSARCollector"/>
 	      </constructor>
 	      <attribute name="KnownHostsFile">c:/Documents and Settings/whitehen/.ssh/known_hosts</attribute>
 	      <attribute name="PassPhrase">Hello World</attribute>

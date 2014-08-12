@@ -1,10 +1,10 @@
-	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="$mbean">
+	<mbean code="com.heliosapm.wiextracing.collectors.CollectorService" name="$mbean">
 		<constructor>
-			<arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.jdbc.JDBCCollector2"/>
+			<arg type="java.lang.String" value="com.heliosapm.wiextracing.collectors.jdbc.JDBCCollector2"/>
 		</constructor>
 		<attribute name="SegmentPrefixElements"></attribute>
 		<attribute name="PollFrequency">60000</attribute>
-		<attribute name="ConnectionFactoryClassName">com.adp.sbs.metrics.tracing.collectors.jdbc.CheckedDriverManagerJDBCConnectionFactory</attribute>
+		<attribute name="ConnectionFactoryClassName">com.heliosapm.wiextracing.collectors.jdbc.CheckedDriverManagerJDBCConnectionFactory</attribute>
 		<attribute name="AvailabilitySegment">EasyPayNet,Database,$type,$name,Availability</attribute>
 		<attribute name="AvailabilitySQL">$query</attribute>
 		<attribute name="ConnectionFactoryProperties">

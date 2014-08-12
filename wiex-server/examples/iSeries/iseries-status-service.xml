@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <server>
-	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.metrics:service=iSeriesStatus,name=AS15">
+	<mbean code="com.heliosapm.wiextracing.collectors.CollectorService" name="com.adp.sbs.metrics:service=iSeriesStatus,name=AS15">
 		  <constructor>
-			 <arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.iseries.ISeriesStatusCollector"/>
+			 <arg type="java.lang.String" value="com.heliosapm.wiextracing.collectors.iseries.ISeriesStatusCollector"/>
 		  </constructor>
 		  <attribute name="PollFrequency">60000</attribute>
 		  <attribute name="LogErrors">true</attribute>

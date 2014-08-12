@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <server>
 
-		<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.metrics:service=LocalLinuxMonitor">
+		<mbean code="com.heliosapm.wiextracing.collectors.CollectorService" name="com.adp.sbs.metrics:service=LocalLinuxMonitor">
 				<constructor>
-						<arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.linux.LinuxSARCollector"/>
+						<arg type="java.lang.String" value="com.heliosapm.wiextracing.collectors.linux.LinuxSARCollector"/>
 				</constructor>
 		</mbean>
 			
-		<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.metrics:service=LocalLinuxMonitorPlus">
+		<mbean code="com.heliosapm.wiextracing.collectors.CollectorService" name="com.adp.sbs.metrics:service=LocalLinuxMonitorPlus">
 				<constructor>
-						<arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.linux.LinuxSARCollector"/>
+						<arg type="java.lang.String" value="com.heliosapm.wiextracing.collectors.linux.LinuxSARCollector"/>
 				</constructor>
 			<attribute name="ProcessLocator">JBoss Default Server~java | grep jboss | grep default</attribute>			
 			<attribute name="DirSizer">JBoss Default Server~/home/jboss/jboss-4.0.2/server/default/log</attribute>		
@@ -18,15 +18,15 @@
 		
 
 
-	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.metrics:service=LinuxMonitor">
+	<mbean code="com.heliosapm.wiextracing.collectors.CollectorService" name="com.adp.sbs.metrics:service=LinuxMonitor">
 		<constructor>
-			<arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.linux.LinuxSARCollector"/>
+			<arg type="java.lang.String" value="com.heliosapm.wiextracing.collectors.linux.LinuxSARCollector"/>
 		</constructor>
 	</mbean>
-	<mbean 	code="com.adp.sbs.metrics.tracing.collectors.CollectorService" 
+	<mbean 	code="com.heliosapm.wiextracing.collectors.CollectorService" 
 			name="com.adp.sbs.metrics:service=RemoteLinuxMonitor">
 	      <constructor>
-	         <arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.linux.RemoteLinuxSARCollector"/>
+	         <arg type="java.lang.String" value="com.heliosapm.wiextracing.collectors.linux.RemoteLinuxSARCollector"/>
 	      </constructor>
 	      <attribute name="KnownHostsFile">c:/Documents and Settings/whitehen/.ssh/known_hosts</attribute>
 	      <attribute name="PassPhrase">Hello World</attribute>

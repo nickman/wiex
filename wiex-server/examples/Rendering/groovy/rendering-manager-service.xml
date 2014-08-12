@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-	<mbean code="com.adp.sbs.metrics.server.rendering.RenderingManagerService" name="com.adp.sbs.metrics.server.rendering:service=RendererManager">
+	<mbean code="com.heliosapm.wiexserver.rendering.RenderingManagerService" name="com.heliosapm.wiexserver.rendering:service=RendererManager">
 		<attribute name="Renderers">		                             
 			<Renderers>
-				<Renderer class="com.adp.sbs.metrics.server.rendering.GroovyRenderer" name="UserLoginsPie">
+				<Renderer class="com.heliosapm.wiexserver.rendering.GroovyRenderer" name="UserLoginsPie">
 						<attribute name="DataSourceMBean">com.adp.sbs.monitoring:type=CachedResultSets,name=DC1</attribute>
 						<attribute name="DataSourceAttribute">UserLogins</attribute>
 						<attribute name="SourceUrl">file:////home/jboss/SBSMonitorServer/scripts/groovy/serverLoginsPie.groovy</attribute>
@@ -17,7 +17,7 @@
 						</attribute>
 						
 				</Renderer>
-				<Renderer class="com.adp.sbs.metrics.server.rendering.GroovyRenderer" name="UserLoginsByRegionPie">
+				<Renderer class="com.heliosapm.wiexserver.rendering.GroovyRenderer" name="UserLoginsByRegionPie">
 						<attribute name="DataSourceMBean">com.adp.sbs.monitoring:type=CachedResultSets,name=DC1</attribute>
 						<attribute name="DataSourceAttribute">UserLoginsByRegion</attribute>
 						<attribute name="SourceUrl">file:////home/jboss/SBSMonitorServer/scripts/groovy/serverLoginsPie.groovy</attribute>
@@ -34,7 +34,7 @@
 				</Renderer>
 				
 				
-				<Renderer class="com.adp.sbs.metrics.server.rendering.GroovyRenderer" name="UserLoginsLine">
+				<Renderer class="com.heliosapm.wiexserver.rendering.GroovyRenderer" name="UserLoginsLine">
 						<attribute name="DataSourceMBean">com.adp.sbs.monitoring:type=CachedResultSets,name=DC1</attribute>
 						<attribute name="DataSourceAttribute">UserLoginsHistory</attribute>
 						<attribute name="SourceUrl">file:////home/jboss/SBSMonitorServer/scripts/groovy/serverLoginsLine.groovy</attribute>
@@ -49,7 +49,7 @@
 						
 				</Renderer>				
 				
-			<Renderer class="com.adp.sbs.metrics.server.rendering.GroovyRenderer" name="UserLoginsTableWTotal">
+			<Renderer class="com.heliosapm.wiexserver.rendering.GroovyRenderer" name="UserLoginsTableWTotal">
 						<attribute name="DataSourceMBean">com.adp.sbs.monitoring:type=CachedResultSets,name=DC1</attribute>
 						<attribute name="DataSourceAttribute">UserLogins</attribute>
 						<attribute name="SourceUrl">file:////home/jboss/SBSMonitorServer/scripts/groovy/tableTotal.groovy</attribute>
@@ -60,7 +60,7 @@
 						</attribute>						
 			</Renderer>								
 			
-			<Renderer class="com.adp.sbs.metrics.server.rendering.GroovyRenderer" name="UserLoginsByRegionTable">
+			<Renderer class="com.heliosapm.wiexserver.rendering.GroovyRenderer" name="UserLoginsByRegionTable">
 						<attribute name="DataSourceMBean">com.adp.sbs.monitoring:type=CachedResultSets,name=DC1</attribute>
 						<attribute name="DataSourceAttribute">UserLoginsByRegion</attribute>
 						<attribute name="SourceUrl">file:////home/jboss/SBSMonitorServer/scripts/groovy/tableTotal.groovy</attribute>
@@ -71,7 +71,7 @@
 						</attribute>												
 			</Renderer>								
 			
-			<Renderer class="com.adp.sbs.metrics.server.rendering.GroovyRenderer" name="UserLoginsTodayByRegionTable">
+			<Renderer class="com.heliosapm.wiexserver.rendering.GroovyRenderer" name="UserLoginsTodayByRegionTable">
 						<attribute name="DataSourceMBean">com.adp.sbs.monitoring:type=CachedResultSets,name=DC1</attribute>
 						<attribute name="DataSourceAttribute">UserLoginsTodayByRegion</attribute>
 						<attribute name="SourceUrl">file:////home/jboss/SBSMonitorServer/scripts/groovy/tableTotal.groovy</attribute>
@@ -82,7 +82,7 @@
 						</attribute>												
 			</Renderer>								
 			
-			<Renderer class="com.adp.sbs.metrics.server.rendering.GroovyRenderer" name="OracleConnectionsByServerTable">
+			<Renderer class="com.heliosapm.wiexserver.rendering.GroovyRenderer" name="OracleConnectionsByServerTable">
 						<attribute name="DataSourceMBean">com.adp.sbs.monitoring:type=CachedResultSets,name=DC1</attribute>
 						<attribute name="DataSourceAttribute">OracleConnectionsByServer</attribute>
 						<attribute name="SourceUrl">file:////home/jboss/SBSMonitorServer/scripts/groovy/tableTotal.groovy</attribute>
@@ -95,13 +95,13 @@
 
 				
 <!--				
-				<Renderer class="com.adp.sbs.metrics.server.rendering.CachedResultSetHTMLTableRenderer" name="UserLoginsByRegionTable">
+				<Renderer class="com.heliosapm.wiexserver.rendering.CachedResultSetHTMLTableRenderer" name="UserLoginsByRegionTable">
 						<attribute name="DataSourceMBean">com.adp.sbs.monitoring:type=CachedResultSets,name=DC1</attribute>
 						<attribute name="DataSourceAttribute">UserLoginsByRegion</attribute>
 				</Renderer>				
 				
 				
-				<Renderer class="com.adp.sbs.metrics.server.rendering.CachedResultSetHTMLTableRenderer" name="UserLoginsTodayByRegionTable">
+				<Renderer class="com.heliosapm.wiexserver.rendering.CachedResultSetHTMLTableRenderer" name="UserLoginsTodayByRegionTable">
 						<attribute name="DataSourceMBean">com.adp.sbs.monitoring:type=CachedResultSets,name=DC1</attribute>
 						<attribute name="DataSourceAttribute">UserLoginsTodayByRegion</attribute>
 				</Renderer>				

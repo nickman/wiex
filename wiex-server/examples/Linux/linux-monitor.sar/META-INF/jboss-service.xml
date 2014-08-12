@@ -1,6 +1,6 @@
-		<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.metrics:service=LocalLinuxMonitorPlus">
+		<mbean code="com.heliosapm.wiextracing.collectors.CollectorService" name="com.adp.sbs.metrics:service=LocalLinuxMonitorPlus">
 				<constructor>
-						<arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.linux.LinuxSARCollector"/>
+						<arg type="java.lang.String" value="com.heliosapm.wiextracing.collectors.linux.LinuxSARCollector"/>
 				</constructor>
 			<attribute name="ProcessLocator">JBoss Default Server~java | grep jboss | grep default</attribute>			
 			<attribute name="DirectorySizer">JBoss Default Server~/home/jboss/jboss-4.2.0.CR1/server/default/log</attribute>

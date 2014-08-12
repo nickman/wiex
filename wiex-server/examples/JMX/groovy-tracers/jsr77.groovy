@@ -3,7 +3,7 @@ import javax.management.j2ee.statistics.*;
 import javax.management.*;
 import javax.naming.Context;
 import org.jboss.invocation.*;
-import com.adp.sbs.metrics.tracing.*;
+import com.heliosapm.wiextracing.*;
 
 
 /**

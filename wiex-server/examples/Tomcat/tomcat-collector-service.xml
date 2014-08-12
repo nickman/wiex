@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.metrics:service=TomcatMonitor">
+	<mbean code="com.heliosapm.wiextracing.collectors.CollectorService" name="com.adp.sbs.metrics:service=TomcatMonitor">
 		<constructor>
-			<arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.tomcat.TomcatThreadStatusCollector"/>
+			<arg type="java.lang.String" value="com.heliosapm.wiextracing.collectors.tomcat.TomcatThreadStatusCollector"/>
 		</constructor>
 		<attribute name="TomcatHost">${bind.address}</attribute>
 		<attribute name="HTTPPort">${jboss.web:service=WebServer.Port}</attribute>

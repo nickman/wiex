@@ -5,9 +5,9 @@
 		<attribute name="TriggerServiceName">com.adp.sbs.metrics:service=ClusterMembershipListener</attribute>
 	</mbean>
 
-	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.metrics:service=ClusterMembershipListener">
+	<mbean code="com.heliosapm.wiextracing.collectors.CollectorService" name="com.adp.sbs.metrics:service=ClusterMembershipListener">
 		<constructor>
-			<arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.jboss.ha.MembershipListenerCollector"/>
+			<arg type="java.lang.String" value="com.heliosapm.wiextracing.collectors.jboss.ha.MembershipListenerCollector"/>
 		</constructor>
 		<attribute name="PollFrequency">0</attribute>
 		<attribute name="UseHostNames">true</attribute>

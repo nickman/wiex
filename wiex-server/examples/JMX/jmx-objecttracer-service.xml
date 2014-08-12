@@ -1,8 +1,8 @@
-	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.telenet:service=MDBQueues,name=AP04">
+	<mbean code="com.heliosapm.wiextracing.collectors.CollectorService" name="com.adp.sbs.telenet:service=MDBQueues,name=AP04">
 	      <constructor>
-	         <arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.jmx.JMXCollector"/>
+	         <arg type="java.lang.String" value="com.heliosapm.wiextracing.collectors.jmx.JMXCollector"/>
 	      </constructor>
-	      <attribute name="ConnectionFactoryClassName">com.adp.sbs.metrics.tracing.collectors.jmx.JNDIMBeanServerConnectionFactory</attribute>
+	      <attribute name="ConnectionFactoryClassName">com.heliosapm.wiextracing.collectors.jmx.JNDIMBeanServerConnectionFactory</attribute>
 	      <attribute name="AvailabilitySegment">AP04,JMX</attribute>
 	      <attribute name="AvailabilityAttribute">State</attribute>
 	      <attribute name="AvailabilityMBean">jboss:service=Naming</attribute>

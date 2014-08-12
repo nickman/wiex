@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.metrics:service=WindowsPerformanceMonitor,name=localhost">
+	<mbean code="com.heliosapm.wiextracing.collectors.CollectorService" name="com.adp.sbs.metrics:service=WindowsPerformanceMonitor,name=localhost">
 		<constructor>
-			<arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.windows.WindowsPerformanceMonitorCollector"/>
+			<arg type="java.lang.String" value="com.heliosapm.wiextracing.collectors.windows.WindowsPerformanceMonitorCollector"/>
 		</constructor>
 		<attribute name="SegmentPrefixElements">TeleNet|Hosts|Localhost</attribute>		
 		<attribute name="Port">1249</attribute>
@@ -18,9 +18,9 @@
 		<attribute name="FileSystem">C:</attribute>		
 	</mbean>
 
-	<mbean code="com.adp.sbs.metrics.tracing.collectors.CollectorService" name="com.adp.sbs.metrics:service=WindowsPerformanceMonitor,name=BPRODPAYNAP01">
+	<mbean code="com.heliosapm.wiextracing.collectors.CollectorService" name="com.adp.sbs.metrics:service=WindowsPerformanceMonitor,name=BPRODPAYNAP01">
 		<constructor>
-			<arg type="java.lang.String" value="com.adp.sbs.metrics.tracing.collectors.windows.WindowsPerformanceMonitorCollector"/>
+			<arg type="java.lang.String" value="com.heliosapm.wiextracing.collectors.windows.WindowsPerformanceMonitorCollector"/>
 		</constructor>
 		<attribute name="SegmentPrefixElements">TeleNet|Hosts|Localhost</attribute>		
 		<attribute name="Port">1249</attribute>

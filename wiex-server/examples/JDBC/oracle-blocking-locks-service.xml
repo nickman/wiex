@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 	<mbean
-		code="com.adp.sbs.metrics.tracing.collectors.CollectorService"
+		code="com.heliosapm.wiextracing.collectors.CollectorService"
 		name="com.adp.sbs.metrics:service=BlockingLocks,type=Oracle,name=REPTDB">
 		<constructor>
 			<arg type="java.lang.String"
-				value="com.adp.sbs.metrics.tracing.collectors.jdbc.JDBCCollector2" />
+				value="com.heliosapm.wiextracing.collectors.jdbc.JDBCCollector2" />
 		</constructor>
 		<attribute name="SegmentPrefixElements">
 			{THIS-PROPERTY:type},{THIS-PROPERTY:name},{THIS-PROPERTY:service}
@@ -12,7 +12,7 @@
 		<attribute name="PollFrequency">60000</attribute>
 		<attribute name="LogErrors">true</attribute>
 		<attribute name="ImmediateCollect">true</attribute>		
-		<attribute name="ConnectionFactoryClassName">com.adp.sbs.metrics.tracing.collectors.jdbc.DataSourceJDBCConnectionFactory</attribute>
+		<attribute name="ConnectionFactoryClassName">com.heliosapm.wiextracing.collectors.jdbc.DataSourceJDBCConnectionFactory</attribute>
 		<attribute name="ConnectionFactoryProperties">
 				  jndi.datasource.name=java:/NetDevDS
 	  </attribute>
@@ -106,7 +106,7 @@
 						<CacheResult
 							objectName="com.adp.sbs.monitoring:type=CachedResultSets,name=DC1"
 							attributeName="BlockingLocks"
-							ContainerClass="com.adp.sbs.metrics.tracing.collectors.jdbc.cache.HistoryBufferingCachedResultSet2">
+							ContainerClass="com.heliosapm.wiextracing.collectors.jdbc.cache.HistoryBufferingCachedResultSet2">
 							<attribute name="HistorySize">20</attribute>
 						</CacheResult>
 				</Query>

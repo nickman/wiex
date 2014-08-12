@@ -1,4 +1,4 @@
-<mbean code="com.adp.sbs.metrics.tracing.collectors.jmx.MXBeanMapper" name="java.lang:type=MXBeanMapper">
+<mbean code="com.heliosapm.wiextracing.collectors.jmx.MXBeanMapper" name="java.lang:type=MXBeanMapper">
 	<attribute name="TargetDomain">jboss</attribute>
 </mbean>
 
