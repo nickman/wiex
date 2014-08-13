@@ -102,8 +102,6 @@ public class TracerFactory   {
 		String s = System.getProperty(USE_NAME_LOOKUP_CACHE, "false");
 		useNameLookupCache = s.equalsIgnoreCase("true");
 		log.info("Version:" + VERSION);
-		initTracer();
-		bootStrapVerbosity();
 	}
 	
 	/**
@@ -395,6 +393,8 @@ public class TracerFactory   {
 			synchronized(lock) {
 				if(tracer==null) {
 					initTracer();
+					bootStrapVerbosity();
+					
 				}
 			}
 		}

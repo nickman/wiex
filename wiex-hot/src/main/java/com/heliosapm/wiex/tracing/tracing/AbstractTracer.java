@@ -7,6 +7,7 @@ import gnu.trove.procedure.TObjectLongProcedure;
 
 import java.lang.management.ManagementFactory;
 import java.lang.management.ThreadMXBean;
+import java.util.Arrays;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ThreadFactory;
@@ -201,7 +202,7 @@ public abstract class AbstractTracer implements ITracer {
 	 * Creates a concatenated segment string.
 	 * Interleaves delimeters between each provided 
 	 * segment and returns the completed string.
-	 * If the segments are null or have a length of zero, a balnk string will be returned with no delimeter.
+	 * If the segments are null or have a length of zero, a blank string will be returned with no delimeter.
 	 * @param leaveTrailingDelim If true, the trailing delimeter will be left in. Otherwise, it will be removed.
 	 * @param segments An array of segments to interleave.
 	 * @return The full segment.
@@ -238,16 +239,50 @@ public abstract class AbstractTracer implements ITracer {
 	 * @return The full segment.
 	 */
 	public String buildSegment(String base, boolean leaveTrailingDelim, String...segments) {
-		if(base==null || base.length()<1) return buildSegment(leaveTrailingDelim, segments);
-		if(segments==null) return buildSegment(leaveTrailingDelim, base);
-		else {
-			String[] newSegments = new String[segments.length+1];
-			newSegments[0] = base;
-			System.arraycopy(segments, 0, newSegments, 1, segments.length);
-			String seg  = buildSegment(leaveTrailingDelim, newSegments);
-			return seg;
+		final int len;
+		if(segments==null || (len = segments.length) ==0) return leaveTrailingDelim ? getSegmentDelimeter() : "";
+		StringBuilder b = getStringBuilder(base==null ? "" : base).append(getSegmentDelimeter());
+		for(int i = 0; i < len; i++) {
+			String seg = segments[i].trim();
+			if(seg.indexOf('=')!=-1) {
+				
+			} else {
+				b.append(segments[i].trim()).append("=").append(segments[i += 1].trim());
+			}
+			
 		}
-	}	
+		return b.append(leaveTrailingDelim ? getSegmentDelimeter() : "").toString(); 				
+	}
+	
+	private static final String[] ONE_EMPTY_SEG = new String[] {""};
+	
+	protected String[] splitSegment(String seg, String delim) {		
+		if(seg==null || seg.trim().isEmpty()) return ONE_EMPTY_SEG;
+		return null;
+		
+	}
+	
+	
+//	/**
+//	 * Creates a concatenated segment string starting with the provided base.
+//	 * Interleaves delimeters between each provided 
+//	 * segment and returns the completed string.
+//	 * @param base The initial prefix for the segment.
+//	 * @param leaveTrailingDelim If true, the trailing delimeter will be left in. Otherwise, it will be removed.
+//	 * @param segments An array of segments to interleave.
+//	 * @return The full segment.
+//	 */
+//	public String buildSegment(String base, boolean leaveTrailingDelim, String...segments) {
+//		if(base==null || base.length()<1) return buildSegment(leaveTrailingDelim, segments);
+//		if(segments==null) return buildSegment(leaveTrailingDelim, base);
+//		else {
+//			String[] newSegments = new String[segments.length+1];
+//			newSegments[0] = base;
+//			System.arraycopy(segments, 0, newSegments, 1, segments.length);
+//			String seg  = buildSegment(leaveTrailingDelim, newSegments);
+//			return seg;
+//		}
+//	}	
 	
 	
 	/**

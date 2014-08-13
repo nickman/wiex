@@ -59,7 +59,6 @@
     <dependency>
       <groupId>net.sf.trove4j</groupId>
       <artifactId>trove4j</artifactId>
-      <scope>provided</scope>
     </dependency>            
    
   <dependency>
@@ -86,6 +85,19 @@
 	  <artifactId>not-yet-commons-ssl</artifactId>
 	  <version>0.3.11</version>
 	</dependency>
+	
+   <dependency>
+      <groupId>com.jolbox</groupId>
+      <artifactId>bonecp</artifactId>
+      <classifier>jdk5</classifier>
+    </dependency>
+
+    <dependency>
+      <groupId>com.jolbox</groupId>
+      <artifactId>bonecp-provider</artifactId>
+      <classifier>jdk5</classifier>
+    </dependency>
+	
 
   </dependencies>
 

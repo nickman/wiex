@@ -453,8 +453,8 @@ public class JMXCollector extends BaseCollector {
 			if(fragments==null || fragments.length==0) {
 				tracer.buildSegment(segmentPrefix, false, "MXBeans");
 			} else {
-				mXBeanSegment = tracer.buildSegment(fragments);
-				//mXBeanSegment = formatName(mXBeanSegment);
+				//mXBeanSegment = tracer.buildSegment(fragments);
+				mXBeanSegment = formatName(mXBeanSegment);
 			}							
 		}
 		currentNode = XMLHelper.getChildNodeByName(mxBeanNode, "deadlockmonitor", false);
@@ -1394,6 +1394,15 @@ public class JMXCollector extends BaseCollector {
 	@JMXAttribute(description="The number of elapsed collections that have occured since GC % time was calculated.", name="GCPolledCycles")
 	public int getGCPolledCycles() {
 		return gCPolledCycles;
+	}
+
+	/**
+	 * Returns the configured MXBean segment prefix 
+	 * @return the configured MXBean segment prefix
+	 */
+	@JMXAttribute(description="The configured MXBean segment prefix ", name="MXBeanSegment")
+	public final String getMXBeanSegment() {
+		return mXBeanSegment;
 	}
 	
 	

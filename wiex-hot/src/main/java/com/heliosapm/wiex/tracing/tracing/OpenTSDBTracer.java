@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.concurrent.ArrayBlockingQueue;
@@ -13,11 +14,17 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicLong;
 
+import javax.management.ObjectName;
+
+import org.apache.log4j.BasicConfigurator;
 import org.cliffc.high_scale_lib.Counter;
 import org.cliffc.high_scale_lib.NonBlockingHashMap;
 
+import com.heliosapm.wiex.jmx.JMXHelper;
+import com.heliosapm.wiex.jmx.dynamic.ManagedObjectDynamicMBean;
 import com.heliosapm.wiex.jmx.dynamic.annotation.JMXAttribute;
 import com.heliosapm.wiex.jmx.dynamic.annotation.JMXManagedObject;
+import com.heliosapm.wiex.jmx.util.MBeanServerHelper;
 import com.heliosapm.wiex.tracing.helpers.ConfigurationHelper;
 import com.heliosapm.wiex.tracing.tracing.thread.ThreadStats;
 
@@ -49,7 +56,9 @@ public class OpenTSDBTracer extends AbstractTracer implements Runnable {
 	/** The offline metric persistence file name */
 	protected String metricFileName = null;	
 	/** The offline metric persistence file */
-	protected File metricFile = null;
+	protected File metricFile = null;	
+	/** The size of the flush queue */
+	protected final int queueSizeConfig;
 
 	
 	/** Indicates if we're tracing the timestamp using seconds or milliseconds */
@@ -57,7 +66,7 @@ public class OpenTSDBTracer extends AbstractTracer implements Runnable {
 	
 	
 	/** The flush queue */
-	protected final BlockingQueue<byte[]> flushQueue = new ArrayBlockingQueue<byte[]>(1024, false);
+	protected final BlockingQueue<byte[]> flushQueue;
 	/** The flush thread */
 	protected final Thread flushThread;
 	/** The flush thread run indicator */
@@ -69,7 +78,18 @@ public class OpenTSDBTracer extends AbstractTracer implements Runnable {
 	protected final AtomicLong unevenSegmentRequestCount = new AtomicLong();
 	/** The cumulative count of drop trace requests that occurs when the queue will not accept more entries */
 	protected final AtomicLong metricDrops = new AtomicLong();
+	/** The total number of metrics traced */
+	protected final AtomicLong metricsTraced = new AtomicLong();
+	/** The total number of metrics flushed */
+	protected final AtomicLong metricsFlushed = new AtomicLong();
 
+	
+	
+	/** Incident counter */
+	protected final NonBlockingHashMap<String, Counter> incidentCounters = new NonBlockingHashMap<String, Counter>(1024); 
+	/** Period counters, reset every xxx in a while */
+	protected final NonBlockingHashMap<String, Counter> periodCounters = new NonBlockingHashMap<String, Counter>(1024); 
+	
 	/** The JVM's temp file directory */
 	public static final String TMP_DIR = System.getProperty("java.io.tmpdir");
 	
@@ -77,10 +97,16 @@ public class OpenTSDBTracer extends AbstractTracer implements Runnable {
 	public static final String DEFAULT_TSDB_HOST = "localhost";
 	/** The default opentsdb port */
 	public static final int DEFAULT_TSDB_PORT = 4242;
+	/** The default opentsdb flush queue size */
+	public static final int DEFAULT_TSDB_FLUSHQ_SIZE = 1024;
+	
 	/** The opentsdb host system prop name */
 	public static final String TSDB_HOST_PROP = "wiex.tsdb.host";
 	/** The opentsdb port system prop name */
 	public static final String TSDB_PORT_PROP = "wiex.tsdb.port";
+	/** The opentsdb opentsdb flush queue size prop name */
+	public static final String TSDB_FLUSHQ_SIZE_PROP = "wiex.tsdb.flushq.size";
+	
 	/** The default opentsdb offline metric persistence file name */
 	public static final String DEFAULT_TSDB_PERSIST_FILE = TMP_DIR + (TMP_DIR.endsWith(File.pathSeparator) ? "" : File.pathSeparator) + "wiex-opentsdb-metrics.gzip";
 	/** The opentsdb offline metric persistence file name property */
@@ -91,11 +117,8 @@ public class OpenTSDBTracer extends AbstractTracer implements Runnable {
 	/** The OpenTSDB metric anf segment delimeter */
 	public static final String DELIM = " ";
 	
-	
-	/** Incident counter */
-	protected final NonBlockingHashMap<String, Counter> incidentCounters = new NonBlockingHashMap<String, Counter>(1024); 
-	/** Period counters, reset every xxx in a while */
-	protected final NonBlockingHashMap<String, Counter> periodCounters = new NonBlockingHashMap<String, Counter>(1024); 
+	/** The OpenTSDBTracer JMX ObjectName */
+	public static final ObjectName OBJECT_NAME = JMXHelper.objectName("com.heliosapm.wiex.tracing:service=" + OpenTSDBTracer.class.getSimpleName());
 	
 	
 	/** 
@@ -111,6 +134,15 @@ public class OpenTSDBTracer extends AbstractTracer implements Runnable {
 	/** Metric name and tags only format */
 	public static final String KEY_FORMAT = "%s %s";
 	
+	private OpenTSDBTracer(int i) {
+		tsdbHost = null;
+		tsdbPort = -1;
+		traceUsingMillis = false;
+		queueSizeConfig = -1;		
+		flushQueue = null;
+		flushThread = null;
+	}
+	
 	/**
 	 * Creates a new OpenTSDBTracer
 	 */
@@ -118,11 +150,18 @@ public class OpenTSDBTracer extends AbstractTracer implements Runnable {
 		tsdbHost = ConfigurationHelper.getSystemThenEnvProperty(TSDB_HOST_PROP, DEFAULT_TSDB_HOST);
 		tsdbPort = ConfigurationHelper.getIntSystemThenEnvProperty(TSDB_PORT_PROP, DEFAULT_TSDB_PORT);
 		traceUsingMillis = ConfigurationHelper.getBooleanSystemThenEnvProperty(TSDB_TRACE_IN_MS_PROP, false);
-		
+		queueSizeConfig = ConfigurationHelper.getIntSystemThenEnvProperty(TSDB_FLUSHQ_SIZE_PROP, DEFAULT_TSDB_FLUSHQ_SIZE);		
+		flushQueue = new ArrayBlockingQueue<byte[]>(queueSizeConfig, false);
 		flushThread = new Thread(this, "OpenTSDBTracerFlushThread");
 		flushThread.setDaemon(true);
 		flushThread.start();
 		connectSocket();
+		try {
+			ManagedObjectDynamicMBean mbean = new ManagedObjectDynamicMBean(this);
+			MBeanServerHelper.getMBeanServer().registerMBean(mbean, OBJECT_NAME);
+		} catch (Exception ex) {
+			log.warn("Failed to register JMX Interface", ex);
+		}
 		log.info(String.format("\n\t======================================================\n\tInitialized OpenTSDB Tracer\n\tHost: %s\n\tPort: %s\n\t======================================================\n", tsdbHost, tsdbPort));
 	}
 	
@@ -141,6 +180,7 @@ public class OpenTSDBTracer extends AbstractTracer implements Runnable {
 					for(byte[] b: traces) {
 						socket.getOutputStream().write(b);
 					}
+					metricsFlushed.addAndGet(traces.size());
 					traces.clear();
 				}
 			} catch (IOException ix) {
@@ -287,14 +327,21 @@ public class OpenTSDBTracer extends AbstractTracer implements Runnable {
 		final int len;
 		if(segments==null || (len = segments.length) ==0) return leaveTrailingDelim ? DELIM : "";
 		if(len %2 != 0) {
+			log.warn("Uneven: " + Arrays.toString(segments));
 			unevenSegmentRequestCount.incrementAndGet();
 			return DELIM;
 		}
-		StringBuilder b = getStringBuilder(base==null ? "" : base);
+		StringBuilder b = getStringBuilder(base==null ? "" : base).append(DELIM);
 		for(int i = 0; i < len; i++) {
 			b.append(segments[i].trim()).append("=").append(segments[i += 1].trim());
 		}
 		return b.append(DELIM).toString(); 				
+	}
+	
+	public static void main(String[] args) {
+		BasicConfigurator.configure();
+		OpenTSDBTracer t = new OpenTSDBTracer(1);
+		System.out.println(t.buildSegment("Foo", false, "A", "B"));
 	}
 	
 	
@@ -322,7 +369,8 @@ public class OpenTSDBTracer extends AbstractTracer implements Runnable {
 	 */
 	public void record(String putExpr) {
 		log.info(putExpr);
-		if(flushQueue.offer(putExpr.getBytes())) {
+		metricsTraced.incrementAndGet();
+		if(flushQueue.offer(putExpr.trim().getBytes())) {
 			metricDrops.incrementAndGet();
 		}
 	}
@@ -466,11 +514,49 @@ public class OpenTSDBTracer extends AbstractTracer implements Runnable {
 	}
 
 	/**
-	 * Returns the 
-	 * @return the metricDrops
+	 * Returns the total number of metric drops
+	 * @return the total number of metric drops
 	 */
-	public AtomicLong getMetricDrops() {
-		return metricDrops;
+	@JMXAttribute(name="MetricDrops", description="The total number of metric drops")
+	public long getMetricDrops() {
+		return metricDrops.get();
 	}
+
+	/**
+	 * Returns the configured flush queue size
+	 * @return the configured flush queue size
+	 */
+	@JMXAttribute(name="QueueSizeConfig", description="The configured flush queue size")
+	public final int getQueueSizeConfig() {
+		return queueSizeConfig;
+	}
+	
+	/**
+	 * Returns the number of pending items in the flush queue
+	 * @return the number of pending items in the flush queue
+	 */
+	@JMXAttribute(name="QueueDepth", description="The number of pending items in the flush queue")
+	public final int getQueueDepth() {
+		return flushQueue.size();
+	}
+
+	/**
+	 * Returns the total number of metrics traced
+	 * @return the total number of metrics traced
+	 */
+	@JMXAttribute(name="MetricsTraced", description="The total number of metrics traced")
+	public final long getMetricsTraced() {
+		return metricsTraced.get();
+	}
+
+	/**
+	 * Returns the total number of metrics flushed
+	 * @return the total number of metrics flushed
+	 */
+	@JMXAttribute(name="MetricsFlushed", description="The total number of metrics flushed")
+	public final long getMetricsFlushed() {
+		return metricsFlushed.get();
+	}
+	
 
 }

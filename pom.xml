@@ -10,10 +10,12 @@
 
   <modules>
     <module>wiex-server</module>
-    <module>wiex-agent</module>
-    <module>wiex-hot</module>
-    <module>wiex-emx</module>
     <module>wiex-jmx</module>
+    <module>wiex-hot</module>
+<!--
+    <module>wiex-emx</module>
+    <module>wiex-agent</module>
+-->
   </modules>
 
     <properties>       
@@ -52,7 +54,7 @@
     <camel-esper.version>2.10.6</camel-esper.version>
     <elastic-search.version>0.90.5</elastic-search.version>
     <lucene.version>4.4.0</lucene.version>
-    <bonecp.version>0.8.0.RELEASE</bonecp.version>
+    <bonecp.version>0.7.1.RELEASE</bonecp.version>
     <hbase-test.version>0.94.16</hbase-test.version>
     <phoenix.version>4.0.0-incubating</phoenix.version>
     <!-- Plugin Versions -->
@@ -167,6 +169,21 @@
       <version>${javassist.version}</version>
     </dependency>
 
+          <!-- ==========================
+          JDBC Pooling Support
+            ========================== -->
+    <dependency>
+      <groupId>com.jolbox</groupId>
+      <artifactId>bonecp</artifactId>
+      <classifier>jdk5</classifier>
+      <version>${bonecp.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.jolbox</groupId>
+      <artifactId>bonecp-provider</artifactId>
+      <classifier>jdk5</classifier>
+      <version>${bonecp.version}</version>
+    </dependency>
 
   <dependency>
     <groupId>org.codehaus.groovy</groupId>

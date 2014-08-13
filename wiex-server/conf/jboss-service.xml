@@ -127,8 +127,8 @@
       <attribute name="WiexProperties">
 				wiex.jmx.domain=jboss
 				wiex.tracer.class.name=com.heliosapm.wiex.tracing.tracing.OpenTSDBTracer
-				wiex.tsdb.host=opentsdb
-				wiex.tsdb.port=8080     	
+				wiex.tsdb.host=localhost
+				wiex.tsdb.port=4242     	
       </attribute>      
    </mbean>
    
@@ -240,7 +240,7 @@
       name="jboss:service=WebService">
       <!-- The Bind address and Port -->
       <attribute name="BindAddress">${jboss.bind.address}</attribute>      
-      <attribute name="Port">8083</attribute>
+      <attribute name="Port">4083</attribute>
       <!--  The address to use for the host portion of the RMI codebase URL -->
       <attribute name="Host">${java.rmi.server.hostname}</attribute>
       <!-- Should non-EJB .class files be downloadable -->

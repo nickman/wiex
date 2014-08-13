@@ -47,7 +47,11 @@ public class MBeanServerHelper {
 	 * @return A handle to the default MBeanServer.
 	 */
 	public static MBeanServer getMBeanServer() {
-		return (MBeanServer) MBeanServerFactory.findMBeanServer(null).get(0);
+		try {
+			return getMBeanServer(System.getProperty(WIEX_JMX_DOMAIN, "jboss"));
+		} catch (Exception ex) {
+			throw new RuntimeException(ex);
+		}
 	}
 	  
 	  

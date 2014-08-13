@@ -1,23 +1,23 @@
 	<mbean code="com.heliosapm.wiex.server.collectors.CollectorService" name="com.heliosapm.wiex.opentsdb:service=OpenTSDB,name=App">
-	     <constructor>
-	        <arg type="java.lang.String" value="com.heliosapm.wiex.server.collectors.jmx.JMXCollector"/>
-	     </constructor>
+	      <constructor>
+	         <arg type="java.lang.String" value="com.heliosapm.wiex.server.collectors.jmx.JMXCollector"/>
+	      </constructor>
 		<attribute name="ConnectionFactoryClassName">com.heliosapm.wiex.server.collectors.jmx.RemoteRMIMBeanServerConnectionFactory</attribute>	      
-	     <attribute name="PollFrequency">10000</attribute>
-	     <attribute name="ConnectionFactoryProperties">
-			jmx.rmi.url=service:jmx:jmxmp://opentsdb:8006
-	     </attribute>
+	      <attribute name="PollFrequency">10000</attribute>
+	      <attribute name="ConnectionFactoryProperties">
+			jmx.rmi.url=service:jmx:jmxmp://localhost:4245
+	      </attribute>
 
-	     <attribute name="MXBeanCollection">
-			 <mxbeans>
-				 <enabled>true</enabled>
-				 <segment>{THIS-DOMAIN:3},{THIS-PROPERTY:name},{THIS-PROPERTY:service}</segment>
-				 <deadlockmonitor>true</deadlockmonitor>
-				 <threadmonitor>true</threadmonitor>
-				 <include></include>
-				 <exclude></exclude>
-			 </mxbeans>		
-		 </attribute>
-		 <attribute name="LogErrors">true</attribute>	      
-		 <attribute name="ImmediateCollect">true</attribute>	        		 
+	      <attribute name="MXBeanCollection">
+			  <mxbeans>
+				  <enabled>true</enabled>
+				  <segment>{THIS-DOMAIN:3},{THIS-PROPERTY:name},{THIS-PROPERTY:service}</segment>
+				  <deadlockmonitor>true</deadlockmonitor>
+				  <threadmonitor>true</threadmonitor>
+				  <include></include>
+				  <exclude></exclude>
+			  </mxbeans>		
+		  </attribute>
+		  <attribute name="LogErrors">true</attribute>	      
+		  <attribute name="ImmediateCollect">true</attribute>	       		 
 	</mbean>
